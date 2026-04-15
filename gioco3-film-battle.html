@@ -3,300 +3,434 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Geek Oracle — Film Battle!</title>
+<title>Geek Oracle — Film Torneo!</title>
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0a0510;--card:#130a1e;--border:#2a1548;--red:#ff3c3c;--blue:#3c9fff;--gold:#ffc93c;--text:#f0eaff;--muted:#6a5a8a;}
+:root{--bg:#0a0510;--card:#130a1e;--border:#2a1548;--red:#ff3c3c;--blue:#3c9fff;--gold:#ffc93c;--green:#00e5a0;--text:#f0eaff;--muted:#6a5a8a;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;min-height:100vh;overflow-x:hidden;}
 canvas#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
-.wrap{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:14px 12px 60px;}
-header{text-align:center;padding:20px 0 14px;}
-.logo{font-family:'Black Han Sans',sans-serif;font-size:2.4rem;letter-spacing:2px;line-height:1;}
-.logo .vs{color:var(--gold);font-size:1.6rem;}
-.subtitle{font-size:.6rem;letter-spacing:4px;color:var(--muted);margin-top:4px;}
-.credit{font-size:.5rem;letter-spacing:3px;color:#1a0830;margin-top:3px;}
+.wrap{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:12px 12px 60px;}
+header{text-align:center;padding:18px 0 12px;}
+.logo{font-family:'Black Han Sans',sans-serif;font-size:2.2rem;letter-spacing:2px;line-height:1;}
+.subtitle{font-size:.58rem;letter-spacing:4px;color:var(--muted);margin-top:4px;}
+.credit{font-size:.48rem;letter-spacing:3px;color:#1a0830;margin-top:3px;}
 .screen{display:none;}.screen.active{display:block;}
-.fade-in{animation:fi .3s ease;}
+.fade-in{animation:fi .35s ease;}
 @keyframes fi{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 
 /* HOME */
-.home-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px 18px;margin-bottom:12px;}
-.home-title{font-family:'Black Han Sans',sans-serif;font-size:1.4rem;color:var(--gold);margin-bottom:14px;letter-spacing:1px;}
-.how{font-size:.82rem;line-height:2;color:#aaa;margin-bottom:18px;}
+.home-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px 16px;margin-bottom:12px;}
+.home-title{font-family:'Black Han Sans',sans-serif;font-size:1.3rem;color:var(--gold);margin-bottom:12px;}
+.how{font-size:.8rem;line-height:2.1;color:#aaa;margin-bottom:16px;}
 .how b{color:var(--gold);}
-.round-select{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
-.round-btn{flex:1;min-width:70px;padding:10px 6px;background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--muted);font-family:'Nunito',sans-serif;font-size:.72rem;text-align:center;cursor:pointer;transition:all .18s;}
-.round-btn.active,.round-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(255,201,60,0.06);}
-.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
-.cat-btn{background:transparent;border:1px solid var(--border);border-radius:8px;padding:12px;cursor:pointer;color:var(--muted);font-size:.72rem;text-align:center;transition:all .2s;}
+.size-row{display:flex;gap:7px;margin-bottom:14px;}
+.size-btn{flex:1;padding:10px 5px;background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--muted);font-family:'Nunito',sans-serif;font-size:.7rem;text-align:center;cursor:pointer;transition:all .18s;line-height:1.4;}
+.size-btn.active,.size-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(255,201,60,0.06);}
+.size-btn span{display:block;font-size:.55rem;color:var(--muted);margin-top:2px;}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.cat-btn{background:transparent;border:1px solid var(--border);border-radius:8px;padding:11px;cursor:pointer;color:var(--muted);font-size:.7rem;text-align:center;transition:all .2s;}
 .cat-btn.active,.cat-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(255,201,60,0.05);}
-.btn-start{width:100%;padding:16px;background:linear-gradient(135deg,var(--red),var(--blue));border:none;color:#fff;font-family:'Black Han Sans',sans-serif;font-size:1.2rem;letter-spacing:3px;cursor:pointer;border-radius:10px;transition:all .2s;}
-.btn-start:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,60,60,0.3);}
+.btn-start{width:100%;padding:15px;background:linear-gradient(135deg,var(--red),var(--blue));border:none;color:#fff;font-family:'Black Han Sans',sans-serif;font-size:1.1rem;letter-spacing:3px;cursor:pointer;border-radius:10px;transition:all .2s;}
+.btn-start:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,60,60,0.3);}
+
+/* BRACKET visuale */
+.bracket-header{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:11px;display:flex;justify-content:space-between;align-items:center;}
+.bracket-round{font-family:'Black Han Sans',sans-serif;font-size:1rem;color:var(--gold);}
+.bracket-sub{font-size:.58rem;color:var(--muted);letter-spacing:2px;}
+.bracket-progress{display:flex;gap:5px;align-items:center;}
+.bp-dot{width:10px;height:10px;border-radius:50%;border:1px solid var(--border);background:transparent;transition:all .3s;}
+.bp-dot.done{background:var(--gold);border-color:var(--gold);}
+.bp-dot.current{background:var(--red);border-color:var(--red);animation:pulse .8s infinite alternate;}
+@keyframes pulse{0%{transform:scale(1);}100%{transform:scale(1.3);}}
 
 /* BATTLE */
-.hud{display:flex;justify-content:space-between;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:.65rem;letter-spacing:2px;}
-.hud-round{font-family:'Black Han Sans',sans-serif;font-size:1.2rem;color:var(--gold);}
-.battle-wrap{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-bottom:10px;}
-.film-side{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 12px;text-align:center;cursor:pointer;transition:all .22s;min-height:160px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;}
-.film-side::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
-.film-left::before{background:linear-gradient(90deg,var(--red),transparent);}
-.film-right::before{background:linear-gradient(90deg,transparent,var(--blue));}
-.film-side:hover:not(.voted){transform:scale(1.03);}
-.film-side.winner{border-width:2px;animation:winPulse .4s ease;}
-.film-side.loser{opacity:0.35;}
-@keyframes winPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
-.film-left.winner{border-color:var(--red);box-shadow:0 0 30px rgba(255,60,60,0.3);}
-.film-right.winner{border-color:var(--blue);box-shadow:0 0 30px rgba(60,159,255,0.3);}
-.film-cat{font-size:.5rem;letter-spacing:2px;color:var(--muted);margin-bottom:6px;}
-.film-name{font-family:'Black Han Sans',sans-serif;font-size:1rem;line-height:1.3;margin-bottom:6px;letter-spacing:.5px;}
-.film-left .film-name{color:#ff8a8a;}
-.film-right .film-name{color:#8acfff;}
-.film-tag{font-size:.58rem;color:var(--muted);font-style:italic;}
-.vs-badge{font-family:'Black Han Sans',sans-serif;font-size:1.4rem;color:var(--gold);text-align:center;padding:0 4px;}
-.pct-bar-wrap{margin-top:8px;background:rgba(255,255,255,0.06);border-radius:4px;height:5px;overflow:hidden;}
-.pct-bar-fill{height:100%;border-radius:4px;transition:width .8s ease;}
-.film-left .pct-bar-fill{background:var(--red);}
-.film-right .pct-bar-fill{background:var(--blue);}
-.pct-label{font-size:.58rem;color:var(--muted);margin-top:3px;}
-.feedback{text-align:center;padding:12px;border-radius:10px;font-size:.75rem;margin-bottom:10px;display:none;line-height:1.6;}
-.feedback.show{display:block;background:rgba(255,201,60,0.07);border:1px solid rgba(255,201,60,0.2);color:var(--gold);}
+.battle-wrap{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:stretch;margin-bottom:10px;}
+.film-side{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:16px 12px;text-align:center;cursor:pointer;transition:all .22s;min-height:160px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;}
+.film-side::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.fl::before{background:var(--red);}
+.fr::before{background:var(--blue);}
+.film-side:hover:not(.voted){transform:scale(1.03);box-shadow:0 8px 24px rgba(255,60,60,0.15);}
+.fl:hover:not(.voted){box-shadow:0 8px 24px rgba(255,60,60,0.2);}
+.fr:hover:not(.voted){box-shadow:0 8px 24px rgba(60,159,255,0.2);}
+.film-side.winner{border-width:2px;animation:wp .4s ease;}
+@keyframes wp{0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
+.fl.winner{border-color:var(--red);box-shadow:0 0 28px rgba(255,60,60,0.4);}
+.fr.winner{border-color:var(--blue);box-shadow:0 0 28px rgba(60,159,255,0.4);}
+.film-side.loser{opacity:0.25;filter:grayscale(60%);}
+.film-champion{border-color:var(--gold)!important;box-shadow:0 0 36px rgba(255,201,60,0.5)!important;}
+.film-cat{font-size:.48rem;letter-spacing:2px;color:var(--muted);margin-bottom:5px;}
+.film-name{font-family:'Black Han Sans',sans-serif;font-size:.95rem;line-height:1.3;margin-bottom:6px;letter-spacing:.5px;}
+.fl .film-name{color:#ff8a8a;}
+.fr .film-name{color:#8acfff;}
+.film-rare{font-size:.55rem;color:var(--gold);margin-bottom:4px;}
+.film-seed{font-size:.5rem;color:var(--muted);letter-spacing:1px;}
+.chosen-badge{font-size:.6rem;letter-spacing:1px;margin-top:8px;display:none;font-weight:700;}
+.fl .chosen-badge{color:var(--red);}
+.fr .chosen-badge{color:var(--blue);}
+.vs-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:0 2px;}
+.vs-badge{font-family:'Black Han Sans',sans-serif;font-size:1.4rem;color:var(--gold);}
+.feedback{text-align:center;padding:12px;border-radius:10px;font-size:.73rem;margin-bottom:10px;display:none;line-height:1.6;border:1px solid rgba(255,201,60,0.2);background:rgba(255,201,60,0.06);color:var(--gold);}
 .btn-next{width:100%;padding:13px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'Nunito',sans-serif;font-size:.72rem;letter-spacing:2px;cursor:pointer;border-radius:8px;transition:all .2s;display:none;}
 .btn-next:hover{border-color:var(--gold);color:var(--gold);}
 
+/* STORICO sfide */
+.history{margin-bottom:10px;}
+.history-title{font-size:.55rem;letter-spacing:2px;color:var(--muted);margin-bottom:7px;}
+.hist-item{display:flex;align-items:center;gap:8px;padding:7px 10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:8px;margin-bottom:5px;font-size:.65rem;}
+.hist-win{color:var(--gold);font-weight:700;flex:1;}
+.hist-lose{color:#333;flex:1;text-decoration:line-through;}
+.hist-round{font-size:.5rem;color:var(--muted);letter-spacing:1px;}
+
 /* END */
-.end-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:26px 18px;text-align:center;margin-bottom:12px;}
-.trophy{font-size:3rem;display:block;margin-bottom:8px;animation:trophyBounce .6s ease;}
-@keyframes trophyBounce{0%{transform:scale(0);}60%{transform:scale(1.2);}100%{transform:scale(1);}}
-.end-title{font-family:'Black Han Sans',sans-serif;font-size:1.4rem;color:var(--gold);margin-bottom:4px;letter-spacing:1px;}
-.end-sub{font-size:.6rem;letter-spacing:3px;color:var(--muted);margin-bottom:16px;}
-.end-msg{font-size:.82rem;color:#aaa;line-height:1.8;margin-bottom:16px;}
-.bracket{margin-bottom:16px;text-align:left;}
-.bracket-title{font-size:.58rem;letter-spacing:2px;color:var(--gold);margin-bottom:8px;}
-.bracket-item{display:flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(255,201,60,0.04);border:1px solid rgba(255,201,60,0.12);border-radius:8px;margin-bottom:6px;}
-.bracket-rank{font-family:'Black Han Sans',sans-serif;font-size:1rem;color:var(--gold);min-width:28px;}
-.bracket-name{font-size:.72rem;color:var(--text);flex:1;line-height:1.4;}
-.bracket-cat{font-size:.55rem;color:var(--muted);}
-.disc-section{margin-bottom:16px;text-align:left;}
-.disc-head{font-size:.58rem;letter-spacing:2px;color:#3c9fff;margin-bottom:8px;}
-.disc-item{background:rgba(60,159,255,0.04);border:1px solid rgba(60,159,255,0.12);border-radius:8px;padding:9px 12px;margin-bottom:6px;}
-.disc-name{font-size:.72rem;color:#8acfff;font-weight:700;margin-bottom:2px;}
-.disc-note{font-size:.65rem;color:#666;line-height:1.4;}
-.btn-again{width:100%;padding:13px;background:linear-gradient(135deg,var(--red),var(--blue));border:none;color:#fff;font-family:'Black Han Sans',sans-serif;font-size:1rem;letter-spacing:3px;cursor:pointer;border-radius:8px;margin-bottom:8px;}
-.btn-home{width:100%;padding:11px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'Nunito',sans-serif;font-size:.7rem;letter-spacing:2px;cursor:pointer;border-radius:8px;}
+.end-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:26px 16px;text-align:center;margin-bottom:12px;}
+.champion-wrap{padding:20px;border:2px solid var(--gold);border-radius:14px;background:rgba(255,201,60,0.06);margin-bottom:20px;}
+.trophy{font-size:3rem;display:block;margin-bottom:8px;animation:tb .6s ease;}
+@keyframes tb{0%{transform:scale(0)rotate(-20deg);}60%{transform:scale(1.2)rotate(5deg);}100%{transform:scale(1)rotate(0);};}
+.champ-label{font-size:.55rem;letter-spacing:4px;color:var(--gold);margin-bottom:6px;}
+.champ-name{font-family:'Black Han Sans',sans-serif;font-size:1.6rem;color:#fff;line-height:1.2;margin-bottom:4px;}
+.champ-cat{font-size:.6rem;color:var(--muted);letter-spacing:2px;}
+.champ-rare{font-size:.65rem;color:var(--gold);margin-top:4px;}
+.end-title{font-family:'Black Han Sans',sans-serif;font-size:1.1rem;color:var(--gold);margin-bottom:10px;}
+.end-bracket{text-align:left;margin-bottom:16px;}
+.eb-title{font-size:.55rem;letter-spacing:2px;color:var(--muted);margin-bottom:8px;}
+.eb-round{margin-bottom:12px;}
+.eb-round-name{font-size:.58rem;letter-spacing:2px;color:var(--gold);margin-bottom:5px;}
+.eb-match{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;margin-bottom:4px;font-size:.68rem;}
+.eb-match.won{background:rgba(255,201,60,0.06);border:1px solid rgba(255,201,60,0.15);}
+.eb-winner{color:var(--gold);font-weight:700;flex:1;}
+.eb-vs{color:var(--muted);font-size:.55rem;}
+.eb-loser{color:#333;flex:1;text-decoration:line-through;}
+.rare-section{text-align:left;margin-bottom:16px;}
+.rare-title{font-size:.55rem;letter-spacing:2px;color:#3c9fff;margin-bottom:8px;}
+.rare-item{background:rgba(60,159,255,0.04);border:1px solid rgba(60,159,255,0.12);border-radius:8px;padding:8px 11px;margin-bottom:5px;}
+.rare-name{font-size:.7rem;color:#8acfff;font-weight:700;margin-bottom:2px;}
+.rare-note{font-size:.62rem;color:#444;line-height:1.4;}
+.btn-again{width:100%;padding:13px;background:linear-gradient(135deg,var(--red),var(--blue));border:none;color:#fff;font-family:'Black Han Sans',sans-serif;font-size:.95rem;letter-spacing:3px;cursor:pointer;border-radius:8px;margin-bottom:7px;}
+.btn-home{width:100%;padding:10px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'Nunito',sans-serif;font-size:.68rem;letter-spacing:2px;cursor:pointer;border-radius:8px;}
 </style>
 </head>
 <body>
 <canvas id="bg"></canvas>
 <div class="wrap">
   <header>
-    <div class="logo"><span style="color:var(--red)">FILM</span> <span class="vs">VS</span> <span style="color:var(--blue)">FILM</span></div>
-    <div class="subtitle">La sfida a eliminazione</div>
+    <div class="logo"><span style="color:var(--red)">FILM</span> <span style="color:var(--gold)">TORNEO</span> <span style="color:var(--blue)">!</span></div>
+    <div class="subtitle">Vince il film che scegli — eliminazione diretta</div>
     <div class="credit">Centro Video Taroni</div>
   </header>
 
   <div class="screen active" id="s-home">
     <div class="home-card fade-in">
-      <div class="home-title">⚔️ COME SI GIOCA</div>
+      <div class="home-title">⚔️ COME FUNZIONA</div>
       <div class="how">
-        Ti mostro <b>due film</b> uno contro l'altro.<br>
-        Scegli quello che <b>preferiresti vedere</b> (o che conosci!).<br>
-        Il vincitore avanza, il perdente viene eliminato.<br>
-        Alla fine vedi la tua <b>classifica personale</b> e<br>
-        scopri titoli che magari non conoscevi! 🎬
+        Due film si sfidano — tu scegli uno.<br>
+        Il film che scegli <b>avanza al turno successivo</b>.<br>
+        Il perdente è eliminato.<br>
+        Si va avanti finché rimane <b>un solo campione</b>! 🏆
       </div>
-      <div style="font-size:.62rem;letter-spacing:2px;color:var(--muted);margin-bottom:8px;">NUMERO DI SFIDE</div>
-      <div class="round-select">
-        <button class="round-btn active" onclick="selRounds(this,6)">6 sfide</button>
-        <button class="round-btn" onclick="selRounds(this,10)">10 sfide</button>
-        <button class="round-btn" onclick="selRounds(this,16)">16 sfide</button>
+      <div style="font-size:.6rem;letter-spacing:2px;color:var(--muted);margin-bottom:8px;">DIMENSIONE TORNEO</div>
+      <div class="size-row">
+        <button class="size-btn active" onclick="selSize(this,4)">4 film<span>2 sfide</span></button>
+        <button class="size-btn" onclick="selSize(this,8)">8 film<span>3 sfide</span></button>
+        <button class="size-btn" onclick="selSize(this,16)">16 film<span>4 sfide</span></button>
       </div>
-      <div style="font-size:.62rem;letter-spacing:2px;color:var(--muted);margin-bottom:8px;">CATEGORIA</div>
+      <div style="font-size:.6rem;letter-spacing:2px;color:var(--muted);margin-bottom:8px;">CATEGORIA</div>
       <div class="cat-grid">
         <button class="cat-btn active" onclick="selCat(this,'all')">🌌 Tutto</button>
         <button class="cat-btn" onclick="selCat(this,'comics')">🦸 Comics</button>
         <button class="cat-btn" onclick="selCat(this,'vg')">🎮 Videogioco</button>
         <button class="cat-btn" onclick="selCat(this,'saghe')">🎬 Saghe</button>
       </div>
-      <button class="btn-start" onclick="startGame()">⚔️ INIZIA LA SFIDA</button>
+      <button class="btn-start" onclick="startTournament()">⚔️ INIZIA IL TORNEO</button>
     </div>
   </div>
 
   <div class="screen" id="s-battle">
-    <div class="hud">
-      <div><span style="color:var(--muted)">SFIDA</span> <span class="hud-round" id="h-round">1</span></div>
-      <div style="color:var(--muted);font-size:.55rem;" id="h-cat"></div>
-      <div style="color:var(--muted)">SU <span style="color:var(--gold)" id="h-total">6</span></div>
+    <div class="bracket-header">
+      <div>
+        <div class="bracket-sub" id="b-round-label">TURNO 1</div>
+        <div class="bracket-round" id="b-round-name">QUARTI DI FINALE</div>
+      </div>
+      <div class="bracket-progress" id="b-progress"></div>
     </div>
     <div class="battle-wrap">
-      <div class="film-side film-left" id="side-left" onclick="vote('left')">
-        <div class="film-cat" id="cat-left"></div>
-        <div class="film-name" id="name-left"></div>
-        <div class="film-tag" id="tag-left"></div>
-        <div class="pct-bar-wrap"><div class="pct-bar-fill" id="bar-left" style="width:0%"></div></div>
-        <div class="pct-label" id="pct-left"></div>
+      <div class="film-side fl" id="sl" onclick="vote('l')">
+        <div class="film-cat" id="cl"></div>
+        <div class="film-name" id="nl"></div>
+        <div class="film-rare" id="rl"></div>
+        <div class="film-seed" id="seedl"></div>
+        <div class="chosen-badge" id="bl">✓ TUA SCELTA</div>
       </div>
-      <div class="vs-badge">VS</div>
-      <div class="film-side film-right" id="side-right" onclick="vote('right')">
-        <div class="film-cat" id="cat-right"></div>
-        <div class="film-name" id="name-right"></div>
-        <div class="film-tag" id="tag-right"></div>
-        <div class="pct-bar-wrap"><div class="pct-bar-fill" id="bar-right" style="width:0%"></div></div>
-        <div class="pct-label" id="pct-right"></div>
+      <div class="vs-wrap">
+        <div class="vs-badge">VS</div>
+      </div>
+      <div class="film-side fr" id="sr" onclick="vote('r')">
+        <div class="film-cat" id="cr"></div>
+        <div class="film-name" id="nr"></div>
+        <div class="film-rare" id="rr"></div>
+        <div class="film-seed" id="seedr"></div>
+        <div class="chosen-badge" id="br">✓ TUA SCELTA</div>
       </div>
     </div>
     <div class="feedback" id="feedback"></div>
-    <button class="btn-next" id="btn-next" onclick="nextBattle()">PROSSIMA SFIDA →</button>
+    <button class="btn-next" id="btn-next" onclick="nextMatch()">PROSSIMA SFIDA →</button>
+    <div class="history" id="history" style="display:none;">
+      <div class="history-title">⚔️ SFIDE PRECEDENTI</div>
+      <div id="history-list"></div>
+    </div>
   </div>
 
   <div class="screen" id="s-end">
     <div class="end-card fade-in">
-      <span class="trophy">🏆</span>
-      <div class="end-title">SFIDA COMPLETATA!</div>
-      <div class="end-sub">I tuoi film vincitori</div>
-      <div class="end-msg" id="end-msg"></div>
-      <div class="bracket">
-        <div class="bracket-title">🥇 LA TUA TOP — IN ORDINE DI VITTORIE</div>
-        <div id="bracket-list"></div>
+      <div class="champion-wrap">
+        <span class="trophy">🏆</span>
+        <div class="champ-label">CAMPIONE DEL TORNEO</div>
+        <div class="champ-name" id="champ-name"></div>
+        <div class="champ-cat" id="champ-cat"></div>
+        <div class="champ-rare" id="champ-rare"></div>
       </div>
-      <div class="disc-section">
-        <div class="disc-head" id="disc-head"></div>
-        <div id="disc-list"></div>
+      <div class="end-title">Il tabellone completo</div>
+      <div class="end-bracket">
+        <div class="eb-title">TUTTE LE SFIDE — IN ORDINE</div>
+        <div id="eb-matches"></div>
       </div>
-      <button class="btn-again" onclick="startGame()">⚔️ NUOVA SFIDA</button>
-      <button class="btn-home" onclick="goHome()">← CAMBIA MODALITÀ</button>
+      <div class="rare-section" id="rare-section">
+        <div class="rare-title">🌟 TITOLI RARI INCONTRATI — DISPONIBILI ALLO STAND</div>
+        <div id="rare-list"></div>
+      </div>
+      <button class="btn-again" onclick="startTournament()">⚔️ NUOVO TORNEO</button>
+      <button class="btn-home" onclick="goHome()">← CAMBIA IMPOSTAZIONI</button>
     </div>
   </div>
 </div>
 
 <script>
-const COMICS=["The marvels","Aquaman - il regno perduto","Blue Beetle","Dampyr","I cavalieri dello zodiaco","The Flash","The Batman","I guardiani della galassia vol. 3","Shazam furia degli Dei","Ant-man and the wasp - Quantumania","The King's man - le origini","Morbius","Wakanda forever","Diabolik - Ginko all'attacco","Eternals","Diabolik","Spider-man - no way home","Thor love and thunder","Black Adam","Deadpool and Wolverine","Venom la furia di Carnage","Shang-Chi la leggenda dei dieci anelli","Black Widow","Zack Snyder's Justice League","Joker","Avengers Endgame","Dredd - il giudice dell'apocalisse","Shazam","Captain Marvel","Aquaman","Venom","Deadpool 2","Avengers infinity war","Il ragazzo invisibile - seconda generazione","Black panther","Thor ragnarok","Spider-man homecoming","Wonder woman","Logan - the wolverine","Doctor Strange","Deadpool","Ant-Man","The Avengers","Iron man 3","Batman il cavaliere oscuro - il ritorno","The amazing Spider-man","Captain America - il primo vendicatore","Lanterna verde","Thor","Kick-ass","Iron man 2","Watchmen","Batman il cavaliere oscuro","Iron man","Spider-man 2","X-men 2","Spider-man","Spawn","Il corvo (B. Lee)","X-men","Batman (T. Burton)","Blade","Cowboys & Aliens","Jonah Hex","The spirit","Man-thing","The phantom","La leggenda degli uomini straordinari","I, Frankenstein","Immortal","Dampyr","Diabolik","Il ragazzo invisibile"];
-const VG=["Lara Croft: Tomb raider (A. Jolie)","Super Mario Bros (2023)","Warcraft - l'inizio","Un film Minecraft","Uncharted","Tomb raider (2018)","Street fighter: sfida finale","Silent hill","Resident Evil: welcome to Racoon city","Resident evil","Prince of Persia - le sabbie del tempo","Pokemon - detective Pikachu","Mortal kombat (2021)","Mortal kombat (1995)","Max Payne","Hitman agente 47","Five nights at Freddy's","Final fantasy VII Advent children","Doom","Assassin's creed","Wing commander","DOA: Dead or alive","Bloodrayne","In the name of the king","House of the dead","Double dragon","Far cry","Alone in the dark","Angry birds","Tekken"];
+const COMICS=["The marvels","Aquaman - il regno perduto","Blue Beetle","Dampyr","I cavalieri dello zodiaco","The Flash","The Batman","I guardiani della galassia vol. 3","Shazam furia degli Dei","Ant-man and the wasp - Quantumania","The King's man - le origini","Morbius","Wakanda forever","Diabolik - Ginko all'attacco","Eternals","Diabolik","Spider-man - no way home","Doctor Strange nel multiverso della follia","Thor love and thunder","Black Adam","Superman (2025)","Hellboy - l'uomo deforme","Venom the last dance","Kraven il cacciatore","Captain America - the new world","Thunderbolts","Deadpool and Wolverine","Madame web","I fantastici 4 gli inizi","Venom la furia di Carnage","Shang-Chi la leggenda dei dieci anelli","The suicide squad - missione suicida","Black Widow","Zack Snyder's Justice League","Wonder woman 1984","The new mutants","Birds of prey - la fantasmagorica rinascita di Harley Quinn","Joker","Spider-man - far from home","X-men Dark Phoenix","Avengers Endgame","Dredd - il giudice dell'apocalisse","Shazam","Hellboy (2018)","Captain Marvel","Aquaman","Venom","Ant-man and the wasp","Deadpool 2","Avengers infinity war","Il ragazzo invisibile - seconda generazione","Black panther","Thor ragnarok","Justice league","Kingsman il cerchio d'oro","Spider-man homecoming","Wonder woman","I guardiani della galassia vol. 2","Logan - the wolverine","Doctor Strange","Suicide squad","X-men apocalisse","Captain America civil war","Batman v Superman dawn of justice","Deadpool","Fantastic 4 - i fantastici 4 (2015)","Ant-Man","Avengers age of Ultron","Il ragazzo invisibile","Kingsman secret service","I guardiani della galassia","X-men giorni di un futuro passato","The amazing spider-man 2 - il potere di Electro","Captain America - the winter soldier","300 l'alba di un impero","300","I, Frankenstein","Thor the dark world","Kick-ass 2","Red 2","Wolverine l'immortale","The Avengers","L'uomo d'acciaio","Iron man 3","Batman il cavaliere oscuro - il ritorno","The amazing Spider-man","Cowboys & Aliens","Captain America - il primo vendicatore","Lanterna verde","X-men l'inizio","Red","Thor","Kick-ass","The green hornet","Jonah Hex","The losers","Iron man 2","X-men le origini - Wolverine","The punisher","Watchmen","The spirit","Batman il cavaliere oscuro","Iron man","L'incredibile hulk","Spider-man 3","I fantastici 4 e silver surfer","Ghost rider","Ghost rider 2 - spirito di vendetta","X-men conflitto finale","Superman (C. Reeve)","Superman 2","Superman 3","Superman 4","V per Vendetta","Man-thing","I fantastici 4","Batman begins","Sin city","Sin city 2","Blade trinity","Constantine","Elektra","Immortal","Hellboy","Catwoman","Spider-man 2","The punisher","X-men 2","Hulk (2003)","Blade 2","Spider-man","La leggenda degli uomini straordinari","Spawn","The phantom","Il corvo (B. Lee)","Il corvo 2","Il corvo 3","Il corvo (2023)","X-men","Batman & Robin","Batman forever","Batman il ritorno","Batman (T. Burton)","Blade","Dredd (S. Stallone)"];
+const VG=["Lara Croft: Tomb raider (A. Jolie)","Lara Croft - Tomb raider la culla della vita","Super Mario Bros il film","Super Mario Bros (2023)","Wing commander","Warcraft - l'inizio","Un film Minecraft","Uncharted","Tomb raider (2018)","Tekken","Super Mario Galaxy","Street fighter: sfida finale","Street fighter - la leggenda","Silent hill","Silent hill reveletions","Resident Evil: welcome to Racoon city","Rampage: furia animale","Resident evil: vendetta","Resident evil: The final chapter","Resident evil: damnation","Resident evil: retribution","Resident evil: afterlife","Resident evil: degeneration","Resident evil: extinction","Resident evil: apocalypse","Resident evil","Ratchet & Clank","Prince of Persia - le sabbie del tempo","Pokemon - detective Pikachu","Need for speed","Mortal kombat (2021)","Monster hunter","Mortal kombat (1995)","Mortal kombat - distruzione totale","Max Payne","In the name of the king","House of the dead","Hitman - l'assassino","Hitman agente 47","Five nights at Freddy's","Five nights at Freddy's 2","Final fantasy","Final fantasy VII Advent children","Far cry","Doom","Double dragon","DOA: Dead or alive","Cacciatori di zombie","Bloodrayne","Bloodrayne 2","Borderlands","Alone in the dark","Alone in the dark 2","Angry birds","Angry birds 2","Assassin's creed"];
 const SAGHE=["Star wars","Il Signore degli anelli","Lo Hobbit","Dune","Harry Potter","Twilight","Indiana Jones","Monsterverse - Godzilla e Kong","Transformers","Riddick","Hostel","Agente 007 - James Bond","Austin Powers","Una pallottola spuntata","Alien","Predator","Beverly hills cop","Ritorno al futuro","Hunger games","Matrix","Rambo","Pirati dei caraibi","Scream","Jurassic park","Terminator","Mission impossible","Scuola di polizia","Nightmare","Non aprite quella porta","Il pianeta delle scimmie","Saw - l'enigmista","Fast and furious","Venerdi 13","Halloween","La bambola assassina","Fantozzi","American pie"];
+const RARE=["Dampyr","I cavalieri dello zodiaco","Diabolik - Ginko all'attacco","Il ragazzo invisibile","Cowboys & Aliens","Jonah Hex","The spirit","Man-thing","The phantom","La leggenda degli uomini straordinari","I, Frankenstein","Immortal","Wing commander","DOA: Dead or alive","Bloodrayne","Bloodrayne 2","In the name of the king","House of the dead","Double dragon","Far cry","Alone in the dark","Alone in the dark 2","Cacciatori di zombie","Super Mario Galaxy","Ratchet & Clank","Riddick","Hostel","Una pallottola spuntata","Scuola di polizia","La bambola assassina","Fantozzi","The King's man - le origini","Il ragazzo invisibile - seconda generazione","Dredd (S. Stallone)","Dredd - il giudice dell'apocalisse","Catwoman","Elektra","The green hornet","The losers","Red","Red 2","Diabolik","The phantom","Spawn","Il corvo (B. Lee)","Sin city 2","Blade trinity","Immortal"];
 
-const RARE=["Dampyr","I cavalieri dello zodiaco","Diabolik - Ginko all'attacco","Il ragazzo invisibile","Cowboys & Aliens","Jonah Hex","The spirit","Man-thing","The phantom","La leggenda degli uomini straordinari","I, Frankenstein","Immortal","Wing commander","DOA: Dead or alive","Bloodrayne","In the name of the king","House of the dead","Double dragon","Far cry","Alone in the dark","Riddick","Hostel","Una pallottola spuntata","Scuola di polizia","La bambola assassina"];
+const ROUND_NAMES = {
+  1: "FINALE",
+  2: "SEMIFINALE",
+  4: "QUARTI DI FINALE",
+  8: "OTTAVI DI FINALE",
+  16: "SEDICESIMI"
+};
 
-function getCatLabel(t){
-  if(COMICS.includes(t))return'COMICS';
-  if(VG.includes(t))return'VIDEOGIOCO';
-  if(SAGHE.includes(t))return'SAGA';return'';
+function getCat(t){if(COMICS.includes(t))return'COMICS';if(VG.includes(t))return'VIDEOGIOCO';if(SAGHE.includes(t))return'SAGA';return'';}
+function shuffle(a){let b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+
+let tournSize=4, selCat_='all';
+let bracket=[];        // array dei film ancora in gara per il round corrente
+let nextRound=[];      // film che avanzano al prossimo round
+let matchIdx=0;        // indice della sfida corrente nel round
+let roundNum=1;        // numero del round (1 = primo)
+let totalRounds=0;     // numero totale di round
+let matchHistory=[];   // storico di tutte le sfide
+let rareShown=[];      // titoli rari incontrati
+let lastCatQ='';
+let poolQueue=[], poolIdx=0;
+
+function selSize(btn,n){document.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');tournSize=n;}
+function selCat(btn,cat){document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');selCat_=cat;}
+
+function getPool(){
+  let p=[];
+  if(selCat_==='all'||selCat_==='comics') p=[...p,...COMICS];
+  if(selCat_==='all'||selCat_==='vg') p=[...p,...VG];
+  if(selCat_==='all'||selCat_==='saghe') p=[...p,...SAGHE];
+  return p;
 }
 
-let numRounds=6,selCatKey='all',pairs=[],curPair=0,wins={},votes={},rareShown=[];
-
-function selRounds(btn,n){document.querySelectorAll('.round-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');numRounds=n;}
-function selCat(btn,cat){document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');selCatKey=cat;}
-
-function buildPairs(){
-  let pool=[];
-  if(selCatKey==='all'||selCatKey==='comics')pool=[...pool,...COMICS];
-  if(selCatKey==='all'||selCatKey==='vg')pool=[...pool,...VG];
-  if(selCatKey==='all'||selCatKey==='saghe')pool=[...pool,...SAGHE];
-  pool=shuffle(pool);
-  const ps=[];
-  for(let i=0;i<pool.length-1&&ps.length<numRounds;i+=2){
-    if(pool[i]&&pool[i+1])ps.push([pool[i],pool[i+1]]);
+function pickFilms(n){
+  const pool=getPool();
+  if(selCat_!==lastCatQ||poolIdx+n>poolQueue.length){poolQueue=shuffle(pool);poolIdx=0;lastCatQ=selCat_;}
+  const picked=[];
+  const used=new Set();
+  for(let i=0;i<n;i++){
+    if(poolIdx>=poolQueue.length){poolQueue=shuffle(pool);poolIdx=0;}
+    while(used.has(poolQueue[poolIdx])&&poolIdx<poolQueue.length) poolIdx++;
+    if(poolIdx<poolQueue.length){used.add(poolQueue[poolIdx]);picked.push(poolQueue[poolIdx++]);}
   }
-  return ps;
+  return picked;
 }
 
-function shuffle(a){return a.sort(()=>Math.random()-.5);}
+function startTournament(){
+  bracket=pickFilms(tournSize);
+  nextRound=[];
+  matchIdx=0;
+  roundNum=1;
+  totalRounds=Math.log2(tournSize);
+  matchHistory=[];
+  rareShown=[];
 
-function startGame(){
-  pairs=buildPairs();curPair=0;wins={};votes={};rareShown=[];
-  showScr('s-battle');renderBattle();
+  // Segna i titoli rari presenti nel torneo
+  bracket.forEach(t=>{if(RARE.includes(t)&&!rareShown.includes(t))rareShown.push(t);});
+
+  updateProgress();
+  showScr('s-battle');
+  renderMatch();
 }
 
-function renderBattle(){
-  const [a,b]=pairs[curPair];
-  document.getElementById('h-round').textContent=curPair+1;
-  document.getElementById('h-total').textContent=pairs.length;
-  document.getElementById('h-cat').textContent=selCatKey==='all'?'TUTTO IL CATALOGO':selCatKey.toUpperCase();
-  const catA=getCatLabel(a),catB=getCatLabel(b);
-  document.getElementById('cat-left').textContent=catA;
-  document.getElementById('cat-right').textContent=catB;
-  document.getElementById('name-left').textContent=a;
-  document.getElementById('name-right').textContent=b;
-  document.getElementById('tag-left').textContent=RARE.includes(a)?'⭐ Titolo raro':'';
-  document.getElementById('tag-right').textContent=RARE.includes(b)?'⭐ Titolo raro':'';
-  ['left','right'].forEach(s=>{
-    document.getElementById('bar-'+s).style.width='0%';
-    document.getElementById('pct-'+s).textContent='';
-    document.getElementById('side-'+s).className='film-side film-'+s;
-    document.getElementById('side-'+s).onclick=()=>vote(s);
+function getRoundName(rem){
+  return ROUND_NAMES[rem] || ('TURNO '+(Math.log2(tournSize)-Math.log2(rem)+1));
+}
+
+function updateProgress(){
+  const prog=document.getElementById('b-progress');
+  prog.innerHTML='';
+  const tot=tournSize-1; // numero totale di sfide
+  const done=matchHistory.length;
+  for(let i=0;i<tot;i++){
+    const dot=document.createElement('div');
+    dot.className='bp-dot'+(i<done?' done':i===done?' current':'');
+    prog.appendChild(dot);
+  }
+}
+
+function renderMatch(){
+  const a=bracket[matchIdx*2];
+  const b=bracket[matchIdx*2+1];
+  const rem=bracket.length;
+  document.getElementById('b-round-label').textContent='SFIDA '+(matchHistory.length+1)+' DI '+(tournSize-1);
+  document.getElementById('b-round-name').textContent=getRoundName(rem);
+
+  ['l','r'].forEach(s=>{
+    const t=s==='l'?a:b;
+    document.getElementById('c'+s).textContent=getCat(t);
+    document.getElementById('n'+s).textContent=t;
+    document.getElementById('r'+s).textContent=RARE.includes(t)?'⭐ Titolo raro':'';
+    document.getElementById('seed'+s).textContent='';
+    document.getElementById('b'+s).style.display='none';
+    document.getElementById('s'+s).className='film-side '+(s==='l'?'fl':'fr');
+    document.getElementById('s'+s).onclick=()=>vote(s);
   });
-  if(RARE.includes(a)&&!rareShown.includes(a))rareShown.push(a);
-  if(RARE.includes(b)&&!rareShown.includes(b))rareShown.push(b);
-  document.getElementById('feedback').className='feedback';
+
+  document.getElementById('feedback').style.display='none';
   document.getElementById('btn-next').style.display='none';
+  updateProgress();
+
+  // Mostra storico se ci sono sfide precedenti
+  renderHistory();
 }
 
 function vote(side){
-  const [a,b]=pairs[curPair];
-  const winner=side==='left'?a:b;
-  const loser=side==='left'?b:a;
-  wins[winner]=(wins[winner]||0)+1;
-  const wPct=Math.floor(55+Math.random()*25);
-  const lPct=100-wPct;
-  if(side==='left'){
-    document.getElementById('bar-left').style.width=wPct+'%';
-    document.getElementById('bar-right').style.width=lPct+'%';
-    document.getElementById('pct-left').textContent=wPct+'% vince';
-    document.getElementById('pct-right').textContent=lPct+'%';
-  } else {
-    document.getElementById('bar-right').style.width=wPct+'%';
-    document.getElementById('bar-left').style.width=lPct+'%';
-    document.getElementById('pct-right').textContent=wPct+'% vince';
-    document.getElementById('pct-left').textContent=lPct+'%';
-  }
-  document.getElementById('side-'+side).classList.add('winner','voted');
-  document.getElementById('side-'+(side==='left'?'right':'left')).classList.add('loser','voted');
-  document.getElementById('side-left').onclick=null;
-  document.getElementById('side-right').onclick=null;
-  const fb=document.getElementById('feedback');fb.className='feedback show';
-  let msg='✅ Hai scelto <strong>'+winner+'</strong>!';
-  if(RARE.includes(winner))msg+=' ⭐ Questo è uno dei titoli più rari del catalogo!';
-  if(RARE.includes(loser))msg+='<br>📌 Nota: anche <strong>'+loser+'</strong> è un titolo raro disponibile allo stand!';
+  const a=bracket[matchIdx*2];
+  const b=bracket[matchIdx*2+1];
+  const winner=side==='l'?a:b;
+  const loser=side==='l'?b:a;
+
+  nextRound.push(winner);
+  matchHistory.push({winner,loser,round:getRoundName(bracket.length)});
+
+  document.getElementById('s'+side).classList.add('winner','voted');
+  document.getElementById('s'+(side==='l'?'r':'l')).classList.add('loser','voted');
+  document.getElementById('s'+'l').onclick=null;
+  document.getElementById('s'+'r').onclick=null;
+  document.getElementById('b'+side).style.display='block';
+
+  const fb=document.getElementById('feedback'); fb.style.display='block';
+  let msg='✅ <strong>'+winner+'</strong> avanza al prossimo turno!';
+  if(RARE.includes(winner)) msg+=' ⭐ Titolo raro!';
+  if(RARE.includes(loser)) msg+='<br>📌 <strong>'+loser+'</strong> è eliminato — ma è disponibile allo stand!';
   fb.innerHTML=msg;
-  document.getElementById('btn-next').style.display='block';
-  document.getElementById('btn-next').textContent=curPair>=pairs.length-1?'VEDI LA CLASSIFICA 🏆':'PROSSIMA SFIDA →';
-  document.getElementById('btn-next').onclick=curPair>=pairs.length-1?showEnd:nextBattle;
+
+  const btn=document.getElementById('btn-next'); btn.style.display='block';
+
+  // Controlla se il round è finito
+  const matchesInRound=bracket.length/2;
+  const isRoundDone=(matchIdx+1>=matchesInRound);
+  const isFinal=(bracket.length===2);
+
+  if(isFinal){
+    btn.textContent='🏆 VEDI IL CAMPIONE!';
+    btn.onclick=showChampion;
+  } else if(isRoundDone){
+    btn.textContent='PROSSIMO TURNO →';
+    btn.onclick=advanceRound;
+  } else {
+    btn.textContent='PROSSIMA SFIDA →';
+    btn.onclick=nextMatch;
+  }
 }
 
-function nextBattle(){curPair++;renderBattle();}
+function nextMatch(){
+  matchIdx++;
+  renderMatch();
+}
 
-function showEnd(){
+function advanceRound(){
+  // Avanza al round successivo con i vincitori
+  bracket=[...nextRound];
+  nextRound=[];
+  matchIdx=0;
+  roundNum++;
+  // Aggiungi eventuali nuovi titoli rari
+  bracket.forEach(t=>{if(RARE.includes(t)&&!rareShown.includes(t))rareShown.push(t);});
+  renderMatch();
+}
+
+function showChampion(){
+  const champion=nextRound[0]||matchHistory[matchHistory.length-1]?.winner;
   showScr('s-end');
-  const sorted=Object.entries(wins).sort((a,b)=>b[1]-a[1]);
-  document.getElementById('end-msg').textContent=sorted.length>0?'Ecco i tuoi film preferiti emersi dalla sfida! Quelli che non conoscevi li trovi da Centro Video Taroni.':'Completa almeno una sfida per vedere la classifica!';
-  const bl=document.getElementById('bracket-list');bl.innerHTML='';
-  const medals=['🥇','🥈','🥉'];
-  sorted.slice(0,8).forEach(([title,w],i)=>{
-    const d=document.createElement('div');d.className='bracket-item';
-    d.innerHTML='<span class="bracket-rank">'+(medals[i]||'#'+(i+1))+'</span><span class="bracket-name">'+title+(RARE.includes(title)?'<br><span style="font-size:.55rem;color:#ffc93c;">⭐ Titolo raro</span>':'')+'</span><span class="bracket-cat">'+getCatLabel(title)+'<br>'+w+' vitt.</span>';
-    bl.appendChild(d);
+
+  document.getElementById('champ-name').textContent=champion;
+  document.getElementById('champ-cat').textContent=getCat(champion).toUpperCase();
+  document.getElementById('champ-rare').textContent=RARE.includes(champion)?'⭐ Titolo raro — disponibile allo stand!':'';
+
+  // Tabellone completo
+  const ebList=document.getElementById('eb-matches'); ebList.innerHTML='';
+  matchHistory.forEach((m,i)=>{
+    const el=document.createElement('div');
+    el.className='eb-match won';
+    el.innerHTML=`
+      <span class="eb-winner">${m.winner}${RARE.includes(m.winner)?' ⭐':''}</span>
+      <span class="eb-vs">⚔️</span>
+      <span class="eb-loser">${m.loser}</span>
+      <span class="hist-round">${m.round}</span>
+    `;
+    ebList.appendChild(el);
   });
-  const dl=document.getElementById('disc-list');dl.innerHTML='';
-  const dh=document.getElementById('disc-head');
-  const rareWon=rareShown.filter(t=>wins[t]);
-  const rareLost=rareShown.filter(t=>!wins[t]);
-  if(rareShown.length>0){
-    dh.textContent='🌟 TITOLI RARI CHE HAI INCONTRATO — DISPONIBILI ALLO STAND';
-    [...rareWon,...rareLost].slice(0,6).forEach(t=>{
-      const d=document.createElement('div');d.className='disc-item';
-      d.innerHTML='<div class="disc-name">'+t+(rareWon.includes(t)?' ✅':' — l\'hai perso di vista!')+' </div><div class="disc-note">Disponibile nel catalogo di Centro Video Taroni — chiedilo allo stand!</div>';
-      dl.appendChild(d);
+
+  // Titoli rari
+  const rareList=document.getElementById('rare-list');
+  const rareSection=document.getElementById('rare-section');
+  rareList.innerHTML='';
+  const rareInTournament=rareShown;
+  if(rareInTournament.length>0){
+    rareSection.style.display='block';
+    rareInTournament.forEach(t=>{
+      const d=document.createElement('div'); d.className='rare-item';
+      const isChamp=t===champion;
+      d.innerHTML=`<div class="rare-name">${t}${isChamp?' 🏆 CAMPIONE':''}${getCat(t)?` — ${getCat(t)}`:''}</div><div class="rare-note">Titolo raro del catalogo — chiedilo allo stand!</div>`;
+      rareList.appendChild(d);
     });
-  } else {dh.textContent='Nessun titolo raro incontrato questa volta — riprova con più sfide!';}
+  } else {
+    rareSection.style.display='none';
+  }
+}
+
+function renderHistory(){
+  const hist=document.getElementById('history');
+  const list=document.getElementById('history-list');
+  if(!matchHistory.length){hist.style.display='none';return;}
+  hist.style.display='block';
+  list.innerHTML='';
+  [...matchHistory].reverse().slice(0,3).forEach(m=>{
+    const el=document.createElement('div'); el.className='hist-item';
+    el.innerHTML=`<span class="hist-win">${m.winner}</span><span style="color:var(--muted);font-size:.55rem;">⚔️</span><span class="hist-lose">${m.loser}</span><span class="hist-round">${m.round}</span>`;
+    list.appendChild(el);
+  });
 }
 
 function goHome(){showScr('s-home');}
-function showScr(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function showScr(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active','fade-in');setTimeout(()=>document.getElementById(id).classList.remove('fade-in'),400);}
 
 const canvas=document.getElementById('bg');const ctx=canvas.getContext('2d');let W,H,bubbles=[];
-function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;bubbles=[];for(let i=0;i<25;i++)bubbles.push({x:Math.random()*W,y:Math.random()*H,r:20+Math.random()*60,vx:(Math.random()-.5)*.2,vy:(Math.random()-.5)*.2,c:Math.random()>.5?'rgba(255,60,60,':'rgba(60,159,255,'});}
-function draw(){ctx.clearRect(0,0,W,H);bubbles.forEach(b=>{b.x+=b.vx;b.y+=b.vy;if(b.x<-b.r)b.x=W+b.r;if(b.x>W+b.r)b.x=-b.r;if(b.y<-b.r)b.y=H+b.r;if(b.y>H+b.r)b.y=-b.r;ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);ctx.fillStyle=b.c+'0.04)';ctx.fill();ctx.strokeStyle=b.c+'0.08)';ctx.lineWidth=.5;ctx.stroke();});requestAnimationFrame(draw);}
-window.addEventListener('resize',resize);resize();draw();
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;bubbles=[];for(let i=0;i<22;i++)bubbles.push({x:Math.random()*W,y:Math.random()*H,r:18+Math.random()*55,vx:(Math.random()-.5)*.18,vy:(Math.random()-.5)*.18,c:Math.random()>.5?'rgba(255,60,60,':'rgba(60,159,255,'});}
+function drawBG(){ctx.clearRect(0,0,W,H);bubbles.forEach(b=>{b.x+=b.vx;b.y+=b.vy;if(b.x<-b.r)b.x=W+b.r;if(b.x>W+b.r)b.x=-b.r;if(b.y<-b.r)b.y=H+b.r;if(b.y>H+b.r)b.y=-b.r;ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);ctx.fillStyle=b.c+'0.04)';ctx.fill();ctx.strokeStyle=b.c+'0.07)';ctx.lineWidth=.5;ctx.stroke();});requestAnimationFrame(drawBG);}
+window.addEventListener('resize',resize);resize();drawBG();
 </script>
 </body>
 </html>
