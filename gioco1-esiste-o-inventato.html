@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geek Oracle — Esiste o È Inventato?</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0d0d;--card:#161616;--border:#2a2a2a;--accent:#e8ff00;--accent2:#ff3c6e;--text:#f0f0f0;--muted:#666;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;overflow-x:hidden;}
+canvas#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.4;}
+.wrap{position:relative;z-index:1;width:100%;max-width:600px;padding:20px 16px 60px;}
+header{text-align:center;padding:30px 0 20px;}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:4px;color:var(--accent);text-shadow:0 0 40px rgba(232,255,0,0.4);line-height:1;}
+.subtitle{font-size:.75rem;letter-spacing:6px;color:var(--muted);margin-top:4px;}
+.credit{font-size:.55rem;letter-spacing:3px;color:#333;margin-top:3px;}
+.hud{display:flex;justify-content:space-between;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 16px;margin-bottom:16px;font-size:.7rem;letter-spacing:2px;}
+.hud-score{color:var(--accent);font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:3px;}
+.hud-lives{font-size:1rem;letter-spacing:2px;}
+.hud-cat{color:var(--muted);font-size:.58rem;}
+.prog-outer{background:#1a1a1a;height:3px;border-radius:2px;margin-bottom:20px;overflow:hidden;}
+.prog-inner{height:100%;background:var(--accent);transition:width .4s ease;border-radius:2px;}
+.film-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:32px 24px;text-align:center;margin-bottom:16px;position:relative;overflow:hidden;}
+.film-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);}
+.cat-badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:.55rem;letter-spacing:2px;margin-bottom:16px;border:1px solid var(--border);color:var(--muted);}
+.film-title{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:2px;line-height:1.15;color:#fff;margin-bottom:8px;min-height:60px;display:flex;align-items:center;justify-content:center;}
+.film-year{font-size:.65rem;letter-spacing:3px;color:var(--muted);margin-bottom:28px;}
+.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.btn-real{background:transparent;border:2px solid var(--accent);color:var(--accent);font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:3px;padding:18px;border-radius:10px;cursor:pointer;transition:all .18s;}
+.btn-real:hover{background:var(--accent);color:#000;}
+.btn-fake{background:transparent;border:2px solid var(--accent2);color:var(--accent2);font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:3px;padding:18px;border-radius:10px;cursor:pointer;transition:all .18s;}
+.btn-fake:hover{background:var(--accent2);color:#fff;}
+.btn-correct{background:var(--accent)!important;border-color:var(--accent)!important;color:#000!important;}
+.btn-wrong{background:var(--accent2)!important;border-color:var(--accent2)!important;color:#fff!important;}
+.feedback{text-align:center;padding:14px;border-radius:10px;font-size:.8rem;letter-spacing:1px;margin-bottom:12px;display:none;line-height:1.6;}
+.feedback.correct{background:rgba(232,255,0,0.1);border:1px solid rgba(232,255,0,0.3);color:var(--accent);}
+.feedback.wrong{background:rgba(255,60,110,0.1);border:1px solid rgba(255,60,110,0.3);color:var(--accent2);}
+.feedback.info{background:rgba(255,255,255,0.05);border:1px solid var(--border);color:#aaa;}
+.btn-next{width:100%;padding:14px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'Barlow',sans-serif;font-size:.75rem;letter-spacing:3px;cursor:pointer;border-radius:8px;transition:all .2s;display:none;margin-top:4px;}
+.btn-next:hover{border-color:var(--accent);color:var(--accent);}
+.screen{display:none;}.screen.active{display:block;}
+.home-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px 22px;text-align:center;margin-bottom:12px;}
+.how-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:3px;color:var(--accent);margin-bottom:16px;}
+.how-steps{text-align:left;font-size:.78rem;line-height:2;color:#aaa;margin-bottom:20px;}
+.how-steps span{color:var(--accent);font-weight:600;}
+.cat-select{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+.cat-btn{background:transparent;border:1px solid var(--border);border-radius:8px;padding:14px 18px;cursor:pointer;color:var(--text);font-family:'Barlow',sans-serif;font-size:.8rem;letter-spacing:2px;transition:all .2s;text-align:left;display:flex;align-items:center;gap:12px;}
+.cat-btn:hover{border-color:var(--accent);color:var(--accent);}
+.cat-btn.active{border-color:var(--accent);background:rgba(232,255,0,0.06);color:var(--accent);}
+.cat-icon{font-size:1.4rem;}
+.btn-start{width:100%;padding:16px;background:var(--accent);border:none;color:#000;font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:4px;cursor:pointer;border-radius:8px;transition:all .2s;}
+.btn-start:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(232,255,0,0.3);}
+.end-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px 22px;text-align:center;margin-bottom:12px;}
+.end-score-big{font-family:'Bebas Neue',sans-serif;font-size:5rem;color:var(--accent);letter-spacing:4px;line-height:1;text-shadow:0 0 40px rgba(232,255,0,0.4);}
+.end-label{font-size:.65rem;letter-spacing:4px;color:var(--muted);margin-bottom:16px;}
+.end-msg{font-size:.85rem;color:#aaa;line-height:1.7;margin-bottom:20px;}
+.discovery-list{text-align:left;margin-bottom:20px;}
+.disc-item{background:rgba(232,255,0,0.04);border:1px solid rgba(232,255,0,0.15);border-radius:8px;padding:10px 14px;margin-bottom:7px;font-size:.72rem;color:#bbb;line-height:1.5;}
+.disc-item strong{color:var(--accent);display:block;font-size:.78rem;margin-bottom:2px;}
+.btn-again{width:100%;padding:14px;background:var(--accent);border:none;color:#000;font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:4px;cursor:pointer;border-radius:8px;margin-bottom:8px;}
+.btn-home{width:100%;padding:12px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'Barlow',sans-serif;font-size:.72rem;letter-spacing:2px;cursor:pointer;border-radius:8px;}
+.flash-correct{animation:flashG .4s ease;}
+.flash-wrong{animation:flashR .4s ease;}
+@keyframes flashG{0%,100%{background:var(--card);}50%{background:rgba(232,255,0,0.15);}}
+@keyframes flashR{0%,100%{background:var(--card);}50%{background:rgba(255,60,110,0.15);}}
+.fade-in{animation:fi .3s ease;}
+@keyframes fi{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<div class="wrap">
+  <header>
+    <div class="logo">ESISTE O È INVENTATO?</div>
+    <div class="subtitle">Il quiz dei titoli impossibili</div>
+    <div class="credit">Centro Video Taroni</div>
+  </header>
+
+  <!-- HOME -->
+  <div class="screen active" id="s-home">
+    <div class="home-card fade-in">
+      <div class="how-title">Come si gioca</div>
+      <div class="how-steps">
+        Ti mostro un titolo di film.<br>
+        Tu devi indovinare: <span>ESISTE davvero</span> nel catalogo<br>
+        oppure è <span>INVENTATO</span> da me?<br><br>
+        Alcuni titoli sono oscuri e sconosciuti —<br>
+        e <em>esistono davvero</em>. Altri sembrano reali ma sono falsi!<br><br>
+        Hai <span>3 vite ❤️❤️❤️</span> — non sprecarle.
+      </div>
+      <div style="font-size:.65rem;letter-spacing:2px;color:var(--muted);margin-bottom:12px;">SCEGLI CATEGORIA</div>
+      <div class="cat-select">
+        <button class="cat-btn active" onclick="selCat(this,'all')"><span class="cat-icon">🌌</span> Tutto il catalogo</button>
+        <button class="cat-btn" onclick="selCat(this,'comics')"><span class="cat-icon">🦸</span> Solo film da comics</button>
+        <button class="cat-btn" onclick="selCat(this,'vg')"><span class="cat-icon">🎮</span> Solo film da videogioco</button>
+        <button class="cat-btn" onclick="selCat(this,'saghe')"><span class="cat-icon">🎬</span> Solo saghe cult</button>
+      </div>
+      <button class="btn-start" onclick="startGame()">⚡ INIZIA LA SFIDA</button>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="screen" id="s-quiz">
+    <div class="hud">
+      <div>
+        <div class="hud-cat" id="q-cat"></div>
+        <div class="hud-score" id="q-score">0</div>
+        <div style="font-size:.55rem;letter-spacing:1px;color:var(--muted);">PUNTI</div>
+      </div>
+      <div style="text-align:center;">
+        <div class="hud-lives" id="q-lives">❤️❤️❤️</div>
+        <div style="font-size:.55rem;letter-spacing:1px;color:var(--muted);">VITE</div>
+      </div>
+      <div style="text-align:right;">
+        <div class="hud-score" id="q-num">1/10</div>
+        <div style="font-size:.55rem;letter-spacing:1px;color:var(--muted);">DOMANDA</div>
+      </div>
+    </div>
+    <div class="prog-outer"><div class="prog-inner" id="prog" style="width:0%"></div></div>
+    <div class="film-card" id="film-card">
+      <div class="cat-badge" id="film-cat-badge">COMICS</div>
+      <div class="film-title" id="film-title">TITOLO FILM</div>
+      <div class="film-year" id="film-hint">— Esiste nel catalogo? —</div>
+      <div class="btn-row">
+        <button class="btn-real" id="btn-real" onclick="answer(true)">✅ ESISTE</button>
+        <button class="btn-fake" id="btn-fake" onclick="answer(false)">❌ INVENTATO</button>
+      </div>
+    </div>
+    <div class="feedback" id="feedback"></div>
+    <button class="btn-next" id="btn-next" onclick="nextQ()">PROSSIMO TITOLO →</button>
+  </div>
+
+  <!-- END -->
+  <div class="screen" id="s-end">
+    <div class="end-card fade-in">
+      <div class="end-label">PUNTEGGIO FINALE</div>
+      <div class="end-score-big" id="end-score">0</div>
+      <div class="end-label" id="end-sub">PUNTI</div>
+      <div class="end-msg" id="end-msg"></div>
+      <div style="font-size:.62rem;letter-spacing:2px;color:var(--accent);margin-bottom:10px;text-align:left;">🔍 TITOLI CHE NON CONOSCEVI (MA ESISTONO!)</div>
+      <div class="discovery-list" id="disc-list"></div>
+      <button class="btn-again" onclick="startGame()">🔁 GIOCA ANCORA</button>
+      <button class="btn-home" onclick="goHome()">← CAMBIA MODALITÀ</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const COMICS=["The marvels","Aquaman - il regno perduto","Blue Beetle","Dampyr","I cavalieri dello zodiaco","The Flash","The Batman","I guardiani della galassia vol. 3","Shazam furia degli Dei","Ant-man and the wasp - Quantumania","The King's man - le origini","Morbius","Wakanda forever","Diabolik - Ginko all'attacco","Eternals","Diabolik","Spider-man - no way home","Doctor Strange nel multiverso della follia","Thor love and thunder","Black Adam","Superman (2025)","Hellboy - l'uomo deforme","Venom the last dance","Kraven il cacciatore","Captain America - the new world","Thunderbolts","Deadpool and Wolverine","Madame web","I fantastici 4 gli inizi","Venom la furia di Carnage","Shang-Chi la leggenda dei dieci anelli","The suicide squad - missione suicida","Black Widow","Zack Snyder's Justice League","Wonder woman 1984","The new mutants","Birds of prey - la fantasmagorica rinascita di Harley Quinn","Joker","Spider-man - far from home","X-men Dark Phoenix","Avengers Endgame","Dredd - il giudice dell'apocalisse","Shazam","Hellboy (2018)","Captain Marvel","Aquaman","Venom","Ant-man and the wasp","Deadpool 2","Avengers infinity war","Il ragazzo invisibile - seconda generazione","Black panther","Thor ragnarok","Justice league","Kingsman il cerchio d'oro","Spider-man homecoming","Wonder woman","I guardiani della galassia vol. 2","Logan - the wolverine","Doctor Strange","Suicide squad","X-men apocalisse","Captain America civil war","Batman v Superman dawn of justice","Deadpool","Fantastic 4 - i fantastici 4 (2015)","Ant-Man","Avengers age of Ultron","Il ragazzo invisibile","Kingsman secret service","I guardiani della galassia","X-men giorni di un futuro passato","The amazing spider-man 2 - il potere di Electro","Captain America - the winter soldier","300 l'alba di un impero","300","I, Frankenstein","Thor the dark world","Kick-ass 2","Red 2","Wolverine l'immortale","The Avengers","L'uomo d'acciaio","Iron man 3","Batman il cavaliere oscuro - il ritorno","The amazing Spider-man","Cowboys & Aliens","Captain America - il primo vendicatore","Lanterna verde","X-men l'inizio","Red","Thor","Kick-ass","The green hornet","Jonah Hex","The losers","Iron man 2","X-men le origini - Wolverine","The punisher","Watchmen","The spirit","Batman il cavaliere oscuro","Iron man","L'incredibile hulk","Spider-man 3","I fantastici 4 e silver surfer","Ghost rider","Ghost rider 2 - spirito di vendetta","X-men conflitto finale","Superman (C. Reeve)","Superman 2","Superman 3","Superman 4","V per Vendetta","Man-thing","I fantastici 4","Batman begins","Sin city","Sin city 2","Blade trinity","Constantine","Elektra","Immortal","Hellboy","Catwoman","Spider-man 2","The punisher","X-men 2","Hulk (2003)","Blade 2","Spider-man","La leggenda degli uomini straordinari","Spawn","The phantom","Il corvo (B. Lee)","Il corvo 2","Il corvo 3","Il corvo (2023)","X-men","Batman & Robin","Batman forever","Batman il ritorno","Batman (T. Burton)","Blade","Dredd (S. Stallone)"];
+const VG=["Lara Croft: Tomb raider (A. Jolie)","Lara Croft - Tomb raider la culla della vita","Super Mario Bros il film","Super Mario Bros (2023)","Wing commander","Warcraft - l'inizio","Un film Minecraft","Uncharted","Tomb raider (2018)","Tekken","Super Mario Galaxy","Street fighter: sfida finale","Street fighter - la leggenda","Silent hill","Silent hill reveletions","Resident Evil: welcome to Racoon city","Rampage: furia animale","Resident evil: vendetta","Resident evil: The final chapter","Resident evil: damnation","Resident evil: retribution","Resident evil: afterlife","Resident evil: degeneration","Resident evil: extinction","Resident evil: apocalypse","Resident evil","Ratchet & Clank","Prince of Persia - le sabbie del tempo","Pokemon - detective Pikachu","Need for speed","Mortal kombat (2021)","Monster hunter","Mortal kombat (1995)","Mortal kombat - distruzione totale","Max Payne","In the name of the king","House of the dead","Hitman - l'assassino","Hitman agente 47","Five nights at Freddy's","Five nights at Freddy's 2","Final fantasy","Final fantasy VII Advent children","Far cry","Doom","Double dragon","DOA: Dead or alive","Cacciatori di zombie","Bloodrayne","Bloodrayne 2","Borderlands","Alone in the dark","Alone in the dark 2","Angry birds","Angry birds 2","Assassin's creed"];
+const SAGHE=["Star wars","Il Signore degli anelli","Lo Hobbit","Dune","Harry Potter","Twilight","Indiana Jones","Monsterverse - Godzilla e Kong","Transformers","Riddick","Hostel","Agente 007 - James Bond","Austin Powers","Una pallottola spuntata","Alien","Predator","Beverly hills cop","Ritorno al futuro","Hunger games","Matrix","Rambo","Pirati dei caraibi","Scream","Jurassic park","Terminator","Mission impossible","Scuola di polizia","Nightmare","Non aprite quella porta","Il pianeta delle scimmie","Saw - l'enigmista","Fast and furious","Venerdi 13","Halloween","La bambola assassina","Fantozzi","American pie"];
+const FAKE_COMICS=["Aquaman - La vendetta degli abissi","Thor: Il martello spezzato","Iron Man: Progetto Omega","Batman: Le ombre di Gotham","Spider-Man: Il ragno nero","Captain America: La nuova alba","Wolverine: Istinto primale","Black Panther: La corona perduta","Doctor Strange: Il libro dei segreti","Deadpool 3: Missione impossibile","Venom: L'ultimo simbionte","Hulk: La furia verde","X-Men: Generazione perduta","Green Lantern: L'anello del destino"];
+const FAKE_VG=["Sonic il film 2","Pac-Man: Il labirinto infinito","Crash Bandicoot: Il ritorno","Halo: Spartan Origins","Grand Theft Auto il film","Call of Duty: Desert Storm","The Last of Us (film)","God of War: La caduta degli dei","Minecraft 2: Il mondo oscuro","Fortnite: Battle Royale il film"];
+const FAKE_SAGHE=["La saga di Conan","I film di Judge Dredd","La saga di Barbarella","Universo Lovecraft","La saga di Flash Gordon","I film di Buck Rogers"];
+
+const OBSCURE_COMICS=["Dampyr","I cavalieri dello zodiaco","The King's man - le origini","Diabolik - Ginko all'attacco","Il ragazzo invisibile - seconda generazione","Dredd - il giudice dell'apocalisse","Il ragazzo invisibile","Cowboys & Aliens","The green hornet","Jonah Hex","The losers","The spirit","Man-thing","The phantom","Spawn","La leggenda degli uomini straordinari","Dredd (S. Stallone)","I, Frankenstein","Immortal","Wolverine l'immortale"];
+const OBSCURE_VG=["Wing commander","Super Mario Galaxy","Ratchet & Clank","DOA: Dead or alive","Cacciatori di zombie","Bloodrayne","Bloodrayne 2","Double dragon","In the name of the king","House of the dead","Far cry"];
+const OBSCURE_SAGHE=["Riddick","Hostel","Una pallottola spuntata","Scuola di polizia","La bambola assassina"];
+
+let selCategory='all', questions=[], curIdx=0, score=0, lives=3, discovered=[];
+
+function selCat(btn, cat){
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  selCategory=cat;
+}
+
+function buildPool(){
+  let realPool=[], fakePool=[], obscurePool=[];
+  if(selCategory==='all'||selCategory==='comics'){realPool=[...realPool,...COMICS];fakePool=[...fakePool,...FAKE_COMICS];obscurePool=[...obscurePool,...OBSCURE_COMICS];}
+  if(selCategory==='all'||selCategory==='vg'){realPool=[...realPool,...VG];fakePool=[...fakePool,...FAKE_VG];obscurePool=[...obscurePool,...OBSCURE_VG];}
+  if(selCategory==='all'||selCategory==='saghe'){realPool=[...realPool,...SAGHE];fakePool=[...fakePool,...FAKE_SAGHE];obscurePool=[...obscurePool,...OBSCURE_SAGHE];}
+  realPool=shuffle(realPool);fakePool=shuffle(fakePool);obscurePool=shuffle(obscurePool);
+  const qs=[];
+  for(let i=0;i<6;i++){if(realPool[i])qs.push({title:realPool[i],real:true,obscure:OBSCURE_COMICS.includes(realPool[i])||OBSCURE_VG.includes(realPool[i])||OBSCURE_SAGHE.includes(realPool[i]),cat:getCat(realPool[i])});}
+  for(let i=0;i<4;i++){if(fakePool[i])qs.push({title:fakePool[i],real:false,obscure:false,cat:'INVENTATO'});}
+  return shuffle(qs);
+}
+
+function getCat(t){
+  if(COMICS.includes(t))return'COMICS';
+  if(VG.includes(t))return'VIDEOGIOCO';
+  if(SAGHE.includes(t))return'SAGA';
+  return'';
+}
+
+function shuffle(a){return a.sort(()=>Math.random()-.5);}
+
+function startGame(){
+  questions=buildPool();curIdx=0;score=0;lives=3;discovered=[];
+  showScr('s-quiz');renderQ();
+}
+
+function renderQ(){
+  const q=questions[curIdx];
+  document.getElementById('q-cat').textContent=selCategory==='all'?'TUTTO IL CATALOGO':selCategory.toUpperCase();
+  document.getElementById('q-score').textContent=score;
+  document.getElementById('q-num').textContent=(curIdx+1)+'/'+questions.length;
+  document.getElementById('prog').style.width=(curIdx/questions.length*100)+'%';
+  document.getElementById('q-lives').textContent='❤️'.repeat(lives)+'🖤'.repeat(3-lives);
+  document.getElementById('film-title').textContent=q.title;
+  document.getElementById('film-cat-badge').textContent=q.real?q.cat:'???';
+  document.getElementById('film-hint').textContent='— Questo film esiste nel catalogo? —';
+  document.getElementById('feedback').style.display='none';
+  document.getElementById('btn-next').style.display='none';
+  document.getElementById('btn-real').disabled=false;
+  document.getElementById('btn-fake').disabled=false;
+  document.getElementById('btn-real').className='btn-real';
+  document.getElementById('btn-fake').className='btn-fake';
+  document.getElementById('film-card').className='film-card fade-in';
+}
+
+function answer(userSaysReal){
+  const q=questions[curIdx];
+  const correct=(userSaysReal===q.real);
+  document.getElementById('btn-real').disabled=true;
+  document.getElementById('btn-fake').disabled=true;
+  if(userSaysReal){document.getElementById('btn-real').className='btn-real '+(correct?'btn-correct':'btn-wrong');}
+  else{document.getElementById('btn-fake').className='btn-fake '+(correct?'btn-correct':'btn-wrong');}
+  const fb=document.getElementById('feedback');
+  fb.style.display='block';
+  if(correct){
+    score+=q.obscure?20:10;
+    fb.className='feedback correct';
+    if(q.obscure&&q.real){
+      fb.innerHTML='🎯 ESATTO! +20 punti! <strong>'+q.title+'</strong> esiste davvero ed è uno dei titoli più rari del catalogo — pochissimi lo conoscono!';
+      discovered.push(q.title);
+    } else if(q.real){
+      fb.innerHTML='✅ CORRETTO! +10 punti! <strong>'+q.title+'</strong> esiste nel catalogo.';
+    } else {
+      fb.innerHTML='✅ CORRETTO! +10 punti! <strong>'+q.title+'</strong> era inventato da me — ben fatto!';
+    }
+    document.getElementById('film-card').classList.add('flash-correct');
+  } else {
+    lives--;
+    fb.className='feedback wrong';
+    if(q.real){
+      fb.innerHTML='❌ Sbagliato! -1 vita. <strong>'+q.title+'</strong> ESISTE davvero nel catalogo! Forse non lo conoscevi...';
+      if(q.obscure)discovered.push(q.title);
+    } else {
+      fb.innerHTML='❌ Sbagliato! -1 vita. Era inventato! <strong>'+q.title+'</strong> non esiste.';
+    }
+    document.getElementById('film-card').classList.add('flash-wrong');
+  }
+  setTimeout(()=>document.getElementById('film-card').classList.remove('flash-correct','flash-wrong'),400);
+  document.getElementById('q-lives').textContent='❤️'.repeat(Math.max(0,lives))+'🖤'.repeat(Math.min(3,3-lives));
+  document.getElementById('btn-next').style.display='block';
+  if(lives<=0){document.getElementById('btn-next').textContent='FINE — Vedi risultati';document.getElementById('btn-next').onclick=showEnd;}
+  else if(curIdx>=questions.length-1){document.getElementById('btn-next').textContent='FINE — Vedi risultati';document.getElementById('btn-next').onclick=showEnd;}
+  else{document.getElementById('btn-next').textContent='PROSSIMO TITOLO →';document.getElementById('btn-next').onclick=nextQ;}
+}
+
+function nextQ(){
+  curIdx++;
+  if(curIdx>=questions.length||lives<=0){showEnd();return;}
+  renderQ();
+}
+
+function showEnd(){
+  showScr('s-end');
+  document.getElementById('end-score').textContent=score;
+  const msgs=[
+    score>=80?'🏆 Sei un vero enciclopedista del cinema fantastico!':
+    score>=50?'⭐ Ottima conoscenza! Hai ancora molto da scoprire.':
+    score>=20?'📚 Discrete basi — vieni a trovare i titoli che non conoscevi!':
+    '🎬 Il catalogo di Centro Video Taroni ha ancora tanti segreti per te!'
+  ];
+  document.getElementById('end-sub').textContent='PUNTI — Vite rimaste: '+'❤️'.repeat(Math.max(0,lives));
+  document.getElementById('end-msg').textContent=msgs[0];
+  const dl=document.getElementById('disc-list');dl.innerHTML='';
+  if(discovered.length===0){dl.innerHTML='<div class="disc-item">Wow, conoscevi già tutti i titoli oscuri che ti ho mostrato! Sei un esperto.</div>';}
+  else{discovered.forEach(t=>{const d=document.createElement('div');d.className='disc-item';d.innerHTML='<strong>'+t+'</strong>Questo titolo esiste nel catalogo — chiedilo allo stand!';dl.appendChild(d);});}
+}
+
+function goHome(){showScr('s-home');}
+function showScr(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+
+// BG canvas
+const canvas=document.getElementById('bg');
+const ctx=canvas.getContext('2d');
+let W,H,pts=[];
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;pts=[];for(let i=0;i<60;i++)pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*1.5+.5});}
+function draw(){ctx.clearRect(0,0,W,H);pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba(232,255,0,0.6)';ctx.fill();});requestAnimationFrame(draw);}
+window.addEventListener('resize',resize);resize();draw();
+</script>
+</body>
+</html>
