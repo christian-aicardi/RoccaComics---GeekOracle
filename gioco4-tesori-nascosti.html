@@ -3,85 +3,76 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Geek Oracle — Scopri i Tesori Nascosti</title>
+<title>Geek Oracle — I Tesori Nascosti</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#070c14;--card:#0d1520;--border:#1e3050;--accent:#f0a500;--cyan:#00d4ff;--text:#e8f4ff;--muted:#4a6a8a;--green:#00e5a0;}
+:root{--bg:#070c14;--card:#0d1520;--border:#1e3050;--acc:#f0a500;--cyan:#00d4ff;--text:#e8f4ff;--muted:#4a6a8a;--green:#00e5a0;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;}
 canvas#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
-.wrap{position:relative;z-index:1;max-width:620px;margin:0 auto;padding:14px 14px 60px;}
-header{text-align:center;padding:22px 0 14px;}
-.logo{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--text);line-height:1.2;}
-.logo span{color:var(--accent);}
-.subtitle{font-size:.6rem;letter-spacing:4px;color:var(--muted);margin-top:5px;}
-.credit{font-size:.5rem;letter-spacing:3px;color:#1a2a3a;margin-top:3px;}
+.wrap{position:relative;z-index:1;max-width:620px;margin:0 auto;padding:12px 13px 60px;}
+header{text-align:center;padding:20px 0 12px;}
+.logo{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;color:var(--text);line-height:1.2;}
+.logo span{color:var(--acc);}
+.subtitle{font-size:.58rem;letter-spacing:4px;color:var(--muted);margin-top:5px;}
+.credit{font-size:.48rem;letter-spacing:3px;color:#1a2a3a;margin-top:3px;}
 .screen{display:none;}.screen.active{display:block;}
-.fade-in{animation:fi .4s ease;}
-@keyframes fi{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
-
-/* HOME */
-.home-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px 20px;margin-bottom:12px;}
-.home-h{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--accent);margin-bottom:14px;}
-.how{font-size:.82rem;line-height:2.1;color:#8aaccc;margin-bottom:18px;}
+.fade-in{animation:fi .35s ease;}
+@keyframes fi{from{opacity:0;transform:translateY(9px);}to{opacity:1;transform:translateY(0);}}
+.home-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px 18px;margin-bottom:12px;}
+.home-h{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--acc);margin-bottom:12px;}
+.how{font-size:.8rem;line-height:2.1;color:#8aaccc;margin-bottom:16px;}
 .how b{color:var(--text);}
-.filter-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px;}
-.filter-btn{padding:7px 14px;background:transparent;border:1px solid var(--border);border-radius:20px;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.68rem;cursor:pointer;transition:all .18s;}
-.filter-btn.active,.filter-btn:hover{border-color:var(--accent);color:var(--accent);background:rgba(240,165,0,0.06);}
-.btn-start{width:100%;padding:16px;background:var(--accent);border:none;color:#000;font-family:'Playfair Display',serif;font-size:1.1rem;cursor:pointer;border-radius:10px;transition:all .2s;letter-spacing:1px;}
-.btn-start:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(240,165,0,0.35);}
-
-/* CARD FILM */
+.filter-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px;}
+.filter-btn{padding:6px 13px;background:transparent;border:1px solid var(--border);border-radius:20px;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.67rem;cursor:pointer;transition:all .18s;}
+.filter-btn.active,.filter-btn:hover{border-color:var(--acc);color:var(--acc);background:rgba(240,165,0,0.06);}
+.btn-start{width:100%;padding:15px;background:var(--acc);border:none;color:#000;font-family:'Playfair Display',serif;font-size:1.05rem;cursor:pointer;border-radius:10px;transition:all .2s;letter-spacing:1px;}
+.btn-start:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(240,165,0,0.32);}
 .film-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:12px;}
-.film-header{padding:20px 18px 16px;border-bottom:1px solid var(--border);position:relative;}
-.film-header::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--cyan));}
-.film-num{font-size:.55rem;letter-spacing:3px;color:var(--muted);margin-bottom:6px;display:flex;justify-content:space-between;}
-.film-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:8px;}
-.film-meta{display:flex;gap:10px;flex-wrap:wrap;}
-.meta-tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.55rem;letter-spacing:1px;}
-.tag-cat{background:rgba(0,212,255,0.1);color:var(--cyan);border:1px solid rgba(0,212,255,0.2);}
-.tag-year{background:rgba(240,165,0,0.1);color:var(--accent);border:1px solid rgba(240,165,0,0.2);}
-.tag-rare{background:rgba(0,229,160,0.1);color:var(--green);border:1px solid rgba(0,229,160,0.2);}
-.film-body{padding:16px 18px;}
-.section-label{font-size:.55rem;letter-spacing:2px;color:var(--muted);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
-.section-label::after{content:'';flex:1;height:1px;background:var(--border);}
-.desc-text{font-size:.82rem;line-height:1.8;color:#8aaccc;margin-bottom:14px;}
-.curiosity-box{background:rgba(240,165,0,0.05);border:1px solid rgba(240,165,0,0.15);border-radius:10px;padding:12px 14px;margin-bottom:14px;}
-.curiosity-text{font-size:.78rem;line-height:1.7;color:#cca040;font-style:italic;}
-.mood-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px;}
-.mood-tag{padding:5px 11px;border-radius:20px;font-size:.62rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#6a8aaa;}
-.rating-row{display:flex;gap:8px;align-items:center;margin-bottom:14px;}
-.rating-label{font-size:.6rem;letter-spacing:2px;color:var(--muted);min-width:80px;}
-.stars{color:var(--accent);font-size:.9rem;letter-spacing:2px;}
-.reaction-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
-.react-btn{padding:11px;background:transparent;border:1px solid var(--border);border-radius:10px;cursor:pointer;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.72rem;text-align:center;transition:all .2s;}
-.react-btn:hover{border-color:var(--accent);color:var(--accent);background:rgba(240,165,0,0.06);}
-.react-btn.chosen{border-color:var(--accent);color:var(--accent);background:rgba(240,165,0,0.1);}
-.nav-row{display:flex;gap:8px;margin-top:8px;}
-.btn-prev{flex:1;padding:12px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.7rem;letter-spacing:1px;cursor:pointer;border-radius:8px;transition:all .2s;}
+.film-header{padding:18px 16px 14px;border-bottom:1px solid var(--border);position:relative;}
+.film-header::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--acc),var(--cyan));}
+.film-num{font-size:.52rem;letter-spacing:3px;color:var(--muted);margin-bottom:5px;display:flex;justify-content:space-between;}
+.film-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:7px;}
+.film-meta{display:flex;gap:9px;flex-wrap:wrap;}
+.meta-tag{display:inline-block;padding:3px 9px;border-radius:20px;font-size:.52rem;letter-spacing:1px;}
+.tag-cat{background:rgba(0,212,255,0.1);color:var(--cyan);border:1px solid rgba(0,212,255,0.18);}
+.tag-year{background:rgba(240,165,0,0.1);color:var(--acc);border:1px solid rgba(240,165,0,0.18);}
+.tag-rare{background:rgba(0,229,160,0.1);color:var(--green);border:1px solid rgba(0,229,160,0.18);}
+.film-body{padding:14px 16px;}
+.sec-lbl{font-size:.52rem;letter-spacing:2px;color:var(--muted);margin-bottom:5px;display:flex;align-items:center;gap:5px;}
+.sec-lbl::after{content:'';flex:1;height:1px;background:var(--border);}
+.desc-txt{font-size:.8rem;line-height:1.8;color:#8aaccc;margin-bottom:12px;}
+.cur-box{background:rgba(240,165,0,0.05);border:1px solid rgba(240,165,0,0.14);border-radius:10px;padding:11px 13px;margin-bottom:12px;}
+.cur-txt{font-size:.76rem;line-height:1.7;color:#cca040;font-style:italic;}
+.mood-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+.mood-tag{padding:4px 10px;border-radius:20px;font-size:.6rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);color:#6a8aaa;}
+.react-row{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:7px;}
+.react-btn{padding:10px;background:transparent;border:1px solid var(--border);border-radius:10px;cursor:pointer;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.7rem;text-align:center;transition:all .2s;}
+.react-btn:hover{border-color:var(--acc);color:var(--acc);background:rgba(240,165,0,0.06);}
+.react-btn.chosen{border-color:var(--acc);color:var(--acc);background:rgba(240,165,0,0.1);}
+.nav-row{display:flex;gap:7px;margin-top:7px;}
+.btn-prev{flex:1;padding:11px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.68rem;letter-spacing:1px;cursor:pointer;border-radius:8px;transition:all .2s;}
 .btn-prev:hover{border-color:var(--cyan);color:var(--cyan);}
-.btn-next2{flex:2;padding:12px;background:transparent;border:1px solid var(--accent);color:var(--accent);font-family:'DM Sans',sans-serif;font-size:.7rem;letter-spacing:1px;cursor:pointer;border-radius:8px;transition:all .2s;}
-.btn-next2:hover{background:rgba(240,165,0,0.1);}
-.btn-end{flex:2;padding:12px;background:var(--accent);border:none;color:#000;font-family:'Playfair Display',serif;font-size:.8rem;cursor:pointer;border-radius:8px;}
-.prog-wrap{background:rgba(255,255,255,0.04);height:3px;border-radius:2px;margin:0 18px 0;}
-.prog-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--accent),var(--cyan));transition:width .5s ease;}
-
-/* END */
-.end-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:26px 20px;margin-bottom:12px;}
-.end-h{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--accent);margin-bottom:6px;}
-.end-sub{font-size:.6rem;letter-spacing:3px;color:var(--muted);margin-bottom:16px;}
-.end-msg{font-size:.82rem;color:#8aaccc;line-height:1.8;margin-bottom:18px;}
-.wishlist-section{margin-bottom:16px;}
-.wishlist-title{font-size:.58rem;letter-spacing:2px;color:var(--accent);margin-bottom:10px;}
-.wishlist-item{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:rgba(240,165,0,0.04);border:1px solid rgba(240,165,0,0.12);border-radius:10px;margin-bottom:7px;}
-.wi-icon{font-size:1.2rem;flex-shrink:0;margin-top:1px;}
-.wi-title{font-size:.75rem;color:var(--text);font-weight:500;margin-bottom:2px;}
-.wi-react{font-size:.62rem;color:var(--muted);}
-.seen-section{margin-bottom:16px;}
-.seen-title{font-size:.58rem;letter-spacing:2px;color:var(--cyan);margin-bottom:10px;}
-.seen-item{padding:8px 12px;background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.1);border-radius:8px;margin-bottom:5px;font-size:.72rem;color:#6aaccc;}
-.btn-again2{width:100%;padding:13px;background:var(--accent);border:none;color:#000;font-family:'Playfair Display',serif;font-size:1rem;cursor:pointer;border-radius:8px;margin-bottom:8px;letter-spacing:1px;}
-.btn-home2{width:100%;padding:11px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.7rem;letter-spacing:2px;cursor:pointer;border-radius:8px;}
+.btn-nxt{flex:2;padding:11px;background:transparent;border:1px solid var(--acc);color:var(--acc);font-family:'DM Sans',sans-serif;font-size:.68rem;letter-spacing:1px;cursor:pointer;border-radius:8px;transition:all .2s;}
+.btn-nxt:hover{background:rgba(240,165,0,0.1);}
+.btn-end{flex:2;padding:11px;background:var(--acc);border:none;color:#000;font-family:'Playfair Display',serif;font-size:.78rem;cursor:pointer;border-radius:8px;}
+.prog-wrap{background:rgba(255,255,255,0.04);height:3px;border-radius:2px;margin:0 16px 0;}
+.prog-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--acc),var(--cyan));transition:width .5s ease;}
+.end-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px 18px;margin-bottom:12px;}
+.end-h{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--acc);margin-bottom:5px;}
+.end-sub{font-size:.58rem;letter-spacing:3px;color:var(--muted);margin-bottom:14px;}
+.end-msg{font-size:.8rem;color:#8aaccc;line-height:1.8;margin-bottom:16px;}
+.wish-sec{margin-bottom:14px;}
+.wish-title{font-size:.55rem;letter-spacing:2px;color:var(--acc);margin-bottom:8px;}
+.wish-item{display:flex;gap:9px;align-items:flex-start;padding:9px 11px;background:rgba(240,165,0,0.04);border:1px solid rgba(240,165,0,0.12);border-radius:10px;margin-bottom:6px;}
+.wi-icon{font-size:1.1rem;flex-shrink:0;margin-top:1px;}
+.wi-title{font-size:.72rem;color:var(--text);font-weight:500;margin-bottom:1px;}
+.wi-react{font-size:.6rem;color:var(--muted);}
+.seen-sec{margin-bottom:14px;}
+.seen-title{font-size:.55rem;letter-spacing:2px;color:var(--cyan);margin-bottom:8px;}
+.seen-item{padding:7px 11px;background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.1);border-radius:8px;margin-bottom:5px;font-size:.7rem;color:#6aaccc;}
+.btn-again2{width:100%;padding:12px;background:var(--acc);border:none;color:#000;font-family:'Playfair Display',serif;font-size:.95rem;cursor:pointer;border-radius:8px;margin-bottom:7px;letter-spacing:1px;}
+.btn-home2{width:100%;padding:10px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.68rem;letter-spacing:2px;cursor:pointer;border-radius:8px;}
 </style>
 </head>
 <body>
@@ -97,21 +88,20 @@ header{text-align:center;padding:22px 0 14px;}
     <div class="home-card fade-in">
       <div class="home-h">📽️ Come funziona</div>
       <div class="how">
-        Ti mostro <b>titoli rari e sconosciuti</b> del catalogo.<br>
-        Per ogni film: una descrizione, una curiosità,<br>
-        il mood e la tua <b>reazione personale</b>.<br>
-        Alla fine scopri quali film dovresti recuperare! 🎬<br><br>
-        <b>Niente punti, niente vite</b> — solo scoperta.
+        Ti mostro titoli del catalogo uno per uno,<br>
+        con trama, curiosità e mood del film.<br>
+        Per ognuno scegli la tua <b>reazione personale</b>.<br>
+        Alla fine scopri quali film dovresti recuperare! 🎬
       </div>
-      <div style="font-size:.62rem;letter-spacing:2px;color:var(--muted);margin-bottom:10px;">CATEGORIA</div>
+      <div style="font-size:.6rem;letter-spacing:2px;color:var(--muted);margin-bottom:9px;">CATEGORIA</div>
       <div class="filter-row">
         <button class="filter-btn active" onclick="selCat(this,'all')">🌌 Tutto</button>
         <button class="filter-btn" onclick="selCat(this,'comics')">🦸 Comics</button>
         <button class="filter-btn" onclick="selCat(this,'vg')">🎮 Videogioco</button>
         <button class="filter-btn" onclick="selCat(this,'saghe')">🎬 Saghe</button>
       </div>
-      <div style="font-size:.62rem;letter-spacing:2px;color:var(--muted);margin-bottom:10px;">QUANTI FILM VUOI SCOPRIRE?</div>
-      <div class="filter-row" id="num-filters">
+      <div style="font-size:.6rem;letter-spacing:2px;color:var(--muted);margin-bottom:9px;">QUANTI FILM?</div>
+      <div class="filter-row" id="num-row">
         <button class="filter-btn active" onclick="selNum(this,5)">5 film</button>
         <button class="filter-btn" onclick="selNum(this,8)">8 film</button>
         <button class="filter-btn" onclick="selNum(this,12)">12 film</button>
@@ -124,28 +114,23 @@ header{text-align:center;padding:22px 0 14px;}
     <div class="film-card fade-in" id="film-card">
       <div class="prog-wrap"><div class="prog-fill" id="prog" style="width:0%"></div></div>
       <div class="film-header">
-        <div class="film-num">
-          <span id="f-num">Film 1 di 5</span>
-          <span id="f-rare-badge"></span>
-        </div>
+        <div class="film-num"><span id="f-num">Film 1 di 5</span><span id="f-rare-badge"></span></div>
         <div class="film-title" id="f-title"></div>
         <div class="film-meta" id="f-meta"></div>
       </div>
       <div class="film-body">
-        <div class="section-label">📖 Trama</div>
-        <div class="desc-text" id="f-desc"></div>
-        <div class="section-label">💡 Lo sapevi?</div>
-        <div class="curiosity-box"><div class="curiosity-text" id="f-curiosity"></div></div>
-        <div class="section-label">🎭 Mood del film</div>
+        <div class="sec-lbl">📖 Trama</div>
+        <div class="desc-txt" id="f-desc"></div>
+        <div class="sec-lbl">💡 Lo sapevi?</div>
+        <div class="cur-box"><div class="cur-txt" id="f-cur"></div></div>
+        <div class="sec-lbl">🎭 Mood</div>
         <div class="mood-row" id="f-moods"></div>
-        <div class="section-label">⭐ Rarità nel catalogo</div>
-        <div class="rating-row"><span class="rating-label">Quanto è raro</span><span class="stars" id="f-stars"></span></div>
-        <div class="section-label">💬 Cosa ne pensi?</div>
-        <div class="reaction-row">
-          <button class="react-btn" onclick="react('vedere','👀 Voglio vederlo!')">👀 Voglio vederlo!</button>
-          <button class="react-btn" onclick="react('visto','✅ L\'ho già visto')">✅ L'ho già visto</button>
-          <button class="react-btn" onclick="react('curioso','🤔 Mi incuriosisce')">🤔 Mi incuriosisce</button>
-          <button class="react-btn" onclick="react('no','❌ Non fa per me')">❌ Non fa per me</button>
+        <div class="sec-lbl">💬 Cosa ne pensi?</div>
+        <div class="react-row">
+          <button class="react-btn" data-key="vedere" onclick="react(this)">👀 Voglio vederlo!</button>
+          <button class="react-btn" data-key="visto" onclick="react(this)">✅ L'ho già visto</button>
+          <button class="react-btn" data-key="curioso" onclick="react(this)">🤔 Mi incuriosisce</button>
+          <button class="react-btn" data-key="no" onclick="react(this)">❌ Non fa per me</button>
         </div>
         <div class="nav-row" id="nav-row"></div>
       </div>
@@ -157,187 +142,139 @@ header{text-align:center;padding:22px 0 14px;}
       <div class="end-h">La tua lista</div>
       <div class="end-sub">FILM DA RECUPERARE</div>
       <div class="end-msg" id="end-msg"></div>
-      <div class="wishlist-section">
-        <div class="wishlist-title">🎬 VUOI VEDERE / TI INCURIOSISCE — Chiedili allo stand!</div>
-        <div id="wishlist"></div>
-      </div>
-      <div class="seen-section">
-        <div class="seen-title">✅ GIÀ VISTI — Complimenti, sei un esperto!</div>
-        <div id="seen-list"></div>
-      </div>
+      <div class="wish-sec"><div class="wish-title">🎬 DA VEDERE / TI INCURIOSISCE — Chiedili allo stand!</div><div id="wishlist"></div></div>
+      <div class="seen-sec"><div class="seen-title">✅ GIÀ VISTI — Sei un esperto!</div><div id="seen-list"></div></div>
       <button class="btn-again2" onclick="startExplore()">🔍 ESPLORA ALTRI FILM</button>
-      <button class="btn-home2" onclick="goHome()">← CAMBIA MODALITÀ</button>
+      <button class="btn-home2" onclick="goHome()">← CAMBIA CATEGORIA</button>
     </div>
   </div>
 </div>
 
 <script>
-const FILMS = [
-  {title:"Dampyr",cat:"COMICS",year:"2022",stars:5,
-   desc:"Harlan Draka scopre di essere un Dampyr — figlio di un vampiro — e viene reclutato per combattere una stirpe di non-morti che sta decimando un esercito nei Balcani.",
-   curiosity:"Basato sul fumetto Bonelli di culto con oltre 200 albi pubblicati. È il primo adattamento live-action della saga, girato in Serbia con produzione italo-ceca.",
-   moods:["🧛 Horror","⚔️ Azione","🌑 Dark","🇮🇹 Made in Italy"]},
-  {title:"I cavalieri dello zodiaco",cat:"COMICS",year:"2023",
-   stars:4,
-   desc:"Seiya, un giovane guerriero di strada, scopre di essere uno dei leggendari Cavalieri dello Zodiaco, destinato a proteggere la dea Atena con poteri cosmici ancestrali.",
-   curiosity:"Trasposizione live-action dell'anime Saint Seiya, amatissimo in Italia negli anni '90. Produzione americana con attori internazionali e scene d'azione all'insegna dei Cosmo.",
-   moods:["✨ Fantasy","👊 Azione","🌟 Nostalgia 90s","🪐 Cosmo"]},
-  {title:"Il ragazzo invisibile",cat:"COMICS",year:"2014",
-   stars:4,
-   desc:"Michele, un tredicenne di Trieste, scopre di poter diventare invisibile. Primo cinecomics interamente italiano, con un adolescente alle prese con poteri e bullismo.",
-   curiosity:"Diretto da Gabriele Salvatores (Oscar per Mediterraneo), è il primo film di supereroi italiano. Ha avuto un sequel nel 2018 e ha aperto la strada al genere fantasy in Italia.",
-   moods:["🇮🇹 Made in Italy","🦸 Supereroi","🎒 Coming of age","❤️ Emotivo"]},
-  {title:"Diabolik - Ginko all'attacco",cat:"COMICS",year:"2022",
-   stars:4,
-   desc:"Il ladro mascherato Diabolik affronta il suo eterno rivale, l'Ispettore Ginko, mentre una nuova minaccia mette a rischio sia la loro rivalità che i loro affetti.",
-   curiosity:"Secondo capitolo della trilogia dei Manetti Bros. ispirata al fumetto delle sorelle Giussani. Miriam Leone è Eva Kant: interpretazione acclamata dalla critica italiana.",
-   moods:["🎭 Noir","🔫 Thriller","🇮🇹 Made in Italy","😎 Cool"]},
-  {title:"Jonah Hex",cat:"COMICS",year:"2010",
-   stars:3,
-   desc:"Un cacciatore di taglie sfigurato nel selvaggio West possiede il potere soprannaturale di parlare con i morti. Deve fermare un ex generale confederato prima che distrugga Washington.",
-   curiosity:"Adattamento DC poco conosciuto con Josh Brolin e Megan Fox. Il personaggio di Jonah Hex è uno dei più antichi fumetti DC, creato nel 1972 — precede Batman!",
-   moods:["🤠 Western","👻 Soprannaturale","💥 Azione","🌵 Old West"]},
-  {title:"The spirit",cat:"COMICS",year:"2008",
-   stars:3,
-   desc:"Un detective ucciso torna in vita come guardiano immortale della sua città, scontrandosi con il misterioso villain Octopus in uno stile visivo completamente fumettistico.",
-   curiosity:"Diretto e scritto da Frank Miller (Sin City). Ispirato al fumetto di Will Eisner del 1940, considerato rivoluzionario per le tecniche narrative. Girato quasi interamente su green screen.",
-   moods:["🖤 Noir","🎨 Stile visivo","🦸 Supereroe","📖 Fumetto"]},
-  {title:"Man-thing",cat:"COMICS",year:"2005",
-   stars:2,
-   desc:"Una creatura vegetale del pantano si sveglia e inizia a difendere ferocemente la sua palude da sviluppatori corrotti che vogliono sfruttarne le risorse.",
-   curiosity:"Uno dei film Marvel più oscuri e dimenticati — distribuito direttamente in TV negli USA. Man-Thing (Uomo-Cosa) è il personaggio Marvel che ha ispirato DC a creare Swamp Thing.",
-   moods:["🌿 Horror","🐊 Creature feature","🌊 Palude","🎃 Weird"]},
-  {title:"La leggenda degli uomini straordinari",cat:"COMICS",year:"2003",
-   stars:3,
-   desc:"Allan Quatermain guida una squadra di straordinari personaggi letterari — tra cui Dorian Gray, il Capitano Nemo, l'Uomo Invisibile — contro un villain che vuole scatenare una guerra mondiale.",
-   curiosity:"Basato sulla graphic novel di Alan Moore. È stato il film d'addio di Sean Connery, che dopo questa produzione si ritirò definitivamente dal cinema. Un crossover letterario unico.",
-   moods:["📚 Letteratura","🎩 Vittoriano","🔫 Avventura","🤝 Team-up"]},
-  {title:"Wing commander",cat:"VIDEOGIOCO",year:"1999",
-   stars:2,
-   desc:"Piloti spaziali dell'Unione terrestre combattono contro i Kilrathi, una feroce razza aliena felina, in una guerra galattica per la sopravvivenza dell'umanità.",
-   curiosity:"Uno dei primissimi film tratti da un videogioco — prima ancora di Tomb Raider! Il regista è lo stesso creatore del videogioco originale. Freddie Prinze Jr. è il protagonista.",
-   moods:["🚀 Sci-Fi","✈️ Combattimento","🐱 Alieni","💾 Videogame"]},
-  {title:"DOA: Dead or alive",cat:"VIDEOGIOCO",year:"2006",
-   stars:3,
-   desc:"Le migliori combattenti del mondo vengono invitate su un'isola privata per partecipare al torneo DOA. Azione, combattimenti e un piano segreto da smascherare.",
-   curiosity:"Tratto dall'omonimo picchiaduro. Corine Everson, Holly Valance e Devon Aoki compongono il cast. È diventato un cult per l'estetica anni 2000 e l'ironia involontaria.",
-   moods:["👊 Combattimento","🏖️ Estate","💃 Girl power","😄 Divertente"]},
-  {title:"In the name of the king",cat:"VIDEOGIOCO",year:"2007",
-   stars:2,
-   desc:"Un semplice contadino di nome Farmer deve salvare il suo regno dal mago Gallian e dall'orda di mostri Krugs, scoprendo un destino più grande di lui.",
-   curiosity:"Diretto da Uwe Boll, il regista più famoso per i suoi adattamenti di videogiochi — e il più criticato. Nonostante tutto, il film ha un cast di tutto rispetto: Jason Statham e Ray Liotta.",
-   moods:["⚔️ Fantasy","🧙 Magia","🏰 Medioevo","🎭 B-movie"]},
-  {title:"Bloodrayne",cat:"VIDEOGIOCO",year:"2005",
-   stars:2,
-   desc:"Rayne è una dhampir — metà umana, metà vampiro — che nel Settecento europeo si unisce a una società segreta per combattere i vampiri e vendicarsi del padre.",
-   curiosity:"Altro film di Uwe Boll, con Kristanna Loken (Terminator 3). Nonostante sia universalmente considerato un flop, ha avuto 3 sequel diretti. Un caso cinematografico unico.",
-   moods:["🧛 Vampiri","⚔️ Azione","🏰 Storico","🩸 Horror"]},
-  {title:"Riddick",cat:"SAGHE",year:"2000-2013",
-   stars:4,
-   desc:"Richard Riddick, un pericoloso fuggitivo con la vista notturna modificata, sopravvive su pianeti ostili braccato da cacciatori di taglie e creature aliene.",
-   curiosity:"Vin Diesel amava così tanto il personaggio da finanziare di tasca propria il terzo capitolo quando gli studios rifiutarono. La saga ha un universo espanso con cortometraggi e giochi.",
-   moods:["🌑 Sci-Fi dark","💪 Survival","🔦 Azione","🪐 Space"]},
-  {title:"Hostel",cat:"SAGHE",year:"2005",
-   stars:3,
-   desc:"Studenti universitari in viaggio per l'Europa orientale vengono attirati da una trappola mortale: una rete criminale che vende l'accesso a vittime umane ai ricchi più sadici.",
-   curiosity:"Prodotto da Quentin Tarantino, ha lanciato il genere 'torture porn'. Il film ha generato controversie in Slovacchia per la rappresentazione del paese. Incasso: 20x il budget.",
-   moods:["😱 Horror","✈️ Backpacking","🔪 Thriller","💸 Criminalità"]},
-  {title:"Una pallottola spuntata",cat:"SAGHE",year:"1988",
-   stars:5,
-   desc:"Il tenente Frank Drebin, poliziotto goffo e irresistibile, indaga su attentati e crimini con una totale incapacità di stare fuori dai guai — e un umorismo devastante.",
-   curiosity:"Leslie Nielsen era famoso come attore drammatico prima di Airplane! (1980). La saga ha 3 film e una serie TV ('Police Squad!'). Molti gag sono ancora citati nei meme moderni.",
-   moods:["😂 Commedia","🚔 Poliziesco","🎭 Slapstick","🏆 Cult"]},
-  {title:"Scuola di polizia",cat:"SAGHE",year:"1984",
-   stars:4,
-   desc:"Una nuova legge impone di accettare qualsiasi candidato all'accademia di polizia. Il risultato è un gruppo di reclute assolutamente improbabili che devono diventare agenti.",
-   curiosity:"Ha generato 7 film, una serie TV animata e una serie live-action — uno dei franchise comici più longevi di Hollywood. In Italia è rimasto un cult assoluto per chi era ragazzo negli anni '80.",
-   moods:["😂 Commedia","👮 Polizia","🎉 Anni 80","🏆 Nostalgia"]},
-  {title:"La bambola assassina",cat:"SAGHE",year:"1988",
-   stars:4,
-   desc:"Una madre regala al figlio una bambola parlante di nome Chucky. Peccato che dentro ci sia l'anima di un serial killer. Uno dei villain più iconici dell'horror.",
-   curiosity:"Chucky è diventato così iconico da avere una serie TV su SyFy ancora in produzione nel 2024. Il creatore Don Mancini ha scritto tutti i 7 film — rarissimo nel cinema horror.",
-   moods:["😱 Horror","🪆 Bambole","😂 Dark humor","🎃 Halloween"]},
-  {title:"Immortal",cat:"COMICS",year:"2004",
-   stars:3,
-   desc:"In una Parigi del 2095 dominata da megastrutture galleggianti, il dio Horus scende dalla piramide volante per trovare un corpo umano e svolgere la sua missione divina.",
-   curiosity:"Film franco-britannico diretto da Enki Bilal, fumettista di culto. Mix unico di attori reali e personaggi interamente in CGI (anni prima di Avatar). Tratto dalla sua graphic novel.",
-   moods:["🏙️ Cyberpunk","🦅 Mitologia","🎨 Arte","🌆 Distopico"]},
-  {title:"The phantom",cat:"COMICS",year:"1996",
-   stars:3,
-   desc:"Il Fantasma — eroe mascherato del fumetto degli anni '30 — affronta un magnate senza scrupoli che cerca tre antichi teschi dotati di poteri soprannaturali.",
-   curiosity:"Il Fantasma è il primo supereroe a indossare un costume attillato (1936!), precede Superman. Billy Zane nel ruolo: ha allenato intensamente per 6 mesi. Film spesso dimenticato ma godibilissimo.",
-   moods:["🦸 Supereroe","🌴 Avventura","📖 Fumetto vintage","🎩 Anni 30"]},
-  {title:"Double dragon",cat:"VIDEOGIOCO",year:"1994",
-   stars:2,
-   desc:"Due fratelli combattenti, Billy e Jimmy Lee, cercano le due metà di un antico medaglione magico in una Los Angeles post-apocalittica dominata da gang.",
-   curiosity:"Il film uscì nello stesso anno di Street Fighter e Mortal Kombat — un'annata d'oro per gli adattamenti di picchiaduro. Robert Patrick (T-1000 in T2) interpreta il villain principale.",
-   moods:["👊 Picchiaduro","🌆 Post-apocalittico","🥋 Arti marziali","😄 Anni 90"]},
+const FILMS=[
+  // COMICS — mix noti e rari
+  {title:"Dampyr",cat:"comics",year:"2022",rare:true,desc:"Harlan Draka scopre di essere un Dampyr — figlio di un vampiro — e viene reclutato per combattere una stirpe di non-morti nei Balcani.",cur:"Basato sul fumetto Bonelli con oltre 200 albi. Primo adattamento live-action della saga, girato in Serbia.",moods:["🧛 Horror","⚔️ Azione","🌑 Dark","🇮🇹 Made in Italy"]},
+  {title:"I cavalieri dello zodiaco",cat:"comics",year:"2023",rare:true,desc:"Seiya, un giovane guerriero di strada, scopre di essere uno dei leggendari Cavalieri destinati a proteggere la dea Atena.",cur:"Live-action del celebre anime Saint Seiya, amatissimo in Italia negli anni '90. Produzione americana internazionale.",moods:["✨ Fantasy","👊 Azione","🌟 Nostalgia 90s","🪐 Cosmo"]},
+  {title:"Il ragazzo invisibile",cat:"comics",year:"2014",rare:true,desc:"Michele, un tredicenne di Trieste, scopre di poter diventare invisibile. Il primo cinecomics interamente italiano.",cur:"Diretto da Gabriele Salvatores (Oscar per Mediterraneo). Ha avuto un sequel nel 2018.",moods:["🇮🇹 Made in Italy","🦸 Supereroi","🎒 Coming of age","❤️ Emotivo"]},
+  {title:"Diabolik - Ginko all'attacco",cat:"comics",year:"2022",rare:true,desc:"Il ladro mascherato italiano affronta il suo eterno rivale ispettore Ginko in questo secondo capitolo dei Manetti Bros.",cur:"Miriam Leone è Eva Kant: interpretazione acclamata. La trilogia è la prima saga italiana di supercriminali.",moods:["🎭 Noir","🔫 Thriller","🇮🇹 Made in Italy","😎 Cool"]},
+  {title:"Jonah Hex",cat:"comics",year:"2010",rare:true,desc:"Un cacciatore di taglie sfigurato nel selvaggio West possiede il potere soprannaturale di parlare con i morti.",cur:"Personaggio DC creato nel 1972 — precede Batman! Josh Brolin nel ruolo principale.",moods:["🤠 Western","👻 Soprannaturale","💥 Azione","🌵 Old West"]},
+  {title:"The spirit",cat:"comics",year:"2008",rare:true,desc:"Un detective immortale protegge la sua città dal misterioso Octopus in uno stile visivo interamente fumettistico.",cur:"Diretto da Frank Miller. Ispirato al fumetto di Will Eisner del 1940, rivoluzionario per le tecniche narrative.",moods:["🖤 Noir","🎨 Stile visivo","🦸 Supereroe","📖 Fumetto"]},
+  {title:"Man-thing",cat:"comics",year:"2005",rare:true,desc:"Una creatura vegetale del pantano si difende ferocemente dai corrotti che vogliono sfruttare il suo habitat.",cur:"Uno dei film Marvel più rari — distribuito direttamente in TV negli USA. Man-Thing ha ispirato DC a creare Swamp Thing.",moods:["🌿 Horror","🐊 Creature feature","🌊 Palude","🎃 Weird"]},
+  {title:"La leggenda degli uomini straordinari",cat:"comics",year:"2003",rare:true,desc:"Allan Quatermain guida un team di eroi letterari vittoriani — Dorian Gray, Nemo, l'Uomo Invisibile — contro una minaccia mondiale.",cur:"Ultimo film di Sean Connery, che si ritirò definitivamente dopo questa produzione. Crossover letterario unico.",moods:["📚 Letteratura","🎩 Vittoriano","🔫 Avventura","🤝 Team-up"]},
+  {title:"Cowboys & Aliens",cat:"comics",year:"2011",rare:true,desc:"Un cowboy con la memoria cancellata e un misterioso bracciale deve fermare un'invasione aliena nel Far West.",cur:"Diretto da Jon Favreau (Iron Man). Daniel Craig e Harrison Ford insieme — accoppiata insolita e indimenticabile.",moods:["🤠 Western","👽 Fantascienza","💥 Azione","🔮 Mistero"]},
+  {title:"I, Frankenstein",cat:"comics",year:"2014",rare:true,desc:"La creatura di Frankenstein sopravvive fino ai giorni nostri, coinvolta in una guerra secolare tra demoni e gargoyle.",cur:"Basato sulla graphic novel di Kevin Grevioux. Aaron Eckhart ha perso 13 kg per il ruolo.",moods:["💀 Dark","⚔️ Fantasy","🌆 Moderno","🧟 Creature"]},
+  {title:"Immortal",cat:"comics",year:"2004",rare:true,desc:"In una Parigi del 2095, il dio Horus scende da una piramide volante per trovare un corpo umano e svolgere la sua missione.",cur:"Film franco-britannico di Enki Bilal, fumettista di culto. Mix unico di attori reali e CGI, anni prima di Avatar.",moods:["🏙️ Cyberpunk","🦅 Mitologia","🎨 Arte","🌆 Distopico"]},
+  {title:"The phantom",cat:"comics",year:"1996",rare:true,desc:"L'eroe mascherato degli anni '30 affronta un magnate che cerca tre teschi dotati di poteri soprannaturali.",cur:"Il Fantasma è il primo supereroe in costume attillato (1936!) — precede Superman. Billy Zane si allenò 6 mesi.",moods:["🦸 Supereroe","🌴 Avventura","📖 Fumetto vintage","🎩 Anni 30"]},
+  {title:"Spawn",cat:"comics",year:"1997",rare:true,desc:"Un agente della CIA ucciso torna dall'inferno come guerriero soprannaturale per vendicarsi del suo assassino.",cur:"Primo film di supereroi con protagonista afroamericano della storia del cinema hollywoodiano.",moods:["💀 Oscuro","🔥 Azione","😈 Soprannaturale","🌆 Urban"]},
+  {title:"Watchmen",cat:"comics",year:"2009",rare:false,desc:"In un'America alternativa anni '80, i supereroi esistono davvero. Un ex vigilante viene assassinato e i suoi colleghi indagano.",cur:"Adattamento del graphic novel di Alan Moore, considerato il più grande fumetto di sempre. 3 ore di pura epica.",moods:["🔍 Noir","🦸 Supereroi","🕰️ Anni 80","💭 Filosofico"]},
+  {title:"V per Vendetta",cat:"comics",year:"2005",rare:false,desc:"In una Gran Bretagna fascista futura, un misterioso anarchico mascherato guida una rivoluzione contro il governo.",cur:"La maschera di V è diventata il simbolo mondiale delle proteste. Venduta a milioni di pezzi ogni anno.",moods:["✊ Rivoluzione","🎭 Mistero","🌆 Distopia","💔 Romantico"]},
+  {title:"Sin city",cat:"comics",year:"2005",rare:false,desc:"Tre storie intrecciate di crimine, violenza e redenzione nella corrotta Basin City, in bianco e nero stilizzato.",cur:"Robert Rodriguez e Frank Miller co-direttori. Prima volta che il fumetto veniva replicato fotogramma per fotogramma.",moods:["🖤 Noir","🎨 Stile","🔫 Crimine","💃 Sensuale"]},
+  {title:"Iron man",cat:"comics",year:"2008",rare:false,desc:"Un geniale miliardario costruisce una tuta corazzata dopo essere stato catturato dai terroristi nel deserto.",cur:"Robert Downey Jr. fu una scelta controversa: nessuno credeva in lui dopo i problemi personali degli anni '90.",moods:["🤖 Tech","💪 Azione","😎 Cool","🚀 Adrenalina"]},
+  {title:"Joker",cat:"comics",year:"2019",rare:false,desc:"Un comico fallito scivola nella follia in una Gotham decadente degli anni '80. Joaquin Phoenix è straordinario.",cur:"Primo film di supereroi a vincere il Leone d'Oro a Venezia. Phoenix perse 24 kg per il ruolo.",moods:["😢 Drama","😱 Thriller","🎭 Recitazione","🌆 Oscuro"]},
+  {title:"Batman il cavaliere oscuro",cat:"comics",year:"2008",rare:false,desc:"Il Cavaliere Oscuro affronta il Joker, agente del caos che vuole dimostrare che chiunque può cadere.",cur:"Heath Ledger vinse l'Oscar postumo. Christopher Nolan girò senza CGI — le esplosioni erano reali.",moods:["🦇 Epico","😱 Thriller","🤯 Intenso","🏙️ Gotham"]},
+  {title:"Deadpool",cat:"comics",year:"2016",rare:false,desc:"Un mercenario dalla lingua sciolta ottiene poteri di rigenerazione attraverso un esperimento e rompe la quarta parete.",cur:"Ryan Reynolds aspettò 11 anni per farlo. Girato con un budget ridottissimo per un cinecomics.",moods:["😂 Comico","🔞 Adulto","💥 Azione","❤️ Romantico"]},
+  // VIDEOGIOCHI
+  {title:"Wing commander",cat:"vg",year:"1999",rare:true,desc:"Piloti spaziali combattono contro i Kilrathi, una feroce razza aliena felina, in una guerra galattica per la sopravvivenza.",cur:"Uno dei primissimi film da videogioco — prima di Tomb Raider! Il regista è il creatore del gioco originale.",moods:["🚀 Sci-Fi","✈️ Combattimento","🐱 Alieni","💾 Videogioco"]},
+  {title:"DOA: Dead or alive",cat:"vg",year:"2006",rare:true,desc:"Le migliori combattenti al mondo vengono invitate su un'isola privata per partecipare al torneo DOA.",cur:"Tratto dall'omonimo picchiaduro. È diventato un cult per l'estetica anni 2000 e l'ironia involontaria.",moods:["👊 Combattimento","🏖️ Estate","💃 Girl power","😄 Divertente"]},
+  {title:"In the name of the king",cat:"vg",year:"2007",rare:true,desc:"Un semplice contadino deve salvare il suo regno dal mago Gallian e dall'orda di mostri Krugs.",cur:"Diretto da Uwe Boll con Jason Statham e Ray Liotta. Il cast stellare non bastò a salvare il film.",moods:["⚔️ Fantasy","🧙 Magia","🏰 Medioevo","🎭 B-movie"]},
+  {title:"Bloodrayne",cat:"vg",year:"2005",rare:true,desc:"Rayne è una dhampir — metà umana, metà vampiro — che nell'Europa del Settecento combatte i vampiri.",cur:"Con Kristanna Loken (Terminator 3). Nonostante i flop ha avuto 3 sequel — caso cinematografico unico.",moods:["🧛 Vampiri","⚔️ Azione","🏰 Storico","🩸 Horror"]},
+  {title:"House of the dead",cat:"vg",year:"2003",rare:true,desc:"Studenti intrappolati su un'isola durante un rave devono sopravvivere a un'invasione improvvisa di zombie.",cur:"Diretto da Uwe Boll. Curiosamente usa sequenze del videogioco originale come transizioni tra le scene.",moods:["🧟 Zombie","😱 Horror","🎉 Rave","💀 Sopravvivenza"]},
+  {title:"Double dragon",cat:"vg",year:"1994",rare:true,desc:"Due fratelli combattenti cercano le metà di un medaglione magico in una Los Angeles post-apocalittica.",cur:"Robert Patrick (T-1000 in Terminator 2) interpreta il villain. Uscì nello stesso anno di Street Fighter e Mortal Kombat.",moods:["👊 Picchiaduro","🌆 Post-apoc","🥋 Arti marziali","😄 Anni 90"]},
+  {title:"Far cry",cat:"vg",year:"2008",rare:true,desc:"Un ex militare indaga su esperimenti genetici su un'isola che trasformano prigionieri in super soldati.",cur:"Diretto da Uwe Boll. Tilman Baumgärtner, il produttore del videogioco, apparve nel film come attore.",moods:["🏝️ Isola","🧬 Sci-Fi","💪 Azione","🌴 Avventura"]},
+  {title:"Alone in the dark",cat:"vg",year:"2005",rare:true,desc:"Un investigatore del paranormale affronta antiche creature oscure che vogliono aprire un portale tra i mondi.",cur:"Considerato uno dei peggiori film di sempre. Christian Slater accettò il ruolo dopo una serie di flop.",moods:["👁️ Paranormale","😱 Horror","🌀 Oscuro","🎭 B-movie"]},
+  {title:"Cacciatori di zombie",cat:"vg",year:"2004",rare:true,desc:"Un gruppo di sopravvissuti deve fuggire da un'isola infestata di non-morti in questo film collegato ai videogiochi horror.",cur:"Film rarissimo praticamente introvabile oggi. Ha anticipato molti elementi della saga Resident Evil successiva.",moods:["🧟 Zombie","😱 Horror","🏝️ Isola","💀 Sopravvivenza"]},
+  {title:"Ratchet & Clank",cat:"vg",year:"2016",rare:true,desc:"Un giovane meccanico alieno e un piccolo robot difendono la galassia dai piani di un villain che distrugge pianeti.",cur:"Film d'animazione uscito in contemporanea con il remake del gioco PS4. Visivamente spettacolare.",moods:["🚀 Spazio","😄 Comico","🎮 Videogioco","👶 Famiglia"]},
+  {title:"Mortal kombat (1995)",cat:"vg",year:"1995",rare:false,desc:"Tre guerrieri terrestri partecipano a un torneo di arti marziali per salvare la Terra dal regno di Outworld.",cur:"Ancora oggi considerato il miglior adattamento di un picchiaduro. La colonna sonora è diventata un classico.",moods:["👊 Picchiaduro","🏟️ Torneo","🌍 Epico","🔥 Azione"]},
+  {title:"Resident evil",cat:"vg",year:"2002",rare:false,desc:"Un'agente speciale affronta i sopravvissuti mutanti di un incidente biologico in un laboratorio sotterraneo segreto.",cur:"Milla Jovovich divenne un'icona grazie a questo film. La saga ha incassato oltre 1 miliardo di dollari.",moods:["🧟 Zombie","😱 Horror","💪 Azione","🔬 Sci-Fi"]},
+  {title:"Silent hill",cat:"vg",year:"2006",rare:false,desc:"Una madre cerca la figlia scomparsa in una città avvolta da nebbia soprannaturale piena di creature mostruose.",cur:"Considerato l'adattamento di videogioco horror più fedele mai realizzato. L'atmosfera è iconica.",moods:["😱 Horror","🌫️ Mistero","👁️ Soprannaturale","💔 Drama"]},
+  {title:"Super Mario Bros (2023)",cat:"vg",year:"2023",rare:false,desc:"Il famoso idraulico viene catapultato nel Regno dei Funghi per salvare la principessa Peach da Bowser.",cur:"Ha incassato oltre 1,3 miliardi di dollari — il film d'animazione videoludico più redditizio della storia.",moods:["🍄 Avventura","😄 Famiglia","🎮 Nintendo","🌈 Colorato"]},
+  {title:"Assassin's creed",cat:"vg",year:"2016",rare:false,desc:"Un uomo viene collegato tramite tecnologia ai ricordi del suo antenato assassino nella Spagna del 1400.",cur:"Michael Fassbender fu anche produttore. Il film usa la stessa tecnologia sviluppata per Avatar.",moods:["⚔️ Storico","🏰 Medioevo","🧬 Sci-Fi","🎮 Videogioco"]},
+  {title:"Uncharted",cat:"vg",year:"2022",rare:false,desc:"Un giovane barman viene reclutato da un cacciatore di tesori per trovare un tesoro perduto dei Magellano.",cur:"Tom Holland ha impiegato 3 anni di allenamento intensivo per prepararsi alle scene d'azione.",moods:["🗺️ Avventura","💰 Tesoro","😄 Divertente","✈️ Mondiale"]},
+  // SAGHE
+  {title:"Riddick",cat:"saghe",year:"2000-2013",rare:true,desc:"Richard Riddick, pericoloso criminale con vista notturna, sopravvive su pianeti ostili braccato da cacciatori di taglie.",cur:"Vin Diesel finanziò di tasca propria il terzo capitolo quando gli studios rifiutarono. Saga tuttora amatissima.",moods:["🌑 Sci-Fi dark","💪 Survival","🔦 Azione","🪐 Space"]},
+  {title:"Hostel",cat:"saghe",year:"2005",rare:true,desc:"Turisti in Europa vengono attirati in una rete criminale che vende l'accesso a vittime umane ai sadici più facoltosi.",cur:"Prodotto da Quentin Tarantino. Ha generato il genere 'torture porn'. Incasso: 20 volte il budget.",moods:["😱 Horror","✈️ Backpacking","🔪 Thriller","💸 Criminalità"]},
+  {title:"Una pallottola spuntata",cat:"saghe",year:"1988",rare:true,desc:"Il tenente Frank Drebin — goffo e irresistibile — indaga su crimini con una totale incapacità di stare fuori dai guai.",cur:"Leslie Nielsen era famoso come attore drammatico prima di questi film. Ha reinventato la commedia demenziale.",moods:["😂 Commedia","🚔 Poliziesco","🎭 Slapstick","🏆 Cult"]},
+  {title:"Scuola di polizia",cat:"saghe",year:"1984",rare:true,desc:"Reclute incompetenti e bizzarre cercano di diventare poliziotti in questa esilarante commedia cult americana.",cur:"Ha generato 7 film, serie TV animata e live-action — uno dei franchise comici più longevi di Hollywood.",moods:["😂 Commedia","👮 Polizia","🎉 Anni 80","🏆 Nostalgia"]},
+  {title:"La bambola assassina",cat:"saghe",year:"1988",rare:true,desc:"Una bambola parlante posseduta dall'anima di un serial killer tormenta una madre e il suo bambino.",cur:"Chucky è ancora in produzione nel 2024 con una serie TV. Il creatore Don Mancini ha scritto tutti i 7 film.",moods:["😱 Horror","🪆 Bambole","😂 Dark humor","🎃 Halloween"]},
+  {title:"Fantozzi",cat:"saghe",year:"1975",rare:true,desc:"Il ragioniere più sfortunato d'Italia subisce umiliazioni infinite nel lavoro e nella vita in questa saga cult italiana.",cur:"Paolo Villaggio creò il personaggio per un libro nel 1971. La saga ha prodotto 9 film e cambiato la cultura italiana.",moods:["😂 Commedia","🇮🇹 Made in Italy","💼 Lavoro","🏆 Cult italiano"]},
+  {title:"Star wars",cat:"saghe",year:"1977",rare:false,desc:"Una galassia lontana, un eroe contadino, una principessa prigioniera e una stazione spaziale di distruzione totale.",cur:"George Lucas ipotecò la casa per finanziarlo. Rifiutato da tutti gli studios, fu accettato solo dalla Fox.",moods:["⭐ Epico","🚀 Spazio","⚔️ Avventura","💫 Leggenda"]},
+  {title:"Il Signore degli anelli",cat:"saghe",year:"2001",rare:false,desc:"Una compagnia di eroi porta un anello del potere nella terra del fuoco per distruggerlo prima che il male trionfi.",cur:"Peter Jackson girò tutti e 3 i film contemporaneamente in Nuova Zelanda per 274 giorni consecutivi.",moods:["🧙 Fantasy","⚔️ Epico","🌋 Avventura","❤️ Amicizia"]},
+  {title:"Alien",cat:"saghe",year:"1979",rare:false,desc:"L'equipaggio di un cargo spaziale risponde a un segnale su un pianeta e porta a bordo qualcosa di assolutamente letale.",cur:"La scena del parto alieno era segreta agli attori. La reazione di Tom Skerritt è autentica.",moods:["😱 Horror","🚀 Sci-Fi","💀 Suspense","🌌 Spazio"]},
+  {title:"Terminator",cat:"saghe",year:"1984",rare:false,desc:"Un robot killer viaggia indietro nel tempo per eliminare la madre del futuro leader della resistenza umana.",cur:"Arnold Schwarzenegger ha detto appena 17 righe di dialogo nel film. Il ruolo era per Lance Henriksen.",moods:["🤖 Sci-Fi","💀 Azione","⏰ Tempo","🔥 Adrenalina"]},
+  {title:"Matrix",cat:"saghe",year:"1999",rare:false,desc:"Un programmatore scopre che la realtà è una simulazione e si unisce alla resistenza contro le macchine.",cur:"Will Smith rifiutò il ruolo di Neo. Keanu Reeves donò parte del suo compenso al reparto effetti speciali.",moods:["💊 Filosofico","🤖 Sci-Fi","💥 Azione","🌐 Digitale"]},
+  {title:"Jurassic park",cat:"saghe",year:"1993",rare:false,desc:"Un parco a tema con dinosauri veri va fuori controllo e i visitatori devono sopravvivere alle creature preistoriche.",cur:"Steven Spielberg usò animatroni reali e solo 15 minuti di CGI. Rivoluzionò gli effetti speciali.",moods:["🦖 Dinosauri","😱 Suspense","🌿 Avventura","🔬 Scienza"]},
+  {title:"Halloween",cat:"saghe",year:"1978",rare:false,desc:"Michael Myers, un assassino mascherato fuggito da un manicomio, terrorizza una tranquilla cittadina americana.",cur:"Girato in 21 giorni con un budget di 300.000 dollari. Ha incassato 70 milioni. La maschera è di William Shatner.",moods:["😱 Slasher","🎃 Halloween","😰 Paura","🔪 Thriller"]},
 ];
 
-let selCatKey='all', numFilms=5, queue=[], curIdx=0, reactions={};
+function shuffle(a){let b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
 
-function selCat(btn,cat){document.querySelectorAll('.filter-btn').forEach(b=>{if(b.closest('#num-filters'))return;b.classList.remove('active');});btn.classList.add('active');selCatKey=cat;}
-function selNum(btn,n){document.querySelectorAll('#num-filters .filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');numFilms=n;}
+let selCat_='all', numFilms=5, queue=[], curIdx=0, reactions={};
+// Anti-ripetizione: queue globale per categoria
+let globalQueue=[], globalIdx=0, lastCat='';
 
-function shuffle(a){return a.sort(()=>Math.random()-.5);}
+function selCat(btn,cat){document.querySelectorAll('.filter-btn').forEach(b=>{if(b.closest('#num-row'))return;b.classList.remove('active');});btn.classList.add('active');selCat_=cat;}
+function selNum(btn,n){document.querySelectorAll('#num-row .filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');numFilms=n;}
+
+function getPool(){
+  if(selCat_==='all') return FILMS;
+  return FILMS.filter(f=>f.cat===selCat_);
+}
 
 function startExplore(){
-  let pool=FILMS.filter(f=>selCatKey==='all'||f.cat.toLowerCase()===selCatKey.toLowerCase()||(selCatKey==='vg'&&f.cat==='VIDEOGIOCO')||(selCatKey==='saghe'&&f.cat==='SAGA'));
-  if(pool.length===0)pool=FILMS;
-  queue=shuffle(pool).slice(0,Math.min(numFilms,pool.length));
-  curIdx=0;reactions={};
-  showScr('s-explore');renderFilm();
+  const pool=getPool();
+  // Anti-ripetizione: se categoria cambiata o queue esaurita, reshuffla
+  if(selCat_!==lastCat||globalIdx+numFilms>globalQueue.length){
+    globalQueue=shuffle(pool); globalIdx=0; lastCat=selCat_;
+  }
+  const n=Math.min(numFilms, pool.length);
+  queue=[];
+  for(let i=0;i<n;i++){
+    if(globalIdx>=globalQueue.length){globalQueue=shuffle(pool);globalIdx=0;}
+    queue.push(globalQueue[globalIdx++]);
+  }
+  curIdx=0; reactions={};
+  showScr('s-explore'); renderFilm();
 }
 
 function renderFilm(){
   const f=queue[curIdx];
   document.getElementById('prog').style.width=((curIdx+1)/queue.length*100)+'%';
   document.getElementById('f-num').textContent='Film '+(curIdx+1)+' di '+queue.length;
-  document.getElementById('f-rare-badge').textContent=f.stars>=4?'⭐ Titolo raro':'';
+  document.getElementById('f-rare-badge').textContent=f.rare?'⭐ Titolo raro':'';
   document.getElementById('f-title').textContent=f.title;
   const meta=document.getElementById('f-meta');
-  meta.innerHTML='<span class="meta-tag tag-cat">'+f.cat+'</span><span class="meta-tag tag-year">📅 '+f.year+'</span>'+(f.stars>=4?'<span class="meta-tag tag-rare">🌟 RARO</span>':'');
+  meta.innerHTML='<span class="meta-tag tag-cat">'+f.cat.toUpperCase()+'</span><span class="meta-tag tag-year">📅 '+f.year+'</span>'+(f.rare?'<span class="meta-tag tag-rare">🌟 RARO</span>':'');
   document.getElementById('f-desc').textContent=f.desc;
-  document.getElementById('f-curiosity').textContent=f.curiosity;
+  document.getElementById('f-cur').textContent=f.cur;
   const moods=document.getElementById('f-moods');
   moods.innerHTML=f.moods.map(m=>'<span class="mood-tag">'+m+'</span>').join('');
-  document.getElementById('f-stars').textContent='★'.repeat(f.stars)+'☆'.repeat(5-f.stars);
-  document.querySelectorAll('.react-btn').forEach(b=>b.classList.remove('chosen'));
-  if(reactions[f.title]){
-    document.querySelectorAll('.react-btn').forEach(b=>{if(b.dataset.key===reactions[f.title])b.classList.add('chosen');});
-  }
-  const nav=document.getElementById('nav-row');nav.innerHTML='';
+  document.querySelectorAll('.react-btn').forEach(b=>{
+    b.classList.remove('chosen');
+    if(reactions[f.title]&&reactions[f.title].key===b.dataset.key) b.classList.add('chosen');
+  });
+  const nav=document.getElementById('nav-row'); nav.innerHTML='';
   if(curIdx>0){const p=document.createElement('button');p.className='btn-prev';p.textContent='← Precedente';p.onclick=()=>{curIdx--;renderFilm();};nav.appendChild(p);}
-  if(curIdx<queue.length-1){const n=document.createElement('button');n.className='btn-next2';n.textContent='Prossimo →';n.onclick=()=>{curIdx++;renderFilm();};nav.appendChild(n);}
+  if(curIdx<queue.length-1){const n=document.createElement('button');n.className='btn-nxt';n.textContent='Prossimo →';n.onclick=()=>{curIdx++;renderFilm();};nav.appendChild(n);}
   else{const e=document.createElement('button');e.className='btn-end';e.textContent='Vedi la tua lista 📋';e.onclick=showEnd;nav.appendChild(e);}
-  document.getElementById('film-card').classList.add('fade-in');
-  setTimeout(()=>document.getElementById('film-card').classList.remove('fade-in'),400);
 }
 
-function react(key,label){
+function react(btn){
   const f=queue[curIdx];
-  reactions[f.title]={key,label};
+  reactions[f.title]={key:btn.dataset.key,label:btn.textContent};
   document.querySelectorAll('.react-btn').forEach(b=>b.classList.remove('chosen'));
-  event.target.classList.add('chosen');
-  event.target.dataset.key=key;
+  btn.classList.add('chosen');
 }
 
 function showEnd(){
   showScr('s-end');
   const toSee=queue.filter(f=>reactions[f.title]&&(reactions[f.title].key==='vedere'||reactions[f.title].key==='curioso'));
   const seen=queue.filter(f=>reactions[f.title]&&reactions[f.title].key==='visto');
-  const tot=queue.length;
-  document.getElementById('end-msg').textContent='Hai esplorato '+tot+' titoli del catalogo. '+(toSee.length>0?'Hai '+toSee.length+' film da recuperare — parlane con lo staff allo stand!':'');
-  const wl=document.getElementById('wishlist');wl.innerHTML='';
-  if(toSee.length===0){wl.innerHTML='<div style="font-size:.75rem;color:var(--muted);padding:10px;">Nessun film selezionato — esplora ancora!</div>';}
-  toSee.forEach(f=>{
-    const d=document.createElement('div');d.className='wishlist-item';
-    const r=reactions[f.title];
-    d.innerHTML='<span class="wi-icon">🎬</span><div><div class="wi-title">'+f.title+' ('+f.year+')</div><div class="wi-react">'+r.label+'</div></div>';
-    wl.appendChild(d);
-  });
-  const sl=document.getElementById('seen-list');sl.innerHTML='';
-  if(seen.length===0){sl.innerHTML='<div style="font-size:.75rem;color:var(--muted);padding:6px;">Nessuno ancora visto — c\'è tanto da scoprire!</div>';}
+  document.getElementById('end-msg').textContent='Hai esplorato '+queue.length+' titoli.'+(toSee.length>0?' Hai '+toSee.length+' film da recuperare — chiedili allo stand!':'');
+  const wl=document.getElementById('wishlist'); wl.innerHTML='';
+  if(!toSee.length) wl.innerHTML='<div style="font-size:.72rem;color:var(--muted);padding:8px;">Nessun film selezionato — esplora ancora!</div>';
+  toSee.forEach(f=>{const d=document.createElement('div');d.className='wish-item';d.innerHTML='<span class="wi-icon">🎬</span><div><div class="wi-title">'+f.title+' ('+f.year+')</div><div class="wi-react">'+reactions[f.title].label+'</div></div>';wl.appendChild(d);});
+  const sl=document.getElementById('seen-list'); sl.innerHTML='';
+  if(!seen.length) sl.innerHTML='<div style="font-size:.72rem;color:var(--muted);padding:6px;">Nessuno ancora visto — tanto da scoprire!</div>';
   seen.forEach(f=>{const d=document.createElement('div');d.className='seen-item';d.textContent='✅ '+f.title;sl.appendChild(d);});
 }
 
@@ -345,8 +282,8 @@ function goHome(){showScr('s-home');}
 function showScr(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
 
 const canvas=document.getElementById('bg');const ctx=canvas.getContext('2d');let W,H,nodes=[];
-function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;nodes=[];for(let i=0;i<40;i++)nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.15,vy:(Math.random()-.5)*.15});}
-function draw(){ctx.clearRect(0,0,W,H);nodes.forEach((n,i)=>{n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;nodes.forEach((m,j)=>{if(j<=i)return;const dx=m.x-n.x,dy=m.y-n.y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<120){ctx.strokeStyle='rgba(0,212,255,'+(0.06*(1-dist/120))+')';ctx.lineWidth=.5;ctx.beginPath();ctx.moveTo(n.x,n.y);ctx.lineTo(m.x,m.y);ctx.stroke();}});ctx.beginPath();ctx.arc(n.x,n.y,1.5,0,Math.PI*2);ctx.fillStyle='rgba(0,212,255,0.3)';ctx.fill();});requestAnimationFrame(draw);}
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;nodes=[];for(let i=0;i<38;i++)nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.14,vy:(Math.random()-.5)*.14});}
+function draw(){ctx.clearRect(0,0,W,H);nodes.forEach((n,i)=>{n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;nodes.forEach((m,j)=>{if(j<=i)return;const dx=m.x-n.x,dy=m.y-n.y,d=Math.sqrt(dx*dx+dy*dy);if(d<115){ctx.strokeStyle='rgba(0,212,255,'+(0.055*(1-d/115))+')';ctx.lineWidth=.5;ctx.beginPath();ctx.moveTo(n.x,n.y);ctx.lineTo(m.x,m.y);ctx.stroke();}});ctx.beginPath();ctx.arc(n.x,n.y,1.4,0,Math.PI*2);ctx.fillStyle='rgba(0,212,255,0.28)';ctx.fill();});requestAnimationFrame(draw);}
 window.addEventListener('resize',resize);resize();draw();
 </script>
 </body>
