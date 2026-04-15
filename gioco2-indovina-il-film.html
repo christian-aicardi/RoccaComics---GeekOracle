@@ -6,62 +6,62 @@
 <title>Geek Oracle — Indovina il Film!</title>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Exo+2:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#08001a;--card:#100025;--border:#2d1060;--accent:#00f5ff;--accent2:#ff00aa;--gold:#ffd700;--text:#e0d4ff;--muted:#5a4a7a;}
+:root{--bg:#08001a;--card:#100025;--border:#2d1060;--acc:#00f5ff;--acc2:#ff00aa;--gold:#ffc93c;--text:#e0d4ff;--muted:#5a4a7a;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;overflow-x:hidden;}
 canvas#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
-.wrap{position:relative;z-index:1;width:100%;max-width:620px;padding:16px 14px 60px;}
-header{text-align:center;padding:24px 0 16px;}
-.logo{font-family:'Press Start 2P',monospace;font-size:1.1rem;color:var(--accent);text-shadow:0 0 20px var(--accent);line-height:1.6;margin-bottom:6px;}
-.subtitle{font-size:.6rem;letter-spacing:4px;color:var(--muted);font-family:'Exo 2',sans-serif;}
-.credit{font-size:.5rem;letter-spacing:3px;color:#2a1a4a;margin-top:3px;}
+.wrap{position:relative;z-index:1;width:100%;max-width:620px;padding:14px 14px 60px;}
+header{text-align:center;padding:20px 0 14px;}
+.logo{font-family:'Press Start 2P',monospace;font-size:1rem;color:var(--acc);text-shadow:0 0 16px var(--acc);line-height:1.7;margin-bottom:6px;}
+.subtitle{font-size:.58rem;letter-spacing:4px;color:var(--muted);}
+.credit{font-size:.48rem;letter-spacing:3px;color:#1a0830;margin-top:3px;}
 .screen{display:none;}.screen.active{display:block;}
-.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px 18px;margin-bottom:12px;position:relative;overflow:hidden;}
-.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 16px;margin-bottom:12px;position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--acc),transparent);}
 .hud{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
 .hud-pts{font-family:'Press Start 2P',monospace;font-size:.9rem;color:var(--gold);}
 .hud-lives{font-size:.9rem;}
-.hud-num{font-family:'Press Start 2P',monospace;font-size:.6rem;color:var(--muted);}
-.prog-outer{background:#0d0020;height:4px;border-radius:2px;margin-bottom:18px;overflow:hidden;}
-.prog-inner{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .5s ease;border-radius:2px;}
-.clue-box{background:rgba(0,245,255,0.04);border:1px solid rgba(0,245,255,0.15);border-radius:10px;padding:16px;margin-bottom:12px;}
-.clue-label{font-size:.55rem;letter-spacing:3px;color:var(--accent);margin-bottom:8px;font-family:'Press Start 2P',monospace;}
-.clue-text{font-size:.9rem;line-height:1.7;color:var(--text);}
-.clue-year{font-size:.7rem;color:var(--muted);margin-top:6px;letter-spacing:2px;}
-.answer-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
-.ans-btn{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;color:var(--text);font-family:'Exo 2',sans-serif;font-size:.72rem;text-align:center;transition:all .18s;line-height:1.4;}
-.ans-btn:hover{border-color:var(--accent);background:rgba(0,245,255,0.07);color:var(--accent);}
-.ans-btn.correct{border-color:var(--accent)!important;background:rgba(0,245,255,0.15)!important;color:var(--accent)!important;}
-.ans-btn.wrong{border-color:var(--accent2)!important;background:rgba(255,0,170,0.1)!important;color:var(--accent2)!important;}
-.skip-btn{width:100%;padding:10px;background:transparent;border:1px solid var(--muted);color:var(--muted);font-family:'Exo 2',sans-serif;font-size:.65rem;letter-spacing:2px;cursor:pointer;border-radius:8px;transition:all .2s;margin-bottom:8px;}
-.skip-btn:hover{border-color:var(--accent2);color:var(--accent2);}
-.feedback{padding:12px;border-radius:10px;font-size:.75rem;margin-bottom:10px;display:none;line-height:1.6;}
-.feedback.ok{background:rgba(0,245,255,0.08);border:1px solid rgba(0,245,255,0.25);color:var(--accent);}
-.feedback.ko{background:rgba(255,0,170,0.08);border:1px solid rgba(255,0,170,0.25);color:var(--accent2);}
-.btn-next{width:100%;padding:13px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'Exo 2',sans-serif;font-size:.72rem;letter-spacing:2px;cursor:pointer;border-radius:8px;transition:all .2s;display:none;}
-.btn-next:hover{border-color:var(--accent);color:var(--accent);}
-.home-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px 18px;margin-bottom:12px;}
-.home-title{font-family:'Press Start 2P',monospace;font-size:.85rem;color:var(--accent);margin-bottom:16px;line-height:1.8;}
-.how{font-size:.8rem;line-height:2;color:#aaa;margin-bottom:18px;}
-.how span{color:var(--accent);}
-.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
-.cat-btn{background:rgba(0,245,255,0.03);border:1px solid var(--border);border-radius:8px;padding:12px;cursor:pointer;color:var(--muted);font-family:'Exo 2',sans-serif;font-size:.7rem;text-align:center;transition:all .2s;}
-.cat-btn.active,.cat-btn:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,245,255,0.07);}
-.btn-start{width:100%;padding:15px;background:linear-gradient(135deg,#0d00ff,#00f5ff20);border:1px solid var(--accent);color:var(--accent);font-family:'Press Start 2P',monospace;font-size:.75rem;cursor:pointer;border-radius:8px;letter-spacing:2px;transition:all .2s;}
-.btn-start:hover{background:rgba(0,245,255,0.15);box-shadow:0 0 30px rgba(0,245,255,0.3);}
-.end-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:26px 18px;text-align:center;margin-bottom:12px;}
-.end-big{font-family:'Press Start 2P',monospace;font-size:2.5rem;color:var(--gold);text-shadow:0 0 30px var(--gold);margin-bottom:6px;}
-.end-label{font-size:.55rem;letter-spacing:3px;color:var(--muted);margin-bottom:14px;}
-.end-msg{font-size:.82rem;color:#aaa;line-height:1.8;margin-bottom:16px;}
-.disc-title{font-size:.55rem;letter-spacing:2px;color:var(--accent);margin-bottom:10px;text-align:left;}
-.disc-item{background:rgba(0,245,255,0.04);border:1px solid rgba(0,245,255,0.12);border-radius:8px;padding:10px 12px;margin-bottom:7px;text-align:left;}
-.disc-item-title{font-size:.75rem;color:var(--accent);font-weight:600;margin-bottom:3px;}
-.disc-item-desc{font-size:.68rem;color:#888;line-height:1.5;}
-.btn-again{width:100%;padding:13px;background:transparent;border:1px solid var(--accent);color:var(--accent);font-family:'Press Start 2P',monospace;font-size:.6rem;cursor:pointer;border-radius:8px;margin-bottom:8px;letter-spacing:1px;}
-.btn-home{width:100%;padding:11px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'Exo 2',sans-serif;font-size:.7rem;letter-spacing:2px;cursor:pointer;border-radius:8px;}
+.hud-n{font-family:'Press Start 2P',monospace;font-size:.6rem;color:var(--muted);}
+.prog-outer{background:#0d0020;height:4px;border-radius:2px;margin-bottom:16px;overflow:hidden;}
+.prog-inner{height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .5s ease;border-radius:2px;}
+.clue-box{background:rgba(0,245,255,0.04);border:1px solid rgba(0,245,255,0.14);border-radius:10px;padding:14px;margin-bottom:12px;}
+.clue-lbl{font-size:.52rem;letter-spacing:3px;color:var(--acc);margin-bottom:7px;font-family:'Press Start 2P',monospace;}
+.clue-txt{font-size:.88rem;line-height:1.75;color:var(--text);}
+.clue-yr{font-size:.65rem;color:var(--muted);margin-top:5px;letter-spacing:2px;}
+.ans-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.ans-btn{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:12px 9px;cursor:pointer;color:var(--text);font-family:'Exo 2',sans-serif;font-size:.7rem;text-align:center;transition:all .16s;line-height:1.4;}
+.ans-btn:hover:not(:disabled){border-color:var(--acc);background:rgba(0,245,255,0.07);color:var(--acc);}
+.ans-btn.correct{border-color:var(--acc)!important;background:rgba(0,245,255,0.15)!important;color:var(--acc)!important;}
+.ans-btn.wrong{border-color:var(--acc2)!important;background:rgba(255,0,170,0.1)!important;color:var(--acc2)!important;}
+.skip-btn{width:100%;padding:9px;background:transparent;border:1px solid var(--muted);color:var(--muted);font-family:'Exo 2',sans-serif;font-size:.62rem;letter-spacing:2px;cursor:pointer;border-radius:8px;transition:all .2s;margin-bottom:8px;}
+.skip-btn:hover{border-color:var(--acc2);color:var(--acc2);}
+.feedback{padding:11px;border-radius:10px;font-size:.72rem;margin-bottom:9px;display:none;line-height:1.6;}
+.feedback.ok{background:rgba(0,245,255,0.07);border:1px solid rgba(0,245,255,0.22);color:var(--acc);}
+.feedback.ko{background:rgba(255,0,170,0.07);border:1px solid rgba(255,0,170,0.22);color:var(--acc2);}
+.btn-next{width:100%;padding:12px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'Exo 2',sans-serif;font-size:.7rem;letter-spacing:2px;cursor:pointer;border-radius:8px;transition:all .2s;display:none;}
+.btn-next:hover{border-color:var(--acc);color:var(--acc);}
+.home-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px 16px;margin-bottom:12px;}
+.home-title{font-family:'Press Start 2P',monospace;font-size:.82rem;color:var(--acc);margin-bottom:14px;line-height:1.8;}
+.how{font-size:.78rem;line-height:2;color:#aaa;margin-bottom:16px;}
+.how b{color:var(--acc);}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.cat-btn{background:rgba(0,245,255,0.03);border:1px solid var(--border);border-radius:8px;padding:11px;cursor:pointer;color:var(--muted);font-family:'Exo 2',sans-serif;font-size:.68rem;text-align:center;transition:all .2s;}
+.cat-btn.active,.cat-btn:hover{border-color:var(--acc);color:var(--acc);background:rgba(0,245,255,0.07);}
+.btn-start{width:100%;padding:14px;background:linear-gradient(135deg,#0d00ff20,#00f5ff20);border:1px solid var(--acc);color:var(--acc);font-family:'Press Start 2P',monospace;font-size:.72rem;cursor:pointer;border-radius:8px;letter-spacing:2px;transition:all .2s;}
+.btn-start:hover{background:rgba(0,245,255,0.14);box-shadow:0 0 24px rgba(0,245,255,0.25);}
+.end-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px 16px;text-align:center;margin-bottom:12px;}
+.end-big{font-family:'Press Start 2P',monospace;font-size:2.4rem;color:var(--gold);text-shadow:0 0 24px var(--gold);margin-bottom:6px;}
+.end-lbl{font-size:.52rem;letter-spacing:3px;color:var(--muted);margin-bottom:12px;}
+.end-msg{font-size:.8rem;color:#aaa;line-height:1.8;margin-bottom:14px;}
+.disc-ttl{font-size:.52rem;letter-spacing:2px;color:var(--acc);margin-bottom:8px;text-align:left;}
+.disc-item{background:rgba(0,245,255,0.04);border:1px solid rgba(0,245,255,0.12);border-radius:8px;padding:9px 11px;margin-bottom:6px;text-align:left;}
+.disc-name{font-size:.72rem;color:var(--acc);font-weight:600;margin-bottom:2px;}
+.disc-desc{font-size:.65rem;color:#777;line-height:1.5;}
+.btn-again{width:100%;padding:12px;background:transparent;border:1px solid var(--acc);color:var(--acc);font-family:'Press Start 2P',monospace;font-size:.58rem;cursor:pointer;border-radius:8px;margin-bottom:8px;letter-spacing:1px;}
+.btn-home{width:100%;padding:10px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'Exo 2',sans-serif;font-size:.68rem;letter-spacing:2px;cursor:pointer;border-radius:8px;}
 .fade-in{animation:fi .3s ease;}
 @keyframes fi{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-.streak-pop{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);font-family:'Press Start 2P',monospace;font-size:1.2rem;color:var(--gold);z-index:100;pointer-events:none;text-shadow:0 0 20px var(--gold);transition:transform .3s,opacity .4s;white-space:nowrap;}
+.streak-pop{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);font-family:'Press Start 2P',monospace;font-size:1.1rem;color:var(--gold);z-index:100;pointer-events:none;text-shadow:0 0 16px var(--gold);transition:transform .3s,opacity .4s;white-space:nowrap;}
 .streak-pop.show{transform:translate(-50%,-50%) scale(1);}
 </style>
 </head>
@@ -77,13 +77,8 @@ header{text-align:center;padding:24px 0 16px;}
   <div class="screen active" id="s-home">
     <div class="home-card fade-in">
       <div class="home-title">COME SI GIOCA</div>
-      <div class="how">
-        Ti mostro una <span>descrizione misteriosa</span> e l'anno del film.<br>
-        Scegli il titolo corretto tra 4 opzioni.<br>
-        Più è raro il titolo, <span>più punti guadagni!</span><br>
-        Scoprirai film che non sapevi esistessero. 🎬
-      </div>
-      <div style="font-size:.6rem;letter-spacing:2px;color:var(--muted);margin-bottom:10px;">CATEGORIA</div>
+      <div class="how">Ti mostro una <b>descrizione misteriosa</b> e l'anno.<br>Scegli il titolo giusto tra 4 opzioni.<br>Più è raro il titolo, <b>più punti guadagni!</b></div>
+      <div style="font-size:.6rem;letter-spacing:2px;color:var(--muted);margin-bottom:9px;">CATEGORIA</div>
       <div class="cat-grid">
         <button class="cat-btn active" onclick="selCat(this,'all')">🌌 Tutto</button>
         <button class="cat-btn" onclick="selCat(this,'comics')">🦸 Comics</button>
@@ -97,18 +92,18 @@ header{text-align:center;padding:24px 0 16px;}
   <div class="screen" id="s-quiz">
     <div class="card">
       <div class="hud">
-        <div><div style="font-size:.5rem;letter-spacing:2px;color:var(--muted)">PUNTI</div><div class="hud-pts" id="q-pts">000</div></div>
-        <div style="text-align:center"><div style="font-size:.5rem;letter-spacing:2px;color:var(--muted)">VITE</div><div class="hud-lives" id="q-lives">❤️❤️❤️</div></div>
-        <div style="text-align:right"><div style="font-size:.5rem;letter-spacing:2px;color:var(--muted)">DOMANDA</div><div class="hud-num" id="q-num">1/8</div></div>
+        <div><div style="font-size:.48rem;letter-spacing:2px;color:var(--muted)">PUNTI</div><div class="hud-pts" id="h-pts">000</div></div>
+        <div style="text-align:center"><div style="font-size:.48rem;letter-spacing:2px;color:var(--muted)">VITE</div><div class="hud-lives" id="h-lives">❤️❤️❤️</div></div>
+        <div style="text-align:right"><div style="font-size:.48rem;letter-spacing:2px;color:var(--muted)">DOMANDA</div><div class="hud-n" id="h-num">1/8</div></div>
       </div>
       <div class="prog-outer"><div class="prog-inner" id="prog" style="width:0%"></div></div>
       <div class="clue-box">
-        <div class="clue-label">🔍 INDIZIO</div>
-        <div class="clue-text" id="clue-text"></div>
-        <div class="clue-year" id="clue-year"></div>
+        <div class="clue-lbl">🔍 INDIZIO</div>
+        <div class="clue-txt" id="clue-txt"></div>
+        <div class="clue-yr" id="clue-yr"></div>
       </div>
-      <div class="answer-grid" id="ans-grid"></div>
-      <button class="skip-btn" id="skip-btn" onclick="skipQ()">⏭ SALTA (perde 1 vita)</button>
+      <div class="ans-grid" id="ans-grid"></div>
+      <button class="skip-btn" id="skip-btn" onclick="skipQ()">⏭ SALTA (−1 vita)</button>
       <div class="feedback" id="feedback"></div>
       <button class="btn-next" id="btn-next" onclick="nextQ()">AVANTI →</button>
     </div>
@@ -116,116 +111,161 @@ header{text-align:center;padding:24px 0 16px;}
 
   <div class="screen" id="s-end">
     <div class="end-card fade-in">
-      <div class="end-label">PUNTEGGIO FINALE</div>
+      <div class="end-lbl">PUNTEGGIO FINALE</div>
       <div class="end-big" id="end-pts">0</div>
-      <div class="end-label" id="end-sub"></div>
+      <div class="end-lbl" id="end-sub"></div>
       <div class="end-msg" id="end-msg"></div>
-      <div class="disc-title" id="disc-head"></div>
+      <div class="disc-ttl" id="disc-head"></div>
       <div id="disc-list"></div>
       <button class="btn-again" onclick="startGame()">▶ GIOCA ANCORA</button>
-      <button class="btn-home" onclick="goHome()">← CAMBIA MODALITÀ</button>
+      <button class="btn-home" onclick="goHome()">← CAMBIA CATEGORIA</button>
     </div>
   </div>
 </div>
 <div class="streak-pop" id="streak-pop"></div>
 
 <script>
-const DB = {
-  comics:[
-    {title:"Dampyr",year:"2022",desc:"Un cacciatore di vampiri scopre di essere lui stesso metà creatura della notte. Adattamento del fumetto italiano Bonelli.",pts:25,rare:true},
-    {title:"I cavalieri dello zodiaco",year:"2023",desc:"Giovani guerrieri dotati di poteri cosmici proteggono la dea Atena in questo live-action del celebre anime.",pts:20,rare:true},
-    {title:"The King's man - le origini",year:"2021",desc:"Le origini segrete dell'agenzia di spionaggio più elegante del mondo, durante la Prima Guerra Mondiale.",pts:15,rare:false},
-    {title:"Diabolik - Ginko all'attacco",year:"2022",desc:"Il leggendario ladro mascherato italiano torna in un nuovo capitolo della saga dei Manetti Bros.",pts:20,rare:true},
-    {title:"Il ragazzo invisibile",year:"2014",desc:"Un adolescente italiano scopre di possedere il potere dell'invisibilità. Il primo cinecomics tutto italiano.",pts:20,rare:true},
-    {title:"Cowboys & Aliens",year:"2011",desc:"Un cowboy con la memoria cancellata e un misterioso bracciale deve fermare un'invasione aliena nel Far West.",pts:15,rare:false},
-    {title:"Jonah Hex",year:"2010",desc:"Un cacciatore di taglie sfigurato con poteri soprannaturali affronta un terrorista nel vecchio West americano.",pts:20,rare:true},
-    {title:"The spirit",year:"2008",desc:"Un detective immortale protegge la sua città dal misterioso Octopus in uno stile visivo ispirato ai fumetti noir.",pts:20,rare:true},
-    {title:"Man-thing",year:"2005",desc:"Una creatura vegetale del pantano protegge il suo habitat da sviluppatori corrotti. Adattamento Marvel oscuro.",pts:25,rare:true},
-    {title:"The phantom",year:"1996",desc:"Il Fantasma, eroe mascherato del fumetto anni '30, si scontra con un criminale che cerca artefatti leggendari.",pts:25,rare:true},
-    {title:"Spawn",year:"1997",desc:"Un agente della CIA ucciso torna dall'inferno come guerriero soprannaturale per vendicarsi del suo assassino.",pts:15,rare:false},
-    {title:"La leggenda degli uomini straordinari",year:"2003",desc:"Un gruppo di eroi letterari vittoriani — Allan Quatermain, Dorian Gray, il Capitano Nemo — unisce le forze.",pts:20,rare:true},
-    {title:"I, Frankenstein",year:"2014",desc:"La creatura di Frankenstein sopravvive fino ai giorni nostri, coinvolta in una guerra tra demoni e gargoyle.",pts:20,rare:true},
-    {title:"Immortal",year:"2004",desc:"In una Parigi futuristica, il dio egizio Horus scende sulla Terra per abitare il corpo di un uomo mutante.",pts:25,rare:true},
-    {title:"Dredd (S. Stallone)",year:"1995",desc:"Il giudice più temuto di Mega-City One viene incastrato per omicidio e deve dimostrare la propria innocenza.",pts:15,rare:false},
-    {title:"Avengers Endgame",year:"2019",desc:"I supereroi sopravvissuti compiono un viaggio nel tempo per recuperare le Gemme dell'Infinito e sconfiggere Thanos.",pts:5,rare:false},
-    {title:"Batman il cavaliere oscuro",year:"2008",desc:"Il Cavaliere Oscuro affronta il Joker, un agente del caos che vuole dimostrare che anche gli eroi possono cadere.",pts:5,rare:false},
-    {title:"Iron man",year:"2008",desc:"Un geniale miliardario costruisce una tuta corazzata high-tech dopo essere stato catturato dai terroristi.",pts:5,rare:false},
-  ],
-  vg:[
-    {title:"Wing commander",year:"1999",desc:"Piloti spaziali combattono contro un'aliena razza felina in questa trasposizione dell'omonimo videogioco di culto.",pts:25,rare:true},
-    {title:"DOA: Dead or alive",year:"2006",desc:"Le migliori combattenti del mondo si sfidano su un'isola privata in questo tournament action girls movie.",pts:20,rare:true},
-    {title:"Cacciatori di zombie",year:"2004",desc:"Un gruppo di sopravvissuti deve fuggire da un'isola infestata da non-morti in questo film legato ai videogiochi horror.",pts:25,rare:true},
-    {title:"Bloodrayne",year:"2005",desc:"Una dhampir — metà umana, metà vampiro — combatte contro il padre vampiro nel Settecento europeo.",pts:20,rare:true},
-    {title:"In the name of the king",year:"2007",desc:"Un semplice contadino guida un esercito contro il mago Gallian, che ha lanciato i mostri Krugs contro il regno.",pts:20,rare:true},
-    {title:"House of the dead",year:"2003",desc:"Studenti intrappolati su un'isola durante un rave devono sopravvivere a un'invasione di zombie.",pts:20,rare:true},
-    {title:"Double dragon",year:"1994",desc:"Due fratelli combattenti di arti marziali cercano le due metà di un medaglione magico in una Los Angeles post-apocalittica.",pts:25,rare:true},
-    {title:"Far cry",year:"2008",desc:"Un ex militare indaga su esperimenti genetici su un'isola tropicale, trasformando prigionieri in super soldati.",pts:20,rare:true},
-    {title:"Alone in the dark",year:"2005",desc:"Un investigatore del paranormale affronta antiche creature oscure che vogliono aprire un portale tra i mondi.",pts:20,rare:true},
-    {title:"Mortal kombat (1995)",year:"1995",desc:"Tre guerrieri terrestri partecipano a un torneo di arti marziali per salvare la Terra dal male del regno di Outworld.",pts:10,rare:false},
-    {title:"Resident evil",year:"2002",desc:"Un'agente speciale e soldati d'elite affrontano i sopravvissuti mutanti di un incidente biologico sotterraneo.",pts:8,rare:false},
-    {title:"Super Mario Bros (2023)",year:"2023",desc:"Il famoso idraulico italiano viene catapultato in un mondo di funghi, koopa e castelli per salvare una principessa.",pts:8,rare:false},
-    {title:"Uncharted",year:"2022",desc:"Un giovane barman viene reclutato da un cacciatore di tesori per trovare un tesoro perduto dei Magellano.",pts:8,rare:false},
-    {title:"Assassin's creed",year:"2016",desc:"Un uomo viene collegato tramite tecnologia ai ricordi del suo antenato assassino nella Spagna del 1400.",pts:10,rare:false},
-  ],
-  saghe:[
-    {title:"Riddick",year:"2000-2013",desc:"Un pericoloso criminale con la vista notturna si ritrova su pianeti ostili, braccato da cacciatori di taglie.",pts:15,rare:false},
-    {title:"Hostel",year:"2005",desc:"Turisti in Europa vengono intrappolati in una rete criminale che vende esseri umani come vittime a ricchi sadici.",pts:15,rare:false},
-    {title:"Una pallottola spuntata",year:"1988",desc:"Il detective Frank Drebin — goffo ma inarrestabile — indaga su crimini in modo completamente demenziale.",pts:15,rare:false},
-    {title:"Scuola di polizia",year:"1984",desc:"Reclute incompetenti e bizzarre cercano di diventare poliziotti in questa esilarante commedia americana.",pts:15,rare:false},
-    {title:"La bambola assassina",year:"1988",desc:"Una bambola giocattolo posseduta dall'anima di un serial killer tormenta una madre e il suo bambino.",pts:15,rare:false},
-    {title:"Star wars",year:"1977",desc:"Una galassia lontana, un eroe contadino, una principessa prigioniera e una stazione spaziale di distruzione.",pts:5,rare:false},
-    {title:"Il Signore degli anelli",year:"2001",desc:"Una compagnia di eroi deve portare un anello del potere nella terra del fuoco per distruggerlo prima che il male trionfi.",pts:5,rare:false},
-    {title:"Terminator",year:"1984",desc:"Un robot killer viaggia indietro nel tempo per eliminare la madre del futuro leader della resistenza umana.",pts:5,rare:false},
-    {title:"Alien",year:"1979",desc:"L'equipaggio di un cargo spaziale risponde a un segnale su un pianeta disabitato e porta a bordo qualcosa di letale.",pts:5,rare:false},
-    {title:"Dune",year:"2021",desc:"Il figlio di una casata nobile viene esiliato su un pianeta desertico, unica fonte di una spezia preziosa.",pts:8,rare:false},
-  ]
-};
+// Database completo domande dal catalogo reale
+const ALL_QS = [
+  // COMICS
+  {title:"Dampyr",cat:"comics",year:"2022",pts:25,desc:"Un cacciatore di vampiri scopre di essere lui stesso metà creatura della notte. Adattamento del fumetto Bonelli italiano.",decoys:["Blade trinity","Hellboy","Constantine","Immortal"]},
+  {title:"I cavalieri dello zodiaco",cat:"comics",year:"2023",pts:22,desc:"Giovani guerrieri con poteri cosmici proteggono la dea Atena in questo live-action dell'anime degli anni '90.",decoys:["Eternals","Shang-Chi la leggenda dei dieci anelli","Thor love and thunder","Blue Beetle"]},
+  {title:"The King's man - le origini",cat:"comics",year:"2021",pts:18,desc:"Le origini segrete dell'agenzia di spionaggio più elegante del mondo, durante la Prima Guerra Mondiale.",decoys:["Kingsman secret service","Kingsman il cerchio d'oro","The Batman","Black Adam"]},
+  {title:"Diabolik - Ginko all'attacco",cat:"comics",year:"2022",pts:22,desc:"Il leggendario ladro mascherato italiano affronta il suo eterno rivale ispettore in questo secondo capitolo.",decoys:["Diabolik","Sin city","The spirit","V per Vendetta"]},
+  {title:"Il ragazzo invisibile",cat:"comics",year:"2014",pts:20,desc:"Un adolescente italiano scopre di poter diventare invisibile. Il primo cinecomics completamente italiano.",decoys:["Il ragazzo invisibile - seconda generazione","Ant-Man","The new mutants","Fantastic 4 - i fantastici 4 (2015)"]},
+  {title:"Cowboys & Aliens",cat:"comics",year:"2011",pts:16,desc:"Un cowboy con la memoria cancellata e un misterioso bracciale deve fermare un'invasione aliena nel Far West.",decoys:["300","300 l'alba di un impero","Red","The losers"]},
+  {title:"Jonah Hex",cat:"comics",year:"2010",pts:22,desc:"Un cacciatore di taglie sfigurato con poteri soprannaturali affronta un ex generale nel selvaggio West.",decoys:["The phantom","Spawn","Red","The losers"]},
+  {title:"The spirit",cat:"comics",year:"2008",pts:20,desc:"Un detective immortale protegge la sua città dal misterioso Octopus in uno stile completamente fumettistico.",decoys:["Sin city","Sin city 2","Watchmen","The punisher"]},
+  {title:"Man-thing",cat:"comics",year:"2005",pts:25,desc:"Una creatura vegetale del pantano difende il suo habitat da sviluppatori corrotti. Film Marvel rarissimo.",decoys:["I, Frankenstein","Immortal","Hulk (2003)","Catwoman"]},
+  {title:"La leggenda degli uomini straordinari",cat:"comics",year:"2003",pts:22,desc:"Allan Quatermain guida un team di eroi letterari vittoriani — Dorian Gray, Nemo, l'Uomo Invisibile — contro una minaccia mondiale.",decoys:["Spawn","The phantom","Il corvo (B. Lee)","Blade"]},
+  {title:"I, Frankenstein",cat:"comics",year:"2014",pts:20,desc:"La creatura di Frankenstein sopravvive fino ai giorni nostri, coinvolta in una guerra tra demoni e gargoyle.",decoys:["Immortal","Hellboy (2018)","Constantine","Blade trinity"]},
+  {title:"Immortal",cat:"comics",year:"2004",pts:22,desc:"In una Parigi futuristica, il dio Horus scende sulla Terra per abitare il corpo di un uomo mutante.",decoys:["I, Frankenstein","Man-thing","The spirit","Catwoman"]},
+  {title:"The phantom",cat:"comics",year:"1996",pts:22,desc:"L'eroe mascherato del fumetto degli anni '30 affronta un magnate che cerca tre teschi soprannaturali.",decoys:["Spawn","Il corvo (B. Lee)","The losers","Jonah Hex"]},
+  {title:"Spawn",cat:"comics",year:"1997",pts:15,desc:"Un agente della CIA ucciso torna dall'inferno come guerriero soprannaturale per vendicarsi del suo assassino.",decoys:["Blade","Constantine","Hellboy","Ghost rider"]},
+  {title:"Dredd (S. Stallone)",cat:"comics",year:"1995",pts:18,desc:"Il giudice più temuto di Mega-City One viene incastrato per omicidio e deve dimostrare la propria innocenza.",decoys:["Dredd - il giudice dell'apocalisse","The punisher","Watchmen","Blade"]},
+  {title:"Il corvo (B. Lee)",cat:"comics",year:"1994",pts:16,desc:"Un musicista assassinato torna dalla morte per vendicarsi dei suoi assassini la notte di Halloween. Brandon Lee.",decoys:["Il corvo 2","Il corvo (2023)","Spawn","Blade"]},
+  {title:"Watchmen",cat:"comics",year:"2009",pts:14,desc:"In un'America alternativa dove i supereroi sono reali, un ex vigilante viene assassinato e i suoi vecchi compagni indagano.",decoys:["V per Vendetta","Sin city","The spirit","Batman il cavaliere oscuro"]},
+  {title:"V per Vendetta",cat:"comics",year:"2005",pts:14,desc:"In una Gran Bretagna fascista futura, un misterioso anarchico mascherato guida una rivoluzione contro il governo.",decoys:["Watchmen","Sin city","The spirit","Constantine"]},
+  {title:"Kick-ass",cat:"comics",year:"2010",pts:12,desc:"Un normale adolescente decide di diventare un supereroe senza poteri, con risultati grotteschi e violenti.",decoys:["Kick-ass 2","Deadpool","Ant-Man","The amazing Spider-man"]},
+  {title:"Sin city",cat:"comics",year:"2005",pts:12,desc:"Tre storie intrecciate di crimine, violenza e redenzione nella corrotta Basin City, in bianco e nero stilizzato.",decoys:["Sin city 2","Watchmen","The spirit","Blade trinity"]},
+  {title:"Batman begins",cat:"comics",year:"2005",pts:10,desc:"Le origini di Bruce Wayne: come un miliardario traumatizzato diventa il Cavaliere Oscuro di Gotham City.",decoys:["Batman (T. Burton)","Batman il ritorno","Batman forever","Batman & Robin"]},
+  {title:"Iron man",cat:"comics",year:"2008",pts:8,desc:"Un geniale miliardario costruisce una tuta corazzata dopo essere stato catturato dai terroristi nel deserto.",decoys:["Iron man 2","Iron man 3","L'uomo d'acciaio","Thor"]},
+  {title:"Joker",cat:"comics",year:"2019",pts:8,desc:"L'origine del celebre villain di Gotham: un comico fallito scivola nella follia in una Gotham anni '80 decadente.",decoys:["Batman (T. Burton)","Batman il cavaliere oscuro","Batman v Superman dawn of justice","Suicide squad"]},
+  {title:"Avengers Endgame",cat:"comics",year:"2019",pts:6,desc:"I supereroi sopravvissuti compiono un viaggio nel tempo per recuperare le Gemme dell'Infinito e sconfiggere Thanos.",decoys:["Avengers infinity war","Avengers age of Ultron","The Avengers","Captain America civil war"]},
+  {title:"Logan - the wolverine",cat:"comics",year:"2017",pts:10,desc:"Un Logan invecchiato si prende cura di un Professor X malato mentre protegge una bambina con i suoi stessi poteri.",decoys:["Wolverine l'immortale","X-men le origini - Wolverine","X-men apocalisse","X-men Dark Phoenix"]},
+  {title:"Deadpool",cat:"comics",year:"2016",pts:9,desc:"Un mercenario dalla lingua sciolta ottiene poteri di rigenerazione attraverso un esperimento brutale e cerca vendetta.",decoys:["Deadpool 2","Deadpool and Wolverine","The suicide squad - missione suicida","Kick-ass"]},
+  {title:"Batman il cavaliere oscuro",cat:"comics",year:"2008",pts:7,desc:"Il Cavaliere Oscuro affronta il Joker, un agente del caos determinato a dimostrare che chiunque può cadere.",decoys:["Batman begins","Batman il cavaliere oscuro - il ritorno","Batman v Superman dawn of justice","Batman (T. Burton)"]},
+  {title:"Venom",cat:"comics",year:"2018",pts:9,desc:"Un giornalista diventa il simbionte di un'aliena creatura e deve imparare a convivere con la sua doppia natura.",decoys:["Venom la furia di Carnage","Venom the last dance","Morbius","Spider-man 3"]},
+  {title:"Black panther",cat:"comics",year:"2018",pts:8,desc:"Il re della nazione africana tecnologicamente avanzata di Wakanda difende il suo regno da un pretendente al trono.",decoys:["Wakanda forever","Shang-Chi la leggenda dei dieci anelli","Black Widow","Eternals"]},
+  {title:"Wonder woman",cat:"comics",year:"2017",pts:8,desc:"La principessa guerriera delle Amazzoni lascia la sua isola per combattere nella Prima Guerra Mondiale.",decoys:["Wonder woman 1984","Captain Marvel","Black Widow","Zack Snyder's Justice League"]},
+  // VIDEOGIOCHI
+  {title:"Wing commander",cat:"vg",year:"1999",pts:25,desc:"Piloti spaziali umani combattono contro i Kilrathi, una feroce razza aliena felina, in una guerra galattica.",decoys:["Warcraft - l'inizio","Doom","Final fantasy","Star wars (errore)"]},
+  {title:"DOA: Dead or alive",cat:"vg",year:"2006",pts:22,desc:"Le migliori combattenti al mondo si sfidano su un'isola privata in un torneo di arti marziali pieno di segreti.",decoys:["Tekken","Street fighter: sfida finale","Mortal kombat (2021)","Mortal kombat (1995)"]},
+  {title:"Cacciatori di zombie",cat:"vg",year:"2004",pts:24,desc:"Un gruppo di sopravvissuti deve fuggire da un'isola infestata di non-morti. Film collegato ai videogiochi horror.",decoys:["Resident evil","House of the dead","Alone in the dark","Bloodrayne"]},
+  {title:"Bloodrayne",cat:"vg",year:"2005",pts:22,desc:"Una dhampir — metà umana, metà vampiro — combatte contro il padre vampiro nell'Europa del Settecento.",decoys:["Bloodrayne 2","Resident evil","Alone in the dark","Cacciatori di zombie"]},
+  {title:"In the name of the king",cat:"vg",year:"2007",pts:20,desc:"Un semplice contadino guida un esercito contro il mago Gallian e l'orda di mostri Krugs che minacciano il regno.",decoys:["Warcraft - l'inizio","Final fantasy","Prince of Persia - le sabbie del tempo","Doom"]},
+  {title:"House of the dead",cat:"vg",year:"2003",pts:20,desc:"Studenti intrappolati su un'isola durante un rave devono sopravvivere a un'improvvisa invasione di zombie.",decoys:["Resident evil","Alone in the dark","Cacciatori di zombie","Silent hill"]},
+  {title:"Double dragon",cat:"vg",year:"1994",pts:24,desc:"Due fratelli combattenti cercano le metà di un medaglione magico in una Los Angeles post-apocalittica.",decoys:["Street fighter: sfida finale","Mortal kombat (1995)","Tekken","Doom"]},
+  {title:"Far cry",cat:"vg",year:"2008",pts:20,desc:"Un ex militare indaga su esperimenti genetici su un'isola tropicale che trasformano prigionieri in super soldati.",decoys:["Alone in the dark","Resident evil","Monster hunter","Doom"]},
+  {title:"Alone in the dark",cat:"vg",year:"2005",pts:20,desc:"Un investigatore del paranormale affronta antiche creature oscure che vogliono aprire un portale tra i mondi.",decoys:["Silent hill","House of the dead","Resident evil","Cacciatori di zombie"]},
+  {title:"Ratchet & Clank",cat:"vg",year:"2016",pts:18,desc:"Un giovane meccanico alieno e un piccolo robot difendono la galassia dai piani di un villain che distrugge pianeti.",decoys:["Super Mario Galaxy","Un film Minecraft","Angry birds","Pokemon - detective Pikachu"]},
+  {title:"Super Mario Galaxy",cat:"vg",year:"2015",pts:20,desc:"Il famoso idraulico affronta Bowser nello spazio per salvare Peach in un'avventura cosmica. Film d'animazione.",decoys:["Super Mario Bros (2023)","Super Mario Bros il film","Un film Minecraft","Angry birds"]},
+  {title:"Mortal kombat (1995)",cat:"vg",year:"1995",pts:12,desc:"Tre guerrieri terrestri partecipano a un torneo di arti marziali per salvare la Terra dal regno di Outworld.",decoys:["Mortal kombat (2021)","Mortal kombat - distruzione totale","Street fighter: sfida finale","Tekken"]},
+  {title:"Resident evil",cat:"vg",year:"2002",pts:10,desc:"Un'agente speciale affronta i sopravvissuti mutanti di un incidente biologico in un laboratorio sotterraneo.",decoys:["Resident evil: apocalypse","Resident evil: afterlife","Resident evil: extinction","Silent hill"]},
+  {title:"Silent hill",cat:"vg",year:"2006",pts:12,desc:"Una madre cerca la figlia scomparsa in una città avvolta da una nebbia soprannaturale piena di creature mostruose.",decoys:["Silent hill reveletions","Resident evil","Alone in the dark","House of the dead"]},
+  {title:"Super Mario Bros (2023)",cat:"vg",year:"2023",pts:8,desc:"Il famoso idraulico italiano viene catapultato nel Regno dei Funghi per salvare la principessa da Bowser.",decoys:["Super Mario Bros il film","Un film Minecraft","Angry birds","Pokemon - detective Pikachu"]},
+  {title:"Uncharted",cat:"vg",year:"2022",pts:9,desc:"Un giovane barman viene reclutato da un cacciatore di tesori per trovare un tesoro perduto dei Magellano.",decoys:["Tomb raider (2018)","Lara Croft: Tomb raider (A. Jolie)","Prince of Persia - le sabbie del tempo","Assassin's creed"]},
+  {title:"Assassin's creed",cat:"vg",year:"2016",pts:10,desc:"Un uomo viene collegato tramite tecnologia ai ricordi del suo antenato assassino nella Spagna del 1400.",decoys:["Uncharted","Prince of Persia - le sabbie del tempo","Hitman agente 47","Max Payne"]},
+  {title:"Max Payne",cat:"vg",year:"2008",pts:14,desc:"Un detective della narcotici cerca i responsabili dell'omicidio di sua moglie in una New York invernale e oscura.",decoys:["Hitman - l'assassino","Hitman agente 47","Need for speed","Doom"]},
+  {title:"Pokemon - detective Pikachu",cat:"vg",year:"2019",pts:10,desc:"Un ragazzo cerca suo padre scomparso aiutato da un Pikachu parlante detective in una città abitata da Pokemon.",decoys:["Super Mario Bros (2023)","Angry birds","Angry birds 2","Un film Minecraft"]},
+  {title:"Five nights at Freddy's",cat:"vg",year:"2023",pts:12,desc:"Una guardia notturna in una pizzeria con animatroni robotici scopre i terribili segreti nascosti nel locale.",decoys:["Five nights at Freddy's 2","House of the dead","Resident evil","Silent hill"]},
+  {title:"Warcraft - l'inizio",cat:"vg",year:"2016",pts:14,desc:"Umani e orchi si scontrano quando i guerrieri di Azeroth cercano di fermare l'invasione attraverso un portale magico.",decoys:["In the name of the king","Final fantasy","Prince of Persia - le sabbie del tempo","Doom"]},
+  // SAGHE
+  {title:"Riddick",cat:"saghe",year:"2000-2013",pts:15,desc:"Un pericoloso criminale con la vista notturna modificata sopravvive su pianeti ostili braccato da cacciatori di taglie.",decoys:["Alien","Predator","Matrix","Transformers"]},
+  {title:"Hostel",cat:"saghe",year:"2005",pts:15,desc:"Turisti in Europa vengono attirati in una rete criminale che vende vittime umane ai sadici più facoltosi del mondo.",decoys:["Saw - l'enigmista","Scream","Nightmare","Non aprite quella porta"]},
+  {title:"Una pallottola spuntata",cat:"saghe",year:"1988",pts:14,desc:"Il detective Frank Drebin — completamente goffo ma inarrestabile — indaga su crimini in modo demenziale.",decoys:["Austin Powers","Beverly hills cop","Scuola di polizia","Fantozzi"]},
+  {title:"Scuola di polizia",cat:"saghe",year:"1984",pts:14,desc:"Reclute incompetenti e bizzarre cercano di diventare poliziotti in questa esilarante commedia americana.",decoys:["Una pallottola spuntata","Beverly hills cop","Austin Powers","American pie"]},
+  {title:"La bambola assassina",cat:"saghe",year:"1988",pts:14,desc:"Una bambola giocattolo posseduta dall'anima di un serial killer tormenta una madre e il suo bambino.",decoys:["Nightmare","Halloween","Venerdi 13","Non aprite quella porta"]},
+  {title:"Fantozzi",cat:"saghe",year:"1975",pts:14,desc:"Il ragioniere più sfortunato d'Italia subisce umiliazioni infinite nel lavoro e nella vita quotidiana italiana.",decoys:["American pie","Austin Powers","Una pallottola spuntata","Scuola di polizia"]},
+  {title:"Star wars",cat:"saghe",year:"1977",pts:5,desc:"Una galassia lontana, un eroe contadino, una principessa prigioniera e una stazione spaziale di distruzione totale.",decoys:["Dune","Il Signore degli anelli","Matrix","Transformers"]},
+  {title:"Alien",cat:"saghe",year:"1979",pts:7,desc:"L'equipaggio di un cargo spaziale risponde a un segnale su un pianeta e porta a bordo qualcosa di letale.",decoys:["Predator","Terminator","Matrix","Dune"]},
+  {title:"Il Signore degli anelli",cat:"saghe",year:"2001",pts:5,desc:"Una compagnia di eroi porta un anello del potere nella terra del fuoco per distruggerlo prima che il male trionfi.",decoys:["Lo Hobbit","Dune","Harry Potter","Star wars"]},
+  {title:"Terminator",cat:"saghe",year:"1984",pts:6,desc:"Un robot killer viaggia indietro nel tempo per eliminare la madre del futuro leader della resistenza umana.",decoys:["Matrix","Alien","Predator","Transformers"]},
+  {title:"Jurassic park",cat:"saghe",year:"1993",pts:6,desc:"Un parco a tema con dinosauri veri va fuori controllo e i visitatori devono sopravvivere alle creature preistoriche.",decoys:["Monsterverse - Godzilla e Kong","Alien","Predator","Terminator"]},
+  {title:"Matrix",cat:"saghe",year:"1999",pts:6,desc:"Un programmatore scopre che la realtà è una simulazione e si unisce alla resistenza contro le macchine che controllano l'umanità.",decoys:["Terminator","Dune","Hunger games","Star wars"]},
+  {title:"Halloween",cat:"saghe",year:"1978",pts:8,desc:"Michael Myers, un assassino mascherato fuggito da un manicomio, terrorizza una tranquilla cittadina americana.",decoys:["Nightmare","Venerdi 13","Scream","Non aprite quella porta"]},
+  {title:"Dune",cat:"saghe",year:"2021",pts:8,desc:"Il figlio di una casata nobile viene esiliato su un pianeta desertico, unica fonte di una spezia preziosissima.",decoys:["Star wars","Il Signore degli anelli","Matrix","Hunger games"]},
+];
 
-// Fake titles per le opzioni sbagliate
-const DECOYS={
-  comics:["Aquaman: Tridente d'oro","Thor: Ombra di Asgard","Iron Man: Codice Omega","Batman: Notti di Gotham","Spider-Man 4","Hulk: La resa dei conti","Captain Marvel 2","Wolverine: Artigli d'acciaio","Green Arrow il film","Black Canary","Falcon e Captain America","Hawkeye il film"],
-  vg:["Sonic il film 2","Pac-Man: Il labirinto","Crash Bandicoot il film","Halo: Spartan Legacy","Street fighter 3","Tekken 2","Silent hill 3","Max Payne 2","Tomb raider: Leggenda","Prince of Persia 2"],
-  saghe:["La saga di Conan","Flash Gordon (2010)","Buck Rogers","Barbarella 2","Zorro 3","Il Fantasma 2","Danger Man","L'uomo da sei milioni di dollari il film"]
-};
+function shuffle(a){let b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
 
-let selCatKey='all', questions=[], curIdx=0, score=0, lives=3, discovered=[], streak=0;
+let selCat_='all', qQueue=[], curIdx=0, score=0, lives=3, discovered=[], streak=0, wrongList=[];
 
-function selCat(btn,cat){document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');selCatKey=cat;}
+function selCat(btn,cat){document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');selCat_=cat;}
 
-function buildPool(){
-  let pool=[];
-  if(selCatKey==='all'||selCatKey==='comics')pool=[...pool,...DB.comics.map(q=>({...q,cat:'comics'}))];
-  if(selCatKey==='all'||selCatKey==='vg')pool=[...pool,...DB.vg.map(q=>({...q,cat:'vg'}))];
-  if(selCatKey==='all'||selCatKey==='saghe')pool=[...pool,...DB.saghe.map(q=>({...q,cat:'saghe'}))];
-  return shuffle(pool).slice(0,10);
+function getFiltered(){
+  if(selCat_==='all') return ALL_QS;
+  return ALL_QS.filter(q=>q.cat===selCat_);
 }
 
-function shuffle(a){return a.sort(()=>Math.random()-.5);}
+// Anti-ripetizione: shuffla tutto e scorre senza ripetere finché non finisce il giro
+let globalQueue=[], globalIdx=0;
+function nextQuestion(){
+  const pool=getFiltered();
+  if(globalIdx>=globalQueue.length||globalQueue[0]?.cat!==selCat_){
+    globalQueue=shuffle(pool); globalIdx=0;
+  }
+  // Se abbiamo finito tutti, ricomicia dall'inizio con nuova shuffle
+  if(globalIdx>=globalQueue.length){globalQueue=shuffle(pool);globalIdx=0;}
+  return globalQueue[globalIdx++];
+}
 
-function makeOptions(q){
-  const pool=DECOYS[q.cat]||DECOYS.comics;
-  const decoys=shuffle([...pool]).slice(0,3);
-  return shuffle([q.title,...decoys]);
+function buildSession(){
+  const pool=getFiltered();
+  globalQueue=shuffle(pool); globalIdx=0;
+  const qs=[];
+  const n=Math.min(8,pool.length);
+  const usedIdx=new Set();
+  // Prendo 8 domande senza ripetere nella sessione
+  for(let i=0;i<pool.length&&qs.length<n;i++){
+    if(!usedIdx.has(i)){usedIdx.add(i);qs.push(pool[i]);}
+  }
+  return shuffle(qs);
 }
 
 function startGame(){
-  questions=buildPool();curIdx=0;score=0;lives=3;discovered=[];streak=0;
-  showScr('s-quiz');renderQ();
+  const pool=getFiltered();
+  const n=Math.min(8,pool.length);
+  // Shuffle globale anti-ripetizione
+  if(globalQueue.length===0||selCat_!==lastCat){globalQueue=shuffle(pool);globalIdx=0;lastCat=selCat_;}
+  const session=[];
+  const tmpIdx=globalIdx;
+  for(let i=0;i<n;i++){
+    if(globalIdx>=globalQueue.length){globalQueue=shuffle(pool);globalIdx=0;}
+    session.push(globalQueue[globalIdx++]);
+  }
+  // Se ho consumato tutto il pool, resetto per la prossima partita
+  if(globalIdx>=globalQueue.length){globalQueue=shuffle(pool);globalIdx=0;}
+  
+  qQueue=session; curIdx=0; score=0; lives=3; discovered=[]; streak=0; wrongList=[];
+  showScr('s-quiz'); renderQ();
 }
 
+let lastCat='all';
+
 function renderQ(){
-  const q=questions[curIdx];
-  document.getElementById('q-pts').textContent=String(score).padStart(3,'0');
-  document.getElementById('q-num').textContent=(curIdx+1)+'/'+questions.length;
-  document.getElementById('prog').style.width=(curIdx/questions.length*100)+'%';
-  document.getElementById('q-lives').textContent='❤️'.repeat(Math.max(0,lives))+'🖤'.repeat(3-Math.max(0,lives));
-  document.getElementById('clue-text').textContent=q.desc;
-  document.getElementById('clue-year').textContent='📅 Anno: '+q.year+(q.rare?' — ⭐ TITOLO RARO (+'+q.pts+' punti)':'');
-  const grid=document.getElementById('ans-grid');grid.innerHTML='';
-  const opts=makeOptions(q);
+  const q=qQueue[curIdx];
+  document.getElementById('h-pts').textContent=String(score).padStart(3,'0');
+  document.getElementById('h-num').textContent=(curIdx+1)+'/'+qQueue.length;
+  document.getElementById('prog').style.width=(curIdx/qQueue.length*100)+'%';
+  document.getElementById('h-lives').textContent='❤️'.repeat(Math.max(0,lives))+'🖤'.repeat(3-Math.max(0,lives));
+  document.getElementById('clue-txt').textContent=q.desc;
+  document.getElementById('clue-yr').textContent='📅 Anno: '+q.year+(q.pts>=20?' — ⭐ Titolo raro (+'+q.pts+' pt)':'');
+  const grid=document.getElementById('ans-grid'); grid.innerHTML='';
+  const opts=shuffle([q.title,...q.decoys.slice(0,3)]);
   opts.forEach(opt=>{
-    const b=document.createElement('button');b.className='ans-btn';b.textContent=opt;
-    b.onclick=()=>pick(opt,q,b);grid.appendChild(b);
+    const b=document.createElement('button'); b.className='ans-btn'; b.textContent=opt;
+    b.onclick=()=>pick(opt,q,b); grid.appendChild(b);
   });
   document.getElementById('skip-btn').style.display='block';
   document.getElementById('feedback').style.display='none';
@@ -235,83 +275,345 @@ function renderQ(){
 
 function pick(chosen,q,btn){
   document.querySelectorAll('.ans-btn').forEach(b=>{b.disabled=true;if(b.textContent===q.title)b.classList.add('correct');});
-  const correct=chosen===q.title;
+  const ok=chosen===q.title;
   document.getElementById('skip-btn').style.display='none';
-  const fb=document.getElementById('feedback');fb.style.display='block';
-  if(correct){
-    score+=q.pts;streak++;
+  const fb=document.getElementById('feedback'); fb.style.display='block';
+  if(ok){
+    score+=q.pts; streak++;
     btn.classList.add('correct');
     fb.className='feedback ok';
-    fb.innerHTML='✅ ESATTO! +'+q.pts+' punti!'+(q.rare?' 🌟 Titolo raro!':'')+(streak>=3?' 🔥 Streak x'+streak+'!':'');
-    if(q.rare){discovered.push({title:q.title,desc:q.desc,year:q.year});}
+    fb.innerHTML='✅ ESATTO! +'+q.pts+' punti!'+(q.pts>=20?' 🌟 Titolo raro!':'')+(streak>=3?' 🔥 Streak x'+streak+'!':'');
+    if(q.pts>=18) discovered.push(q);
     if(streak>=3)showStreak();
   } else {
-    lives--;streak=0;
-    btn.classList.add('wrong');
+    lives--; streak=0; btn.classList.add('wrong');
     fb.className='feedback ko';
-    fb.innerHTML='❌ Sbagliato! La risposta era <strong>'+q.title+'</strong>. -1 vita.'+(q.rare?'<br>Era un titolo raro — chiedilo allo stand!':'');
-    if(q.rare)discovered.push({title:q.title,desc:q.desc,year:q.year});
+    fb.innerHTML='❌ Sbagliato! Era <strong>'+q.title+'</strong>'+(q.pts>=18?'<br>Titolo raro — chiedilo allo stand!':'');
+    if(q.pts>=18) discovered.push(q);
+    if(!wrongList.find(x=>x.title===q.title)) wrongList.push(q);
   }
-  document.getElementById('q-pts').textContent=String(score).padStart(3,'0');
-  document.getElementById('q-lives').textContent='❤️'.repeat(Math.max(0,lives))+'🖤'.repeat(3-Math.max(0,lives));
+  document.getElementById('h-pts').textContent=String(score).padStart(3,'0');
+  document.getElementById('h-lives').textContent='❤️'.repeat(Math.max(0,lives))+'🖤'.repeat(3-Math.max(0,lives));
   document.getElementById('btn-next').style.display='block';
-  if(lives<=0){document.getElementById('btn-next').textContent='FINE → Vedi risultati';document.getElementById('btn-next').onclick=showEnd;}
-  else if(curIdx>=questions.length-1){document.getElementById('btn-next').textContent='FINE → Vedi risultati';document.getElementById('btn-next').onclick=showEnd;}
-  else{document.getElementById('btn-next').textContent='AVANTI →';document.getElementById('btn-next').onclick=nextQ;}
+  const bn=document.getElementById('btn-next');
+  if(lives<=0||curIdx>=qQueue.length-1){bn.textContent='FINE →';bn.onclick=showEnd;}
+  else{bn.textContent='AVANTI →';bn.onclick=nextQ;}
 }
 
 function skipQ(){
-  const q=questions[curIdx];
-  lives--;
-  const fb=document.getElementById('feedback');fb.style.display='block';fb.className='feedback ko';
-  fb.innerHTML='⏭ Saltato! La risposta era <strong>'+q.title+'</strong>. -1 vita.';
-  if(q.rare)discovered.push({title:q.title,desc:q.desc,year:q.year});
+  const q=qQueue[curIdx]; lives--; streak=0;
   document.querySelectorAll('.ans-btn').forEach(b=>{b.disabled=true;if(b.textContent===q.title)b.classList.add('correct');});
   document.getElementById('skip-btn').style.display='none';
-  document.getElementById('q-lives').textContent='❤️'.repeat(Math.max(0,lives))+'🖤'.repeat(3-Math.max(0,lives));
+  const fb=document.getElementById('feedback'); fb.style.display='block'; fb.className='feedback ko';
+  fb.innerHTML='⏭ Saltato! Era <strong>'+q.title+'</strong>';
+  if(q.pts>=18) discovered.push(q);
+  if(!wrongList.find(x=>x.title===q.title)) wrongList.push(q);
+  document.getElementById('h-lives').textContent='❤️'.repeat(Math.max(0,lives))+'🖤'.repeat(3-Math.max(0,lives));
   document.getElementById('btn-next').style.display='block';
-  streak=0;
-  if(lives<=0){document.getElementById('btn-next').textContent='FINE → Vedi risultati';document.getElementById('btn-next').onclick=showEnd;}
-  else if(curIdx>=questions.length-1){document.getElementById('btn-next').textContent='FINE → Vedi risultati';document.getElementById('btn-next').onclick=showEnd;}
-  else{document.getElementById('btn-next').textContent='AVANTI →';document.getElementById('btn-next').onclick=nextQ;}
+  const bn=document.getElementById('btn-next');
+  if(lives<=0||curIdx>=qQueue.length-1){bn.textContent='FINE →';bn.onclick=showEnd;}
+  else{bn.textContent='AVANTI →';bn.onclick=nextQ;}
 }
 
-function nextQ(){curIdx++;if(curIdx>=questions.length||lives<=0){showEnd();return;}renderQ();}
+function nextQ(){curIdx++;if(curIdx>=qQueue.length||lives<=0){showEnd();return;}renderQ();}
 
 function showStreak(){
   const el=document.getElementById('streak-pop');
-  el.textContent='🔥 COMBO x'+streak+'! +BONUS';el.classList.add('show');
+  el.textContent='🔥 COMBO x'+streak+'!'; el.classList.add('show');
   setTimeout(()=>{el.style.opacity='0';setTimeout(()=>{el.classList.remove('show');el.style.opacity='1';},500);},1200);
 }
 
 function showEnd(){
   showScr('s-end');
   document.getElementById('end-pts').textContent=String(score).padStart(3,'0');
-  const msg=score>=120?'🏆 Enciclopedia vivente del cinema fantastico!':score>=70?'⭐ Grande conoscitore! Qualche titolo oscuro ti ha sorpreso.':score>=30?'📽️ Buone basi! Il catalogo ha ancora molte sorprese per te.':'🎬 Vieni a Centro Video Taroni — c\'è un mondo da scoprire!';
   document.getElementById('end-sub').textContent='Vite rimaste: '+'❤️'.repeat(Math.max(0,lives));
+  const msg=score>=120?'🏆 Enciclopedista del cinema fantastico!':score>=70?'⭐ Grande conoscitore!':score>=30?'📽️ Buone basi — esplora ancora!':'🎬 Vieni a Centro Video Taroni!';
   document.getElementById('end-msg').textContent=msg;
-  const dl=document.getElementById('disc-list');dl.innerHTML='';
+  const dl=document.getElementById('disc-list'); dl.innerHTML='';
   const dh=document.getElementById('disc-head');
-  if(discovered.length>0){
-    dh.textContent='🌟 TITOLI RARI CHE HAI INCONTRATO — DISPONIBILI ALLO STAND';dh.style.display='block';
-    const shown=[];
-    discovered.forEach(d=>{
-      if(shown.includes(d.title))return;shown.push(d.title);
-      const el=document.createElement('div');el.className='disc-item';
-      el.innerHTML='<div class="disc-item-title">'+d.title+' ('+d.year+')</div><div class="disc-item-desc">'+d.desc+'</div>';
-      dl.appendChild(el);
-    });
-  } else {dh.textContent='Nessun titolo raro mostrato questa volta — riprova!';dh.style.display='block';}
+  if(wrongList.length>0){
+    dh.textContent='🎬 '+wrongList.length+' FILM CHE HAI SBAGLIATO — SCOPRI DI PIÙ';
+    buildWrongCards2(wrongList);
+  } else {dh.textContent='Perfetto! Hai risposto correttamente a tutto.';}
 }
 
 function goHome(){showScr('s-home');}
 function showScr(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
 
-// BG
-const canvas=document.getElementById('bg');const ctx=canvas.getContext('2d');let W,H,grid2=[];
-function resize2(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;grid2=[];for(let x=0;x<W;x+=40)for(let y=0;y<H;y+=40)grid2.push({x,y,t:Math.random()*Math.PI*2,spd:0.01+Math.random()*0.02});}
-function draw2(){ctx.clearRect(0,0,W,H);grid2.forEach(p=>{p.t+=p.spd;const a=0.02+0.05*Math.abs(Math.sin(p.t));ctx.fillStyle='rgba(0,245,255,'+a+')';ctx.fillRect(p.x,p.y,1,1);});requestAnimationFrame(draw2);}
+const canvas=document.getElementById('bg');const ctx=canvas.getContext('2d');let W,H,g2=[];
+function resize2(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;g2=[];for(let x=0;x<W;x+=40)for(let y=0;y<H;y+=40)g2.push({x,y,t:Math.random()*Math.PI*2,s:0.01+Math.random()*.02});}
+function draw2(){ctx.clearRect(0,0,W,H);g2.forEach(p=>{p.t+=p.s;const a=0.02+0.05*Math.abs(Math.sin(p.t));ctx.fillStyle='rgba(0,245,255,'+a+')';ctx.fillRect(p.x,p.y,1,1);});requestAnimationFrame(draw2);}
 window.addEventListener('resize',resize2);resize2();draw2();
+
+// ===== DATABASE FILM =====
+// DATABASE COMPLETO — trama + curiosità per ogni film del catalogo
+const FILM_DB = {
+  // ===== COMICS =====
+  "The marvels": {desc:"Tre eroine — Captain Marvel, Ms. Marvel e Monica Rambeau — si ritrovano a scambiare i loro poteri ogni volta che li usano simultaneamente.", cur:"È il film MCU con il minor incasso della storia, ma ha un fanbase fedelissimo che lo rivaluta nel tempo."},
+  "Aquaman - il regno perduto": {desc:"Arthur Curry deve formare un'alleanza improbabile con il fratellastro Orm per proteggere Atlantide da una minaccia antica.", cur:"Jason Momoa ha dovuto tingere i capelli di scuro per il ruolo — naturalmente è biondo."},
+  "Blue Beetle": {desc:"Jaime Reyes, un giovane latino, entra in contatto con uno scarabeo alieno che si fonde con lui creando un'armatura vivente.", cur:"Primo supereroe latino a guidare un film DC. Il cast è quasi interamente ispanico — una rarità per Hollywood."},
+  "Dampyr": {desc:"Harlan Draka scopre di essere un Dampyr — figlio di un vampiro — e viene reclutato per combattere una stirpe di non-morti nei Balcani.", cur:"Basato sul fumetto Bonelli con oltre 200 albi. Primo adattamento live-action, girato in Serbia con produzione italo-ceca."},
+  "I cavalieri dello zodiaco": {desc:"Seiya, un giovane guerriero di strada, scopre di essere uno dei leggendari Cavalieri destinati a proteggere la dea Atena con poteri cosmici.", cur:"Live-action del celebre anime Saint Seiya, amatissimo in Italia negli anni '90. Produzione americana con cast internazionale."},
+  "The Flash": {desc:"Barry Allen viaggia indietro nel tempo per salvare sua madre, aprendo involontariamente il multiverso e sconvolgendo la realtà.", cur:"Ezra Miller ha impiegato 6 anni di allenamento per il ruolo. Il film include camei di quasi ogni Batman mai apparso al cinema."},
+  "The Batman": {desc:"Un Bruce Wayne alle prime armi indaga su una serie di omicidi firmati dall'Enigmista in una Gotham corrotta e piovosa.", cur:"Robert Pattinson ha perso 15 kg per il ruolo. Il film dura quasi 3 ore ed è il più lungo su Batman mai realizzato."},
+  "I guardiani della galassia vol. 3": {desc:"Il team affronta l'Alto Evoluzionario, il creatore di Rocket, in una missione che svela il doloroso passato del procione.", cur:"James Gunn ha dichiarato che questo è il suo film preferito della trilogia. Bradley Cooper ha pianto registrando le battute di Rocket."},
+  "Shazam furia degli Dei": {desc:"Billy Batson e i suoi fratelli adottivi affrontano le figlie di Atlas, dee venute a riprendersi i poteri di Shazam.", cur:"Helen Mirren e Lucy Liu interpretano le villain. È uno dei pochi film DC con un finale davvero a sorpresa."},
+  "Ant-man and the wasp - Quantumania": {desc:"Scott Lang e la famiglia vengono risucchiati nel Regno Quantistico dove incontrano Kang il Conquistatore.", cur:"Jonathan Majors ha studiato filosofia quantistica per interpretare Kang. Il film introduce ufficialmente il villain della fase 5."},
+  "The King's man - le origini": {desc:"Le origini segrete dell'agenzia di spionaggio più elegante del mondo, durante la Prima Guerra Mondiale.", cur:"Il film rivela che molti eventi storici reali della WWI furono manipolati da una società segreta. Ralph Fiennes è straordinario."},
+  "Morbius": {desc:"Il dottor Michael Morbius, affetto da una malattia del sangue, si trasforma involontariamente in un vampiro vivente.", cur:"Jared Leto ha trascorso mesi a studiare i movimenti dei pipistrelli. Il film è stato rimandato 6 volte a causa del Covid."},
+  "Wakanda forever": {desc:"Il regno di Wakanda affronta la perdita del suo re mentre una nuova nazione sottomarina guidata da Namor emerge come rivale.", cur:"Il film fu riscritto completamente dopo la morte di Chadwick Boseman. Angela Bassett ha ricevuto una nomination agli Oscar."},
+  "Diabolik - Ginko all'attacco": {desc:"Il ladro mascherato italiano affronta il suo eterno rivale ispettore Ginko in questo secondo capitolo dei Manetti Bros.", cur:"Miriam Leone è Eva Kant: interpretazione acclamata dalla critica. La trilogia è la prima saga italiana di supercriminali."},
+  "Eternals": {desc:"Un gruppo di esseri immortali che hanno vissuto sulla Terra per millenni deve affrontare la loro missione segreta e i Devianti.", cur:"Chloé Zhao, reduce dall'Oscar per Nomadland, ha diretto il film. È il primo film MCU con una scena di sesso."},
+  "Diabolik": {desc:"Il leggendario ladro mascherato Eva Kant e l'ispettore Ginko si sfidano in un triangolo pericoloso nella prima avventura italiana.", cur:"I fratelli Manetti hanno restaurato l'estetica degli anni '60 originale. Luca Marinelli è un Diabolik glaciale e affascinante."},
+  "Spider-man - no way home": {desc:"Peter Parker chiede a Doctor Strange di far dimenticare a tutti la sua identità segreta, scatenando il caos nel multiverso.", cur:"I tre Spider-Man insieme erano un segreto assoluto fino all'uscita. Tom Holland ha pianto sul set durante la scena finale."},
+  "Doctor Strange nel multiverso della follia": {desc:"Strange attraversa il multiverso insieme a America Chavez mentre Wanda usa i suoi poteri per trovare i suoi figli in un universo alternativo.", cur:"Sam Raimi torna al genere horror dopo anni. Il film contiene più morti di supereroi che qualsiasi altro film MCU."},
+  "Thor love and thunder": {desc:"Thor deve affrontare Gorr il Macellatore di Dei mentre Jane Foster, la sua ex, diventa la nuova Thor con il martello Mjolnir.", cur:"Natalie Portman si è allenata duramente per mesi per le scene d'azione. Christian Bale ha perso 15 kg per il villain."},
+  "Black Adam": {desc:"Il campione antico Black Adam viene liberato dalla sua prigione millenaria in Kahndaq e si scontra con la Justice Society.", cur:"Dwayne Johnson ha aspettato 15 anni per portare questo personaggio al cinema. Il film introduce Hawkman e Dr. Fate."},
+  "Superman (2025)": {desc:"Una nuova versione del Kryptoniano più famoso del mondo che cerca di conciliare la sua umanità con i suoi poteri divini.", cur:"James Gunn ha scelto David Corenswet come nuovo Superman dopo anni di ricerca. È il film che riavvia il DCU."},
+  "Hellboy - l'uomo deforme": {desc:"Hellboy affronta Nimue, la Regina del Sangue, una strega millenaria che vuole distruggere l'umanità con una piaga demoniaca.", cur:"David Harbour ha sostituito Ron Perlman nel ruolo. Il film è più fedele al fumetto originale di Mike Mignola."},
+  "Venom the last dance": {desc:"Eddie Brock e il simbionte Venom sono braccati da un'entità aliena mentre cercano di trovare un modo per sopravvivere entrambi.", cur:"Tom Hardy ha dichiarato che questo è il suo addio al personaggio. Il film chiude la trilogia con un finale sorprendente."},
+  "Kraven il cacciatore": {desc:"Sergei Kravinoff diventa il cacciatore più pericoloso del mondo dopo un incontro soprannaturale con un leone nella savana.", cur:"Aaron Taylor-Johnson si è preparato con cacciatori veri in Africa. È il villain Spider-Man più amato dai fan dei fumetti."},
+  "Captain America - the new world": {desc:"Sam Wilson, il nuovo Captain America, affronta una minaccia globale che mette alla prova la sua nuova identità da eroe.", cur:"Anthony Mackie è il primo Captain America afroamericano nella storia del cinema Marvel."},
+  "Thunderbolts": {desc:"Un gruppo di villain e antieroi vengono reclutati per una missione segreta del governo che nasconde secondi fini oscuri.", cur:"Il film riunisce personaggi secondari dell'MCU in un team che ricorda i Suicide Squad della Marvel."},
+  "Deadpool and Wolverine": {desc:"Deadpool viene reclutato dalla TVA e convince Wolverine a seguirlo in un'avventura nel multiverso per salvare la sua timeline.", cur:"Ryan Reynolds e Hugh Jackman sono amici nella vita reale. Jackman è tornato al personaggio dopo aver giurato di averlo abbandonato."},
+  "Madame web": {desc:"Cassandra Webb, un'ambulanciera di New York, sviluppa poteri di chiaroveggenza e deve proteggere tre giovani ragazze.", cur:"Dakota Johnson ha ammesso in un'intervista di non aver capito la storia del film durante le riprese."},
+  "I fantastici 4 gli inizi": {desc:"Reed Richards, Sue Storm, Johnny Storm e Ben Grimm acquisiscono superpoteri dopo un'esposizione ai raggi cosmici nello spazio.", cur:"Il film è ambientato negli anni '60 in stile retrofuturistico. Pedro Pascal è Mr. Fantastic nella nuova versione MCU."},
+  "Venom la furia di Carnage": {desc:"Eddie Brock e Venom affrontano Cletus Kasady, un serial killer che diventa il letale simbionte rosso Carnage.", cur:"Woody Harrelson ha trascorso ore in make-up per il ruolo. La scena post-credits ha fatto impazzire i fan dell'MCU."},
+  "Shang-Chi la leggenda dei dieci anelli": {desc:"Shaun scopre di essere il figlio di Wenwu, il leggendario signore dei dieci anelli immortali, e deve affrontare il suo passato.", cur:"Simu Liu fu scelto dopo aver risposto a un tweet di Marvel chiedendo di avere il ruolo. Storia vera."},
+  "The suicide squad - missione suicida": {desc:"Un nuovo team di villain viene inviato sull'isola di Corto Maltese per distruggere Jötunheimr, un laboratorio nazista segreto.", cur:"James Gunn ha avuto carta bianca e ha ucciso quasi tutto il cast. Bloodsport ha il Polka-Dot Man come sidekick."},
+  "Black Widow": {desc:"Natasha Romanoff affronta il suo passato e la rete di Vedove Nere controllate dal villain Dreykov nella Sala Rossa.", cur:"Scarlett Johansson ha fatto causa alla Disney per la distribuzione in streaming del film. Ha vinto."},
+  "Zack Snyder's Justice League": {desc:"La versione originale di Snyder, con 4 ore di durata, che include Darkseid, un Cyborg sviluppato e un finale completamente diverso.", cur:"I fan hanno aspettato 4 anni e raccolto milioni di dollari per convincere HBO a finanziare il completamento del film."},
+  "Wonder woman 1984": {desc:"Diana Prince affronta Maxwell Lord e la Cheetah nell'America degli anni '80, mentre Steve Trevor torna misteriosamente in vita.", cur:"Gal Gadot era incinta durante alcune riprese. Il film è stato girato in quattro paesi diversi."},
+  "The new mutants": {desc:"Cinque giovani mutanti vengono rinchiusi in una struttura psichiatrica mentre i loro poteri incontrollabili li mettono in pericolo.", cur:"Il film fu completato nel 2017 ma uscì solo nel 2020 dopo anni di rimandi e riedizioni. Divenne un caso di studio."},
+  "Birds of prey - la fantasmagorica rinascita di Harley Quinn": {desc:"Harley Quinn si separa da Joker e deve proteggere una bambina dal sadico Roman Sionis insieme a un team di donne.", cur:"Margot Robbie ha prodotto il film per avere più controllo artistico sul personaggio. Il titolo fu cambiato tre volte."},
+  "Joker": {desc:"Arthur Fleck, un comico fallito, scivola nella follia in una Gotham decadente degli anni '80 diventando il Joker.", cur:"Primo film di supereroi a vincere il Leone d'Oro a Venezia. Joaquin Phoenix perse 24 kg per il ruolo."},
+  "Spider-man - far from home": {desc:"Peter Parker, in gita in Europa, viene reclutato da Nick Fury per affrontare gli Elementali insieme al misterioso Mysterio.", cur:"Il twist di Mysterio è considerato uno dei migliori del MCU. Jake Gyllenhaal era fan di Spider-Man da bambino."},
+  "X-men Dark Phoenix": {desc:"Jean Grey assorbe una forza cosmica che la trasforma nella letale Fenice Nera, mettendo in pericolo lei e tutti gli X-Men.", cur:"Il film fu rigirato completamente dopo i test negativi del pubblico. È il film degli X-Men con il peggior incasso."},
+  "Avengers Endgame": {desc:"I supereroi sopravvissuti compiono un viaggio nel tempo per recuperare le Gemme dell'Infinito e sconfiggere Thanos.", cur:"La frase 'Avengers Assemble' era stata tenuta segreta per 11 anni. La premiere mondiale ha battuto tutti i record."},
+  "Dredd - il giudice dell'apocalisse": {desc:"Il giudice Dredd e la recluta Anderson vengono intrappolati in un grattacielo di 200 piani controllato dalla boss Ma-Ma.", cur:"Girato quasi interamente in un grattacielo reale in Sudafrica. Karl Urban non toglie mai il casco — fedele al fumetto."},
+  "Shazam": {desc:"Billy Batson, un ragazzo in affido, scopre di potersi trasformare in un adulto superpotente pronunciando la parola Shazam.", cur:"Zachary Levi ha dovuto indossare un costume imbottito perché fisicamente non sembrava abbastanza 'supereroistico'."},
+  "Hellboy (2018)": {desc:"Hellboy affronta Nimue la Regina del Sangue, una strega millenaria che vuole sterminare l'umanità con una piaga demoniaca.", cur:"David Harbour ha passato 5 ore ogni giorno al trucco per diventare Hellboy. Il film è vietato ai minori."},
+  "Captain Marvel": {desc:"Vers, una guerriera Kree, arriva sulla Terra negli anni '90 e scopre di essere in realtà Carol Danvers, un'ex pilota dell'aeronautica.", cur:"Brie Larson si è allenata per 9 mesi. Nel film appare una giovane versione di Nick Fury con due occhi."},
+  "Aquaman": {desc:"Arthur Curry deve rivendicare il trono di Atlantide e sconfiggere suo fratellastro Orm che vuole dichiarare guerra alla terraferma.", cur:"James Wan ha creato un linguaggio sottomarino completamente nuovo. Il film ha incassato oltre 1 miliardo di dollari."},
+  "Venom": {desc:"Il giornalista Eddie Brock entra in contatto con un simbionte alieno che si fonde con lui creando l'anti-eroe Venom.", cur:"Tom Hardy ha improvvisato molte scene. Ha dichiarato che il 40% del suo materiale migliore fu tagliato dal montaggio."},
+  "Ant-man and the wasp": {desc:"Scott Lang e Hope van Dyne lavorano insieme per recuperare Janet van Dyne dal Regno Quantistico prima che sia troppo tardi.", cur:"Il film è il primo MCU con una donna nel titolo. La scena post-credits è collegata direttamente ad Avengers Infinity War."},
+  "Deadpool 2": {desc:"Deadpool forma la X-Force per proteggere un giovane mutante da Cable, un guerriero dal futuro venuto per ucciderlo.", cur:"La scena con Brad Pitt dura meno di 2 secondi. Ryan Reynolds ha pagato il suo cameo di tasca propria come scherzo."},
+  "Avengers infinity war": {desc:"Thanos raccoglie le sei Gemme dell'Infinito per sterminare metà della vita nell'universo con uno schiocco di dita.", cur:"Lo schiocco finale era un segreto assoluto. Molti attori non sapevano cosa sarebbe successo fino alla prima del film."},
+  "Il ragazzo invisibile - seconda generazione": {desc:"Michele, ora adolescente, scopre che ci sono altri ragazzi con superpoteri in Italia e deve fare i conti con il suo passato.", cur:"Il sequel ha un budget più alto e un tono più cupo rispetto al primo. Gabriele Salvatores firma anche questo capitolo."},
+  "Black panther": {desc:"T'Challa torna a Wakanda per assumere il trono ma deve affrontare Killmonger, un rivale con diritti al trono tanto quanto lui.", cur:"Chadwick Boseman ha interpretato il ruolo mentre combatteva segretamente contro il cancro. Una delle performance più commoventi."},
+  "Thor ragnarok": {desc:"Thor viene intrappolato sul pianeta Sakaar e deve combattere in un'arena contro il campione per tornare ad Asgard in tempo.", cur:"Taika Waititi ha lasciato improvvisare quasi tutto il cast. La battuta 'He's a friend from work' la suggerì un bambino in visita."},
+  "Justice league": {desc:"Batman e Wonder Woman reclutano un team di metaumani per proteggere la Terra da Steppenwolf e le sue Scatole Madri.", cur:"Henry Cavill aveva i baffi per un altro film durante le riprese aggiuntive. La Disney ha pagato milioni per rimuoverli digitalmente."},
+  "Kingsman il cerchio d'oro": {desc:"Quando il quartier generale dei Kingsman viene distrutto, gli agenti si alleano con i loro omologhi americani Statesman.", cur:"Elton John appare nel film e le sue scene furono improvvisate. Jeff Bridges e Channing Tatum si uniscono al cast."},
+  "Spider-man homecoming": {desc:"Peter Parker, ancora studente delle superiori, cerca di dimostrare di meritare un posto negli Avengers mentre affronta l'Avvoltoio.", cur:"Tom Holland seppe di aver ottenuto il ruolo mentre guardava Captain America: Civil War al cinema come spettatore normale."},
+  "Wonder woman": {desc:"Diana, principessa delle Amazzoni, lascia la sua isola per combattere nella Prima Guerra Mondiale convinta che Ares stia causando il conflitto.", cur:"Gal Gadot era incinta di 5 mesi durante le riprese della seconda unità. Il corsetto fu modificato con uno speciale pannello verde."},
+  "I guardiani della galassia vol. 2": {desc:"Peter Quill scopre chi è suo padre — Ego, un Pianeta Vivente — mentre il team affronta nuovi nemici e vecchie tensioni.", cur:"Cat Stevens fu contattato per usare Father and Son nella colonna sonora ma rifiutò. Yusuf Islam poi accettò."},
+  "Logan - the wolverine": {desc:"Un Logan invecchiato e malato si prende cura di un Professor X con demenza mentre protegge una bambina con i suoi stessi poteri.", cur:"Hugh Jackman ha dichiarato che avrebbe fatto altri film solo se la storia fosse stata così buona. È ispirato alla graphic novel Old Man Logan."},
+  "Doctor Strange": {desc:"Un brillante neurochirurgo, dopo un incidente che distrugge le sue mani, scopre il mondo della magia e delle arti mistiche.", cur:"Benedict Cumberbatch fu scelto dopo che Joaquin Phoenix rifiutò il ruolo. Il Sanctum Sanctorum è a New York per davvero."},
+  "Suicide squad": {desc:"Amanda Waller recluta i peggiori criminali per una missione suicida in cambio di una riduzione della pena.", cur:"Jared Leto mandò regali inquietanti a tutti gli attori per restare nel personaggio del Joker durante le riprese."},
+  "X-men apocalisse": {desc:"Il primo mutante della storia, Apocalisse, si risveglia dopo millenni e recluta quattro Cavalieri per distruggere il mondo moderno.", cur:"Oscar Isaac ha trascorso ore nel costume. Ha dichiarato di aver sofferto claustrofobia durante le riprese."},
+  "Captain America civil war": {desc:"I supereroi si dividono sulla questione dei Sokovia Accords — regolamentazione governativa — in uno scontro epocale.", cur:"L'aeroporto fu costruito da zero in una ex base aerea. La scena di combattimento è considerata la migliore dell'MCU."},
+  "Batman v Superman dawn of justice": {desc:"Batman e Superman si scontrano mentre Lex Luthor orchestra il conflitto e Doomsday emerge come minaccia globale.", cur:"Ben Affleck ha dichiarato che leggere i commenti negativi online fu uno degli errori più grandi della sua vita."},
+  "Deadpool": {desc:"Un mercenario dalla lingua sciolta ottiene poteri di rigenerazione attraverso un esperimento brutale e cerca vendetta con ironia.", cur:"Ryan Reynolds aspettò 11 anni per farlo. Il budget era ridottissimo per un cinecomics — solo 58 milioni di dollari."},
+  "Fantastic 4 - i fantastici 4 (2015)": {desc:"Quattro giovani scienziati acquisiscono superpoteri dopo un esperimento dimensionale che va terribilmente storto.", cur:"Il regista Josh Trank ha twittato che il film fu rovinato dallo studio. Il tweet fu cancellato ore dopo."},
+  "Ant-Man": {desc:"Scott Lang, un ladro con il cuore d'oro, viene reclutato dal professor Hank Pym per indossare il costume che permette di rimpicciolire.", cur:"Edgar Wright sviluppò la sceneggiatura per 8 anni prima di abbandonare il progetto per differenze creative con Marvel."},
+  "Avengers age of Ultron": {desc:"Tony Stark crea accidentalmente Ultron, un'IA che decide che l'umanità va eliminata per proteggere la pace.", cur:"James Spader interpretò Ultron completamente in performance capture, presente fisicamente su tutti i set."},
+  "Il ragazzo invisibile": {desc:"Michele, un tredicenne di Trieste, scopre di poter diventare invisibile e usa i suoi poteri per affrontare il bullismo e aiutare gli altri.", cur:"Diretto da Gabriele Salvatores (Oscar per Mediterraneo). Primo cinecomics interamente italiano della storia."},
+  "Kingsman secret service": {desc:"Un giovane ribelle di strada viene reclutato da un'agenzia di spionaggio di élite e deve affrontare un miliardario pazzo.", cur:"Colin Firth si è allenato per mesi per le scene d'azione. La scena in chiesa è considerata una delle migliori d'azione degli anni 2010."},
+  "I guardiani della galassia": {desc:"Un gruppo improbabile di fuorilegge — un umano, un'assassina, un guerriero, un procione e un albero — devono salvare la galassia.", cur:"Vin Diesel ha registrato 'I am Groot' in 15 lingue diverse. Il procione Rocket ha fatto piangere Bradley Cooper registrando alcune scene."},
+  "X-men giorni di un futuro passato": {desc:"Wolverine viaggia nel passato per prevenire un evento che porterà alla guerra tra mutanti e umani nel futuro.", cur:"Il film unisce i cast originale e nuovo degli X-Men. Peter Maximoff/Quicksilver è considerato il personaggio migliore del film."},
+  "The amazing spider-man 2 - il potere di Electro": {desc:"Peter Parker affronta Electro e il Goblin Verde mentre cerca di capire il misterioso passato dei suoi genitori.", cur:"Andrew Garfield e Emma Stone erano fidanzati nella vita reale durante le riprese. Questo aggiunge autenticità alla loro chimica."},
+  "Captain America - the winter soldier": {desc:"Steve Rogers scopre che HYDRA si è infiltrata nello S.H.I.E.L.D. e deve affrontare il Winter Soldier, un killer misterioso.", cur:"I fratelli Russo, registi di film indie, furono scelti a sorpresa. Il film ha rivoluzionato il genere spy-thriller nell'MCU."},
+  "300 l'alba di un impero": {desc:"Il generale ateniese Temistocle affronta la flotta persiana guidata dalla spietata ammiraglio Artemisia sulle acque del Mar Egeo.", cur:"Eva Green ha dominato completamente il set. Il regista ha detto che il film è diventato 'il film di Eva Green'."},
+  "300": {desc:"Il re Leonida guida 300 guerrieri spartani contro l'esercito immenso del re persiano Serse alle Termopili.", cur:"Quasi tutto il film è stato girato su green screen. Gerard Butler si è allenato per 4 mesi con un regime militare."},
+  "I, Frankenstein": {desc:"La creatura di Frankenstein sopravvive fino ai giorni nostri, coinvolta in una guerra secolare tra gargoyle e demoni.", cur:"Aaron Eckhart ha perso 13 kg per il ruolo. La creatura viene chiamata 'Adam' in questo adattamento."},
+  "Thor the dark world": {desc:"Thor deve salvare i Nove Regni dagli Elfi Oscuri guidati da Malekith che vogliono usare l'Etere per distruggere tutto.", cur:"È considerato il film MCU meno riuscito dai fan. Anthony Hopkins ha ammesso di essersi annoiato durante le riprese."},
+  "Kick-ass 2": {desc:"Dave Lizewski si unisce a un team di supereroi amatoriali mentre Hit-Girl cerca di vivere una vita normale e il Mindy affronta la scuola.", cur:"Jim Carrey rifiutò di promuovere il film dopo la strage di Sandy Hook per le scene violente. Una scelta che fece discutere."},
+  "Red 2": {desc:"Frank Moses e la sua squadra di agenti della CIA in pensione vengono coinvolti in una nuova missione internazionale.", cur:"Anthony Hopkins si unisce al cast come villain. Il film fu girato in parte a Parigi, Londra e Mosca."},
+  "Wolverine l'immortale": {desc:"Logan si reca in Giappone dove le sue capacità rigenerative vengono temporaneamente soppresse, rendendolo vulnerabile.", cur:"Hugh Jackman ha visitato il Giappone per prepararsi al ruolo. La scena del treno ad alta velocità fu girata davvero in movimento."},
+  "The Avengers": {desc:"Iron Man, Thor, Captain America, Hulk, Black Widow e Hawkeye si uniscono per fermare Loki e l'invasione degli Chitauri.", cur:"Joss Whedon ha scritto la sceneggiatura in poche settimane. La battaglia di New York ha richiesto 4 mesi di riprese."},
+  "L'uomo d'acciaio": {desc:"Kal-El, ultimo figlio di Krypton cresciuto come Clark Kent nel Kansas, rivela al mondo di essere Superman per proteggere la Terra.", cur:"Henry Cavill fu scelto dopo un lungo casting mondiale. Zack Snyder voleva un Superman più riflessivo e tormentato."},
+  "Iron man 3": {desc:"Tony Stark, sofferto di ansia post-traumatica dopo gli eventi di New York, affronta il Mandarino e svela i suoi segreti.", cur:"Il twist del Mandarino ha diviso i fan. Shane Black ha scritto e diretto il film ambientandolo a Natale — sua firma stilistica."},
+  "Batman il cavaliere oscuro - il ritorno": {desc:"Bruce Wayne torna come Batman dopo 8 anni di ritiro per affrontare Bane, un terrorista mascherato che vuole distruggere Gotham.", cur:"Tom Hardy ha inventato la voce di Bane durante le prove. Christian Bale si è allenato per mesi con lottatori veri."},
+  "The amazing Spider-man": {desc:"Peter Parker scopre la verità sulla morte dei suoi genitori mentre diventa Spider-Man e affronta il Lizard.", cur:"Andrew Garfield fu scelto dopo 1500 audizioni. La storia d'amore con Emma Stone fu quasi completamente improvvisata."},
+  "Cowboys & Aliens": {desc:"Un cowboy con la memoria cancellata e un misterioso bracciale deve fermare un'invasione aliena nel Far West.", cur:"Daniel Craig e Harrison Ford insieme — accoppiata insolita. Jon Favreau diresse il film dopo Iron Man."},
+  "Captain America - il primo vendicatore": {desc:"Steve Rogers, un gracile ragazzo di Brooklyn, si trasforma in un super soldato per combattere HYDRA durante la Seconda Guerra Mondiale.", cur:"Chris Evans quasi rifiutò il ruolo per paura di essere identificato per sempre con il personaggio. Per fortuna cambiò idea."},
+  "Lanterna verde": {desc:"Hal Jordan, un pilota spericolato, viene scelto da un anello alieno per diventare membro del Corpo dei Lanterna Verdi.", cur:"Ryan Reynolds ha ammesso pubblicamente che il film fu un fallimento e ha fatto autocritica. Deadpool fa riferimento a questo."},
+  "X-men l'inizio": {desc:"Charles Xavier e Erik Lensherr fondano insieme la prima squadra di X-Men durante la crisi dei missili di Cuba negli anni '60.", cur:"Michael Fassbender e James McAvoy si sono allenati insieme per settimane per costruire la chimica tra i personaggi."},
+  "Red": {desc:"Frank Moses, un ex agente della CIA in pensione, viene braccato dai suoi ex colleghi e riunisce il suo vecchio team.", cur:"Bruce Willis, Morgan Freeman, Helen Mirren con un mitragliatore — il film ha reinventato il concetto di film d'azione per adulti."},
+  "Thor": {desc:"Il superbo dio del tuono viene esiliato sulla Terra e privato dei suoi poteri mentre suo fratello Loki complotta per il trono.", cur:"Kenneth Branagh, esperto di Shakespeare, fu scelto per le dinamiche familiari shakespeariane tra Thor e Loki."},
+  "Kick-ass": {desc:"Un normale adolescente decide di diventare un supereroe senza poteri, con risultati grotteschi, violenti e inaspettati.", cur:"Chloë Grace Moretz aveva 11 anni durante le riprese. I suoi genitori erano sul set ogni giorno per le scene violente."},
+  "The green hornet": {desc:"Britt Reid, il figlio di un editore, diventa il vigilante Calabrone Verde insieme al suo partner Kato.", cur:"Seth Rogen ha scritto la sceneggiatura insieme a Evan Goldberg. Jay Chou, star asiatica, interpreta Kato."},
+  "Jonah Hex": {desc:"Un cacciatore di taglie sfigurato nel selvaggio West possiede il potere soprannaturale di parlare con i morti per breve tempo.", cur:"Il personaggio di Jonah Hex è uno dei più antichi DC, creato nel 1972 — precede Batman! Josh Brolin nel ruolo."},
+  "The losers": {desc:"Un team di operativi della CIA, creduti morti, cercano vendetta contro il misterioso Max che li ha traditi.", cur:"Jeffrey Dean Morgan guida il cast. Il film è basato sulla graphic novel Vertigo/DC di Andy Diggle."},
+  "Iron man 2": {desc:"Tony Stark affronta Ivan Vanko, un genio russo con un rancor familiare, e le pressioni del governo per condividere la tecnologia.", cur:"Mickey Rourke ha aggiunto spontaneamente un pappagallo bianco alla scena iniziale. Rimase nel film."},
+  "X-men le origini - Wolverine": {desc:"La storia delle origini di Logan: i suoi traumi infantili, il Programma Arma X e la sua relazione con il fratello Sabretooth.", cur:"Il film trapelò online un mese prima dell'uscita in una versione incompleta. L'FBI aprì un'indagine."},
+  "The punisher": {desc:"Frank Castle, un agente dell'FBI, sopravvive all'uccisione della sua famiglia e diventa il vigilante spietato noto come Punisher.", cur:"Thomas Jane si è preparato al ruolo vivendo per settimane come senzatetto a Los Angeles per comprendere la violenza urbana."},
+  "Watchmen": {desc:"In un'America alternativa anni '80, l'ex vigilante Rorschach indaga sull'omicidio di un collega supereroe in pensione.", cur:"Il graphic novel di Alan Moore è considerato il più grande fumetto di sempre. Moore ha rifiutato tutti i compensi del film."},
+  "The spirit": {desc:"Il detective Denny Colt, tornato dalla morte come immortale, protegge la sua città dal criminale noto come l'Octopus.", cur:"Frank Miller ha diretto il film come omaggio a Will Eisner. Girato quasi interamente su green screen come Sin City."},
+  "Batman il cavaliere oscuro": {desc:"Batman affronta il Joker, un agente del caos che non vuole denaro né potere — vuole solo vedere il mondo bruciare.", cur:"Heath Ledger vinse l'Oscar postumo. Nolan girò senza CGI — le esplosioni erano reali. Il film ha cambiato il genere."},
+  "Iron man": {desc:"Tony Stark, miliardario geniale, costruisce una tuta corazzata dopo essere stato catturato dai terroristi in Afghanistan.", cur:"Robert Downey Jr. fu una scelta controversa. La frase finale 'I am Iron Man' fu improvvisata sul set."},
+  "L'incredibile hulk": {desc:"Bruce Banner fugge dal generale Ross mentre cerca una cura per la sua condizione, affrontando l'Abominio a New York.", cur:"Edward Norton ha riscritto la sceneggiatura e ha avuto conflitti con Marvel. Fu sostituito da Mark Ruffalo nei film successivi."},
+  "Spider-man 3": {desc:"Peter Parker affronta Sandman, Venom e il nuovo Goblin mentre il simbionte nero corrompe gradualmente il suo carattere.", cur:"Sam Raimi ha dichiarato di non essere soddisfatto del film. La danza di Peter fu un'idea dello studio, non sua."},
+  "I fantastici 4 e silver surfer": {desc:"I Fantastici 4 affrontano il Silver Surfer, araldo di Galactus il divoratore di mondi, in una corsa contro il tempo.", cur:"Doug Jones interpretò il Silver Surfer in costume ma la sua voce fu sostituita da quella di Laurence Fishburne in post-produzione."},
+  "Ghost rider": {desc:"Johnny Blaze vende l'anima al diavolo per salvare suo padre e diventa il Ghost Rider, cacciatore di demoni per conto di Mefisto.", cur:"Nicolas Cage è un vero fan del personaggio — si è tatuato Ghost Rider sul braccio prima ancora di ottenere il ruolo."},
+  "Ghost rider 2 - spirito di vendetta": {desc:"Johnny Blaze è in Europa dove cerca di liberarsi dalla maledizione del Ghost Rider mentre protegge un bambino speciale.", cur:"I registi Neveldine/Taylor hanno usato telecamere GoPro montate su pattini a rotelle per girare le scene d'azione."},
+  "X-men conflitto finale": {desc:"La scoperta di una cura per la mutazione divide la comunità dei mutanti mentre Jean Grey si trasforma nella pericolosa Fenice.", cur:"Brett Ratner sostituì Bryan Singer in 3 settimane. Il film uccide personaggi importanti senza preavviso."},
+  "Superman (C. Reeve)": {desc:"Kal-El arriva sulla Terra, cresce come Clark Kent nel Kansas e diventa Superman, proteggendo Metropoli da Lex Luthor.", cur:"Christopher Reeve ha fatto credere al mondo che un uomo potesse davvero volare. Si è preparato per 6 mesi con un ex campione olimpico."},
+  "Superman 2": {desc:"Tre criminali kryptoniani liberati sfidano Superman mentre lui rinuncia ai suoi poteri per stare con Lois Lane.", cur:"Fu girato in contemporanea con il primo film ma finito anni dopo a causa di problemi produttivi con il regista Richard Donner."},
+  "Superman 3": {desc:"Un informatico corrotto usa la tecnologia per creare una forma di kryptonite sintetica che corrompe moralmente Superman.", cur:"Richard Pryor è il protagonista comico del film. Christopher Reeve era scontento della direzione comica presa dalla saga."},
+  "Superman 4": {desc:"Superman decide unilateralmente di eliminare tutte le armi nucleari dal mondo mentre affronta Nuclear Man creato da Lex Luthor.", cur:"Fu girato con un budget ridottissimo dopo il flop del terzo. Christopher Reeve ha dichiarato che fu il peggior film della sua carriera."},
+  "V per Vendetta": {desc:"In una Gran Bretagna fascista futura, il misterioso V guida una rivoluzione contro il governo totalitario con maschere e teatro.", cur:"La maschera di V è diventata il simbolo mondiale delle proteste. Le Sorelle Wachowski hanno prodotto il film."},
+  "Man-thing": {desc:"Una creatura vegetale del pantano si sveglia e inizia a difendere ferocemente la sua palude da sviluppatori corrotti.", cur:"Uno dei film Marvel più rari — distribuito direttamente in TV negli USA. Man-Thing ha ispirato DC a creare Swamp Thing."},
+  "I fantastici 4": {desc:"Reed Richards, Sue Storm, Johnny Storm e Ben Grimm acquisiscono superpoteri dopo essere stati colpiti da raggi cosmici nello spazio.", cur:"Una versione del film fu girata nel 1994 dalla Corman Pictures ma non fu mai distribuita ufficialmente — esiste solo in bootleg."},
+  "Batman begins": {desc:"Bruce Wayne, dopo anni di addestramento nelle arti marziali, torna a Gotham City e diventa il Cavaliere Oscuro.", cur:"Christopher Nolan ha reinventato completamente il franchise dopo il disastro di Batman & Robin. Christian Bale perse 28 kg per il film precedente."},
+  "Sin city": {desc:"Tre storie di crimine intrecciate a Basin City: il detective Hartigan, il criminale Marv e il fotografo Dwight.", cur:"Robert Rodriguez ha girato il film fotogramma per fotogramma replicando il fumetto. Frank Miller ha co-diretto."},
+  "Sin city 2": {desc:"Nuove storie di Basin City con il ritorno di personaggi iconici e la storia di Ava Lord, la donna più pericolosa della città.", cur:"Eva Green ha dominato il film con una performance ipnotica. Il sequel uscì 9 anni dopo il primo."},
+  "Blade trinity": {desc:"Blade viene incastrato dall'FBI mentre i Vampiri risvegliano Dracula, il primo vampiro, come arma contro il cacciatore.", cur:"Ryan Reynolds è Hannibal King — il suo sarcasmo anticipa perfettamente Deadpool. Wesley Snipes non parlava quasi con nessuno sul set."},
+  "Constantine": {desc:"John Constantine, un esorcista che vede demoni e angeli, scopre un complotto per portare il figlio di Satana sulla Terra.", cur:"Keanu Reeves ha studiato demonologia per il ruolo. Il fumetto originale presenta un Constantine biondo e inglese — completamente diverso."},
+  "Elektra": {desc:"Elektra Natchios, assassina resuscitata con poteri soprannaturali, deve proteggere un padre e sua figlia da una società segreta.", cur:"Jennifer Garner riprese il ruolo da Daredevil (2003). Il film fu stroncato dalla critica ma ha un piccolo fanbase."},
+  "Immortal": {desc:"In una Parigi futuristica del 2095, il dio Horus scende da una piramide volante per trovare un corpo umano.", cur:"Film franco-britannico di Enki Bilal, fumettista di culto. Mix unico di attori reali e CGI, anni prima di Avatar."},
+  "Hellboy": {desc:"Hellboy, un demone cresciuto dall'esercito americano, combatte creature soprannaturali insieme all'Ufficio per la Ricerca e la Difesa Paranormale.", cur:"Ron Perlman era l'unica scelta di Guillermo del Toro per il ruolo. Passò ore al trucco ogni mattina per trasformarsi."},
+  "Catwoman": {desc:"Patience Phillips, una grafica timida, muore e viene resuscitata da un gatto magico ottenendo i poteri felini di Catwoman.", cur:"Halle Berry ha ritirato il Razzie Award — premio per i peggiori film — di persona, ironizzando su se stessa con eleganza."},
+  "Spider-man 2": {desc:"Peter Parker affronta il Dottor Octopus mentre lotta con la sua doppia vita e l'opportunità di abbandonare il costume.", cur:"Considerato uno dei migliori film di supereroi di sempre. La scena del treno è stata girata senza CGI con un modello reale."},
+  "X-men 2": {desc:"Gli X-Men devono allearsi con Magneto per fermare il generale Stryker che vuole sterminare tutti i mutanti del mondo.", cur:"La scena iniziale con Nightcrawler alla Casa Bianca rimane una delle migliori sequenze d'azione della saga."},
+  "Hulk (2003)": {desc:"Bruce Banner, scienziato traumatizzato dall'infanzia, si trasforma in un gigante verde durante crisi di rabbia.", cur:"Ang Lee ha usato un montaggio stile fumetto unico nel cinema. Il film fu molto più psicologico del previsto."},
+  "Blade 2": {desc:"Blade deve allearsi con i vampiri per eliminare i Reapers, una nuova razza di vampire ancora più pericolosi.", cur:"Guillermo del Toro ha diretto il film portando la sua visione horror europea. Considera questo il suo film più puro."},
+  "Spider-man": {desc:"Peter Parker, morso da un ragno radioattivo, ottiene superpoteri e diventa Spider-Man mentre affronta il Goblin Verde.", cur:"Sam Raimi voleva che Spider-Man non usasse gadget artificiali — la tela organica fu una sua scelta rivoluzionaria."},
+  "La leggenda degli uomini straordinari": {desc:"Allan Quatermain guida un team di eroi letterari vittoriani — Dorian Gray, Nemo, l'Uomo Invisibile — contro una minaccia mondiale.", cur:"Ultimo film di Sean Connery prima del ritiro. Il crossover letterario era rivoluzionario per l'epoca."},
+  "Spawn": {desc:"L'agente della CIA Al Simmons viene ucciso e fa un patto con il diavolo per tornare sulla Terra come guerriero dell'inferno.", cur:"Primo film di supereroi con protagonista afroamericano nella storia di Hollywood. John Leguizamo è irriconoscibile come Clown."},
+  "The phantom": {desc:"Il Fantasma, eroe mascherato del fumetto anni '30, affronta un magnate che cerca tre teschi soprannaturali.", cur:"Il Fantasma è il primo supereroe in costume attillato della storia (1936!) — precede Superman. Billy Zane si allenò 6 mesi."},
+  "Il corvo (B. Lee)": {desc:"Eric Draven, un musicista assassinato, torna dalla morte un anno dopo per vendicarsi dei criminali che hanno ucciso lui e la sua fidanzata.", cur:"Brandon Lee morì accidentalmente sul set. Il film fu completato con CGI e controfigure — un tributo commovente."},
+  "Il corvo 2": {desc:"Un nuovo Corvo emerge dalle ceneri per vendicarsi in questa seconda avventura soprannaturale della saga.", cur:"Vincent Perez sostituisce Brandon Lee. Il film mantiene l'estetica gotica ma manca della magia dell'originale."},
+  "Il corvo 3": {desc:"Il mito del Corvo continua con una nuova storia di vendetta e redenzione nel terzo capitolo della saga.", cur:"Prodotto con budget ridotto, il film è quasi introvabile oggi. Ha sviluppato un piccolo fanbase cult."},
+  "Il corvo (2023)": {desc:"Un reboot moderno del classico cult con Bill Skarsgård come Eric Draven e una storia d'amore e vendetta rivisitata.", cur:"Bill Skarsgård (Pennywise in IT) porta una visione completamente nuova al personaggio. Produzione travagliata durata anni."},
+  "X-men": {desc:"I mutanti guidati da Professor X affrontano la Brotherhood di Magneto che vuole trasformare i leader mondiali in mutanti.", cur:"Il film che ha rilanciato il genere supereroistico nel 2000, aprendo la strada a tutti i film Marvel e DC successivi."},
+  "Batman & Robin": {desc:"Batman e Robin affrontano Mr. Freeze e Poison Ivy mentre Alfred è gravemente malato e una nuova Batgirl si unisce al team.", cur:"George Clooney ha ammesso pubblicamente di aver rovinato il franchise. I capezzoli sul costume di Batman sono leggendari."},
+  "Batman forever": {desc:"Batman affronta l'Enigmista e Due Facce mentre un giovane Dick Grayson chiede di diventare Robin.", cur:"Val Kilmer sostituisce Michael Keaton. Jim Carrey come Enigmista è la performance più memorabile del film."},
+  "Batman il ritorno": {desc:"Batman affronta il Pinguino e Catwoman in una Gotham natalizia oscura e surreale.", cur:"Tim Burton ha avuto massima libertà creativa. Il film è molto più oscuro e strano del primo — troppo per la Warner Bros."},
+  "Batman (T. Burton)": {desc:"Il Cavaliere Oscuro affronta il Joker che vuole avvelenare Gotham con gas tossici nascosti nei suoi prodotti cosmetici.", cur:"Jack Nicholson chiese e ottenne una percentuale sugli incassi del merchandise. Guadagnò 60 milioni di dollari."},
+  "Blade": {desc:"Blade, il mezz'uomo mezz'vampiro, combatte contro la setta dei vampiri guidata da Deacon Frost che vuole evocare il dio del sangue.", cur:"Il film ha salvato i supereroi Marvel al cinema negli anni '90 quando erano considerati non commerciabili."},
+  "Dredd (S. Stallone)": {desc:"Il giudice più temuto di Mega-City One viene incastrato per omicidio e deve dimostrare la propria innocenza.", cur:"Stallone ha preteso di togliere il casco al personaggio — nel fumetto Dredd non lo toglie MAI. Rob Schneider è il comic relief."},
+
+  // ===== VIDEOGIOCHI =====
+  "Lara Croft: Tomb raider (A. Jolie)": {desc:"La celebre avventuriera e archeologa Lara Croft recupera un manufatto antico che controlla il tempo prima che cada in mani sbagliate.", cur:"Angelina Jolie ha insistito per fare le acrobazie da sola. La casa del padre è quella vera del suo papà Jon Voight."},
+  "Lara Croft - Tomb raider la culla della vita": {desc:"Lara Croft cerca la scatola di Pandora prima che un biologo pazzo la usi per scatenare una piaga globale.", cur:"Cradle of Life fu girato in Grecia, Kenya, Hong Kong e Inghilterra. Angelina Jolie si è allenata con le forze speciali."},
+  "Super Mario Bros il film": {desc:"I fratelli Mario e Luigi vengono catapultati in una dimensione parallela dominata da funghi e creature evolute dai dinosauri.", cur:"Bob Hoskins e John Leguizamo hanno ammesso di essersi ubriacati sul set per sopportare le riprese. Un classico del cinema trash."},
+  "Super Mario Bros (2023)": {desc:"Il famoso idraulico italiano viene catapultato nel Regno dei Funghi per salvare la principessa Peach da Bowser e il suo esercito.", cur:"Ha incassato oltre 1,3 miliardi di dollari — il film d'animazione videoludico più redditizio della storia."},
+  "Wing commander": {desc:"Piloti spaziali umani combattono contro i Kilrathi, una feroce razza aliena felina, in una guerra galattica per la sopravvivenza.", cur:"Uno dei primissimi film da videogioco. Il regista Chris Roberts era il creatore del gioco originale."},
+  "Warcraft - l'inizio": {desc:"Gli umani di Azeroth affrontano i guerrieri Orchi che cercano un nuovo mondo attraverso un portale magico.", cur:"Il film ha incassato il 90% dei suoi proventi in Cina. In Occidente fu un flop, in Asia un successo clamoroso."},
+  "Un film Minecraft": {desc:"Quattro avventurieri vengono catapultati nel mondo cubico di Minecraft e devono trovare il modo di tornare a casa.", cur:"Jack Black interpreta Steve. Il film è stato accolto con entusiasmo dai bambini e con nostalgia dagli adulti cresciuti col gioco."},
+  "Uncharted": {desc:"Nathan Drake, giovane barman, viene reclutato dal cacciatore di tesori Sully per trovare un tesoro perduto dei Magellano.", cur:"Tom Holland ha impiegato 3 anni di allenamento intensivo per prepararsi alle scene d'azione del film."},
+  "Tomb raider (2018)": {desc:"Una giovane Lara Croft cerca il padre scomparso su un'isola misteriosa dove esiste una tomba di un'imperatrice giapponese.", cur:"Alicia Vikander si è allenata per 15 mesi. Ha vinto un Oscar per The Danish Girl lo stesso anno in cui fu scelta per il ruolo."},
+  "Tekken": {desc:"Jin Kazama partecipa al torneo di arti marziali Iron Fist per vendicarsi di Kazuya Mishima, potente signore della guerra.", cur:"Il film fu prodotto principalmente per il mercato asiatico. La coreografia dei combattimenti è considerata sorprendentemente fedele al gioco."},
+  "Super Mario Galaxy": {desc:"Mario affronta Bowser nello spazio per salvare la principessa Peach in un'avventura cosmica tra galassie e pianeti.", cur:"Film d'animazione basato sull'omonimo videogioco Nintendo. Uscì in Giappone prima che nel resto del mondo."},
+  "Street fighter: sfida finale": {desc:"Il colonnello Guile guida una coalizione di guerrieri contro il dittatore M. Bison che tiene in ostaggio un'intera città.", cur:"Raul Julia, gravemente malato di cancro, recitò come M. Bison come regalo ai suoi figli fan del gioco. Morì prima dell'uscita."},
+  "Street fighter - la leggenda": {desc:"Chun-Li lascia la sua vita di lusso per diventare una guerriera e vendicare suo padre rapito dal criminale Bison.", cur:"Kristin Kreuk (Smallville) interpreta Chun-Li. Il film cercò un approccio più realistico rispetto al film del 1994."},
+  "Silent hill": {desc:"Una madre cerca la figlia scomparsa in una città avvolta da nebbia soprannaturale, abitata da creature mostruose.", cur:"Considerato l'adattamento di videogioco horror più fedele mai realizzato. L'atmosfera è praticamente identica al gioco."},
+  "Silent hill reveletions": {desc:"Heather Mason scopre di essere la figlia perduta di Silent Hill e deve tornare nella città maledetta per salvare suo padre.", cur:"Sean Bean — famoso per morire in ogni film — sopravvive in questo. I fan notarono la cosa con entusiasmo."},
+  "Resident Evil: welcome to Racoon city": {desc:"Un reboot fedele al videogioco originale: due storie parallele nella notte in cui Raccoon City viene devastata dagli zombie.", cur:"Questo film ignora completamente la saga con Milla Jovovich e torna alle radici dei primi due videogiochi."},
+  "Rampage: furia animale": {desc:"Il primatologo Davis Okoye deve fermare tre animali mutati — un gorilla, un lupo e un coccodrillo — che devastano Chicago.", cur:"Dwayne Johnson ha passato settimane con primatologhi veri. Il gorilla albino George è basato su un gorilla reale dello zoo di Barcellona."},
+  "Resident evil: vendetta": {desc:"Leon S. Kennedy e Chris Redfield affrontano un nuovo focolaio di virus in questo film d'animazione della saga.", cur:"Film CG prodotto direttamente da Capcom con il massimo della fedeltà ai personaggi dei videogiochi."},
+  "Resident evil: The final chapter": {desc:"Alice torna ad Hive per trovare l'antidoto che potrebbe salvare l'umanità dal virus T in questo capitolo finale.", cur:"Milla Jovovich e la sua controfigura rimasero entrambe ferite durante le riprese delle scene d'azione più rischiose."},
+  "Resident evil: damnation": {desc:"Leon S. Kennedy si infiltra in una nazione dell'Est Europa in piena guerra civile dove vengono usate creature biologiche come armi.", cur:"Film CG ufficiale Capcom che espande la storia tra Resident Evil 5 e 6. Realismo tecnico straordinario per l'epoca."},
+  "Resident evil: retribution": {desc:"Alice combatte in una gigantesca struttura di addestramento sottomarina dell'Umbrella Corporation per sopravvivere.", cur:"Il film include cloni di personaggi già morti nelle puntate precedenti — un espediente narrativo creativo."},
+  "Resident evil: afterlife": {desc:"Alice cerca la mitica Arcadia mentre i sopravvissuti a Los Angeles combattono contro orde di non-morti.", cur:"Primo film della saga girato in 3D. Paul W.S. Anderson è tornato alla regia dopo i primi due capitoli."},
+  "Resident evil: degeneration": {desc:"Leon S. Kennedy e Claire Redfield affrontano un nuovo focolaio di virus T in un aeroporto americano.", cur:"Primo film CG ufficiale della saga Resident Evil, direttamente prodotto da Capcom con i modelli del videogioco."},
+  "Resident evil: extinction": {desc:"Alice e i sopravvissuti attraversano il Nevada desertificato mentre l'Umbrella Corporation trama nell'ombra.", cur:"Le riprese nel deserto del Nevada furono interrotte più volte per il caldo estremo. Alcune scene furono girate di notte."},
+  "Resident evil: apocalypse": {desc:"Alice e una squadra di sopravvissuti devono fuggire da Raccoon City prima che venga bombardata per contenere il virus.", cur:"Sienna Guillory fu scelta per interpretare Jill Valentine dopo che i fan la indicarono come la scelta perfetta online."},
+  "Resident evil": {desc:"Un'agente speciale e soldati d'elite affrontano i sopravvissuti mutanti di un incidente biologico in un laboratorio sotterraneo.", cur:"Milla Jovovich divenne un'icona grazie a questo film. Paul W.S. Anderson, il regista, l'ha poi sposata."},
+  "Ratchet & Clank": {desc:"Un giovane meccanico alieno e un piccolo robot difendono la galassia dai piani di un villain che distrugge pianeti interi.", cur:"Film d'animazione in contemporanea con il remake del gioco PS4. Visivamente spettacolare grazie agli studi Rainmaker."},
+  "Prince of Persia - le sabbie del tempo": {desc:"Il principe Dastan ottiene un pugnale magico che permette di tornare indietro nel tempo e deve impedire che cada nelle mani sbagliate.", cur:"Jake Gyllenhaal si è allenato 3 mesi per il ruolo. La Disney aveva scommesso molto su questo film come nuovo franchise."},
+  "Pokemon - detective Pikachu": {desc:"Un ragazzo cerca suo padre scomparso aiutato da un Pikachu parlante detective in una città dove umani e Pokémon convivono.", cur:"Ryan Reynolds ha prestato la voce a Pikachu. Il film ha convinto anche i non-fan grazie all'approccio poliziesco."},
+  "Need for speed": {desc:"Un pilota di corse viene incastrato per omicidio e, una volta uscito di prigione, organizza una gara illegale per vendicarsi.", cur:"Aaron Paul (Breaking Bad) guida le auto da solo senza stuntman. Tutte le acrobazie con le auto sono reali, senza CGI."},
+  "Mortal kombat (2021)": {desc:"Un lottatore MMA scopre di essere un campione prescelto per difendere la Terra nel torneo Mortal Kombat.", cur:"Il film mostra finalmente la brutalità del videogioco originale con violenza esplicita. I fan l'hanno molto apprezzato."},
+  "Monster hunter": {desc:"Un'unità militare viene trasportata in un mondo alternativo dove mostri giganteschi dominano il paesaggio.", cur:"Milla Jovovich e Paul W.S. Anderson — marito e moglie — lavorano di nuovo insieme. Girato in Namibia e Sudafrica."},
+  "Mortal kombat (1995)": {desc:"Tre guerrieri terrestri partecipano al torneo Mortal Kombat per salvare la Terra dal maligno regno di Outworld.", cur:"La colonna sonora elettronica è diventata un classico degli anni '90. 'Mortal Kombat!' è uno dei cori più iconici del cinema."},
+  "Mortal kombat - distruzione totale": {desc:"I guerrieri della Terra devono affrontare un'invasione di Outworld dopo la vittoria nel primo torneo.", cur:"Il film fu girato in 6 settimane con budget ridotto dopo il successo del primo. La qualità si vede nella quantità."},
+  "Max Payne": {desc:"Un detective della narcotici cerca i responsabili dell'omicidio di sua moglie in una New York invernale e oscura.", cur:"Mark Wahlberg si è preparato al ruolo studiando noir degli anni '40. Il videogioco originale era ispirato al cinema di John Woo."},
+  "In the name of the king": {desc:"Un semplice contadino di nome Farmer deve salvare il suo regno dal mago Gallian e dall'orda di mostri Krugs.", cur:"Diretto da Uwe Boll con Jason Statham e Ray Liotta. Il regista è famoso per finanziare i film con scappatoie fiscali tedesche."},
+  "House of the dead": {desc:"Studenti intrappolati su un'isola durante un rave devono sopravvivere a un'invasione improvvisa di zombie.", cur:"Uwe Boll usa sequenze del videogioco arcade originale come transizioni tra le scene d'azione — una scelta controversa."},
+  "Hitman - l'assassino": {desc:"L'Agente 47, un assassino geneticamente modificato e addestrato, viene tradito dall'organizzazione per cui lavora.", cur:"Timothy Olyphant è L'Agente 47. Il film rimase molto fedele all'estetica del videogioco — codice a barre sulla nuca incluso."},
+  "Hitman agente 47": {desc:"Un reboot con il leggendario assassino geneticamente potenziato che scopre la verità sulle sue origini.", cur:"Rupert Friend ha rasato la testa completamente per il ruolo. Il film ignorò il precedente con Olyphant."},
+  "Five nights at Freddy's": {desc:"Mike Schmidt, una guardia notturna in una pizzeria con animatroni robotici, scopre i terribili segreti nascosti nel locale.", cur:"Scott Cawthon, creatore del gioco, appare nel film come cameo. Il film era molto atteso dai fan del franchise horror."},
+  "Five nights at Freddy's 2": {desc:"Il sequel esplora i segreti ancora più oscuri della Freddy Fazbear's Pizza e le origini degli animatroni assassini.", cur:"Il successo del primo film ha accelerato la produzione del sequel. I fan hanno analizzato ogni frame per trovare Easter egg."},
+  "Final fantasy": {desc:"In un futuro post-apocalittico, la dottoressa Aki Ross cerca le otto anime per fermare gli Phantomi che succhiano le energie vitali.", cur:"Fu il primo film con personaggi umani interamente in CGI fotorealistico. La regia di Hironobu Sakaguchi, creatore del gioco."},
+  "Final fantasy VII Advent children": {desc:"Cloud Strife affronta i tre discendenti di Sephiroth che cercano di risvegliare il loro padre spirituale per distruggere il mondo.", cur:"Film prodotto direttamente da Square Enix con la stessa qualità grafica del videogioco. I fan lo considerano canonico."},
+  "Far cry": {desc:"Un ex militare indaga su esperimenti genetici su un'isola tropicale che trasformano prigionieri in super soldati.", cur:"Uwe Boll ancora lui. Til Schweiger è il protagonista. Il film ignora quasi completamente la storia del videogioco."},
+  "Doom": {desc:"Una squadra di marines viene inviata su Marte per affrontare creature mutanti generate da esperimenti genetici in un laboratorio.", cur:"Dwayne Johnson e Karl Urban insieme. La scena in prima persona è un omaggio diretto al punto di vista del videogioco."},
+  "Double dragon": {desc:"Due fratelli combattenti cercano le metà di un antico medaglione magico in una Los Angeles post-apocalittica dominata da gang.", cur:"Robert Patrick (T-1000 in Terminator 2) interpreta il villain principale. Uscì nello stesso anno di Street Fighter e Mortal Kombat."},
+  "DOA: Dead or alive": {desc:"Le migliori combattenti al mondo vengono invitate su un'isola privata per partecipare al torneo DOA pieno di segreti.", cur:"Tratto dall'omonimo picchiaduro. Diventato un cult per l'estetica e l'ironia involontaria degli anni 2000."},
+  "Cacciatori di zombie": {desc:"Un gruppo di sopravvissuti deve fuggire da un'isola infestata di non-morti in questo film collegato ai videogiochi horror.", cur:"Film rarissimo praticamente introvabile oggi. Ha anticipato molti elementi della saga Resident Evil successiva."},
+  "Bloodrayne": {desc:"Rayne, una dhampir metà umana metà vampiro, combatte contro il suo padre vampiro nell'Europa del Settecento.", cur:"Kristanna Loken (Terminator 3) interpreta Rayne. Il film ha avuto 3 sequel — caso unico per un film così criticato."},
+  "Bloodrayne 2": {desc:"Rayne si sposta nel selvaggio West americano per affrontare un vampiro che sta costruendo un esercito di non-morti.", cur:"Il sequel cambia completamente ambientazione e parte del cast. Diretto ancora da Uwe Boll con budget ridotto."},
+  "Borderlands": {desc:"Una cacciatrice di taglie e un gruppo improbabile di alleati cercano un vault alieno leggendario sul pianeta Pandora.", cur:"Cate Blanchett e Kevin Hart insieme — cast stellare per un film che deluse le aspettative di fan e critica."},
+  "Alone in the dark": {desc:"Edward Carnby, investigatore del paranormale, affronta antiche creature oscure che vogliono aprire un portale tra i mondi.", cur:"Christian Slater ha accettato il ruolo dopo una serie di flop. Considerato uno dei peggiori film di sempre dai critici."},
+  "Alone in the dark 2": {desc:"Un nuovo team di investigatori del paranormale affronta una strega immortale e il suo esercito di zombie in un castello.", cur:"Il sequel non include Christian Slater né Uwe Boll alla regia. Fu diretto da due registi diversi contemporaneamente."},
+  "Angry birds": {desc:"Red, un uccello sempre arrabbiato, scopre che i maiali verdi stanno pianificando di rubare le uova dell'isola degli uccelli.", cur:"Il film ha reso giustizia al gioco spiegando finalmente perché gli uccelli e i maiali si odiano così tanto."},
+  "Angry birds 2": {desc:"Uccelli e maiali devono allearsi contro un'aquila gigante che minaccia entrambe le loro isole con una macchina del ghiaccio.", cur:"Il sequel è considerato migliore del primo per la chimica tra i personaggi. Silver, la nuova personaggio, è stato molto apprezzato."},
+  "Assassin's creed": {desc:"Callum Lynch viene collegato tramite l'Animus ai ricordi del suo antenato assassino Aguilar nella Spagna del 1492.", cur:"Michael Fassbender ha prodotto il film per avere controllo creativo. La tecnologia dell'Animus è ispirata ai progressi VR reali."},
+
+  // ===== SAGHE =====
+  "Star wars": {desc:"Luke Skywalker, un giovane contadino, si unisce alla Ribellione per salvare la principessa Leia e combattere l'Impero Galattico.", cur:"George Lucas ipotecò la casa per finanziarlo. Rifiutato da tutti, fu accettato solo dalla Fox. Ha cambiato il cinema per sempre."},
+  "Il Signore degli anelli": {desc:"Frodo Baggins porta l'Unico Anello verso la Terra del Mordor per distruggerlo nel fuoco del Monte Fato.", cur:"Peter Jackson girò tutti e 3 i film contemporaneamente in Nuova Zelanda per 274 giorni consecutivi di riprese."},
+  "Lo Hobbit": {desc:"Bilbo Baggins parte per un'avventura con 13 nani e il mago Gandalf per recuperare il tesoro di Erebor dal drago Smaug.", cur:"Peter Jackson trasformò un libro in 3 film da quasi 3 ore ciascuno. I fan sono ancora divisi sulla scelta."},
+  "Dune": {desc:"Paul Atreides, figlio di un nobile, viene esiliato sul pianeta desertico Arrakis, unica fonte di una spezia preziosissima.", cur:"Denis Villeneuve ha aspettato anni per ottenere i diritti. Timothée Chalamet e Zendaya erano la sua prima scelta assoluta."},
+  "Harry Potter": {desc:"Il giovane Harry scopre di essere un mago e frequenta la scuola di magia Hogwarts mentre affronta il suo destino contro Voldemort.", cur:"J.K. Rowling ha rifiutato Hollywood per anni prima di accettare. Daniel Radcliffe aveva 11 anni nel primo film."},
+  "Twilight": {desc:"Bella Swan si trasferisce in Oregon e si innamora di Edward Cullen, un vampiro centenario che frequenta ancora il liceo.", cur:"Robert Pattinson ha ammesso di aver odiato i libri. Kristen Stewart ha detto la stessa cosa in un'intervista."},
+  "Indiana Jones": {desc:"Il professor Henry Jones Jr., archaeologo e avventuriero, gira il mondo alla ricerca di antichi manufatti combattendo contro le forze del male.", cur:"Harrison Ford si offrì spontaneamente per il ruolo. La scena della pistola contro il lottatore di spada fu improvvisata."},
+  "Monsterverse - Godzilla e Kong": {desc:"I titani preistorici Godzilla e King Kong si scontrano mentre l'umanità cerca di capire il loro posto nel mondo naturale.", cur:"Godzilla è il personaggio cinematografico giapponese più longevo della storia — dal 1954 ad oggi senza interruzioni."},
+  "Transformers": {desc:"Gli Autobot alleati degli umani combattono contro i Decepticon per il controllo di AllSpark, la fonte di vita cybertroniana.", cur:"Michael Bay ha usato vere basi militari americane per girare. Il Pentagono ha collaborato attivamente alla produzione."},
+  "Riddick": {desc:"Il criminale Richard Riddick sopravvive su pianeti ostili usando la sua visione notturna modificata mentre è braccato da cacciatori.", cur:"Vin Diesel ha finanziato di tasca propria il terzo capitolo. Ha ceduto i diritti di Fast & Furious per ottenere il budget."},
+  "Hostel": {desc:"Turisti americani in Europa vengono attirati in una rete criminale che vende l'accesso a vittime umane ai sadici più ricchi.", cur:"Prodotto da Quentin Tarantino. Ha inventato il genere 'torture porn'. Incasso: 80 milioni contro un budget di 4 milioni."},
+  "Agente 007 - James Bond": {desc:"L'agente segreto britannico James Bond affronta villain globali con gadget tecnologici, automobili da sogno e fascino irresistibile.", cur:"Sean Connery fu scelto dopo che Cary Grant rifiutò. Roger Moore è l'attore ad aver interpretato Bond più volte — 7 film."},
+  "Austin Powers": {desc:"Il super-spy degli anni '60 Austin Powers viene scongelato negli anni '90 per fermare il piano di dominio mondiale del suo arcinemico.", cur:"Mike Myers ha scritto il personaggio pensando ai film di Bond anni '60. Il budget era minuscolo — il successo fu inatteso."},
+  "Una pallottola spuntata": {desc:"Il detective Frank Drebin, completamente incompetente ma sincero, indaga su crimini in modo totalmente demenziale e inarrestabile.", cur:"Leslie Nielsen era considerato un attore serio prima di Airplane! (1980). Ha reinventato completamente la sua carriera."},
+  "Alien": {desc:"L'equipaggio del cargo Nostromo risponde a un segnale su un pianeta e porta a bordo qualcosa di assolutamente letale.", cur:"Ridley Scott non disse agli attori cosa sarebbe uscito dal petto di Kane. Le reazioni di orrore sono autentiche."},
+  "Predator": {desc:"Una squadra d'elite guidata dal Maggiore Dutch viene decimata nella giungla da un cacciatore alieno invisibile con tecnologia avanzata.", cur:"Arnold Schwarzenegger e Carl Weathers si stringono la mano all'inizio — la stretta è considerata la più iconica del cinema action."},
+  "Beverly hills cop": {desc:"Axel Foley, un detective di Detroit dal metodo non ortodosso, indaga a Beverly Hills sull'omicidio del suo migliore amico.", cur:"Il ruolo era scritto per Sylvester Stallone. Eddie Murphy lo trasformò in commedia pura — una delle migliori decisioni di casting."},
+  "Ritorno al futuro": {desc:"Marty McFly viene accidentalmente trasportato nel 1955 con la DeLorean di Doc Brown e deve trovare il modo di tornare al 1985.", cur:"Eric Stoltz fu il Marty originale per 6 settimane di riprese. Fu sostituito da Michael J. Fox prima del completamento."},
+  "Hunger games": {desc:"Katniss Everdeen si offre volontaria al posto della sorella per partecipare agli Hunger Games, dove i tributi si uccidono per la tv.", cur:"Jennifer Lawrence era la prima scelta assoluta di Suzanne Collins. Ha imparato a tirare con l'arco per il ruolo."},
+  "Matrix": {desc:"Neo scopre che la realtà che conosce è una simulazione informatica e si unisce alla resistenza umana contro le macchine.", cur:"Will Smith rifiutò il ruolo. Keanu Reeves donò una parte del suo compenso al reparto effetti speciali. Il bullet-time rivoluzionò il cinema."},
+  "Rambo": {desc:"John Rambo, reduce del Vietnam, viene perseguitato dalla polizia di una piccola città e desencadena la sua training militare.", cur:"Sylvester Stallone ha scritto la sceneggiatura. Il finale originale prevedeva la morte di Rambo — i test con il pubblico lo salvarono."},
+  "Pirati dei caraibi": {desc:"Il pirata Jack Sparrow si allea con il fabbro Will Turner per salvare Elizabeth e recuperare la sua nave, la Perla Nera.", cur:"Johnny Depp si ispirò a Keith Richards dei Rolling Stones per il personaggio. Il suo agente pensò che stesse sabotando la carriera."},
+  "Scream": {desc:"Una adolescente viene terrorizzata da un killer mascherato che chiama le vittime prima di attaccarle con domande sui film horror.", cur:"Wes Craven ha reinventato il genere horror con l'auto-ireferenzialità. Drew Barrymore accettò il ruolo principale ma poi chiese di morire subito."},
+  "Jurassic park": {desc:"Un parco a tema con dinosauri clonati dal DNA va fuori controllo e i visitatori devono sopravvivere alle creature preistoriche.", cur:"Steven Spielberg usò animatroni reali e solo 15 minuti di CGI totali. Il ruggito del T-Rex è un suono di elefante rallentato."},
+  "Terminator": {desc:"Un robot assassino inviato dal futuro cerca Sarah Connor, la madre del futuro leader della resistenza umana contro le macchine.", cur:"Arnold Schwarzenegger voleva interpretare Kyle Reese. James Cameron lo convinse a fare il villain — scelta leggendaria."},
+  "Mission impossible": {desc:"L'agente Ethan Hunt, incastrato per tradimento, deve trovare il topo all'interno dell'IMF per dimostrare la sua innocenza.", cur:"Tom Cruise ha insistito per fare tutte le proprie acrobazie. La scena nella CIA appesa al soffitto fu girata con lui per davvero."},
+  "Scuola di polizia": {desc:"Una nuova legge permette a chiunque di candidarsi come poliziotto, creando un gruppo di reclute completamente impreparate.", cur:"Ha generato 7 film, una serie animata e una live-action. Bubba Smith (Hightower) era un vero giocatore di football NFL."},
+  "Nightmare": {desc:"Freddy Krueger, un assassino con artigli di coltelli, attacca i teenager nel loro sonno, uccidendoli nella realtà.", cur:"Wes Craven si ispirò a notizie reali di giovani asiatici morti nel sonno per motivi inspiegabili. Johnny Depp esordisce in questo film."},
+  "Non aprite quella porta": {desc:"Un gruppo di amici si imbatte nella famiglia cannibale di Leatherface in una fattoria del Texas abbandonata.", cur:"Tobe Hooper girò il film in estate in Texas senza aria condizionata. La puzza del set era così forte che i tecnici vomitavano."},
+  "Il pianeta delle scimmie": {desc:"Un astronauta atterra su un pianeta dove le scimmie sono la specie dominante e gli umani sono schiavi senza parola.", cur:"Il finale con la Statua della Libertà è uno dei twist più iconici della storia del cinema. Charlton Heston non voleva girarlo."},
+  "Saw - l'enigmista": {desc:"Due uomini si svegliano incatenati in una stanza con indizi lasciati da un serial killer che li costringe a giochi mortali.", cur:"Il film fu girato in 18 giorni con soli 1.2 milioni di dollari. Il twist finale è considerato il migliore del cinema horror moderno."},
+  "Fast and furious": {desc:"Un agente dell'FBI si infiltra in un gruppo di piloti di corse illegali e si ritrova diviso tra la legge e la lealtà.", cur:"Il primo film era ispirato a un articolo di giornale sulle corse illegali a New York. Paul Walker e Vin Diesel divennero amici veri."},
+  "Venerdi 13": {desc:"Un gruppo di giovani conseller riapre il campeggio Crystal Lake, ignaro della leggenda del massacro avvenuto anni prima.", cur:"Jason Voorhees non appare quasi nel film originale — è la madre la killer. Jason con il hockey mask arriva nel terzo capitolo."},
+  "Halloween": {desc:"Michael Myers fugge dal manicomio e torna alla sua città natale per terrorizzare i teenager la notte di Halloween.", cur:"Il budget era così ridotto che la maschera del killer è una maschera di William Shatner di Captain Kirk dipinta di bianco."},
+  "La bambola assassina": {desc:"Una bambola giocattolo parlante è posseduta dall'anima del serial killer Charles Lee Ray e terrorizza una famiglia.", cur:"Don Mancini ha scritto tutti e 7 i film della saga — un record assoluto nel cinema horror. Chucky ha anche una serie TV."},
+  "Fantozzi": {desc:"Il ragioniere Ugo Fantozzi subisce umiliazioni infinite nel lavoro e nella vita quotidiana dell'Italia degli anni '70.", cur:"Paolo Villaggio creò il personaggio per un libro nel 1971. La frase 'Una boiata pazzesca!' è entrata nel lessico italiano comune."},
+  "American pie": {desc:"Quattro amici del liceo fanno un patto per perdere la verginità prima del ballo di fine anno con risultati comici e imbarazzanti.", cur:"Il film ha lanciato un genere intero di commedie adolescenziali. Jason Biggs con la torta è uno dei momenti più iconici degli anni '90."},
+};
+
+
+// ===== SCHEDE FILM SBAGLIATI =====
+function buildWrongCards2(wrongList) {
+  const dl = document.getElementById('disc-list');
+  dl.innerHTML = '';
+  if (!wrongList.length) {
+    dl.innerHTML = '<div style="font-size:.72rem;color:#3a2a5a;padding:8px;">Nessun errore — perfetto!</div>';
+    return;
+  }
+  wrongList.forEach(item => {
+    const info = FILM_DB[item.title];
+    const d = document.createElement('div');
+    d.className = 'disc-item';
+    d.innerHTML = `
+      <div class="disc-name">${item.title} (${item.year})</div>
+      <div class="disc-desc">${info ? info.desc : item.desc}</div>
+      ${info ? '<div style="font-size:.6rem;color:#4a3a6a;margin-top:6px;padding-top:6px;border-top:1px solid #1a0840;font-style:italic;">💡 ' + info.cur + '</div>' : ''}
+      <div style="font-size:.53rem;color:#5B2D8E;margin-top:5px;letter-spacing:1px;">📍 DISPONIBILE ALLO STAND</div>
+    `;
+    dl.appendChild(d);
+  });
+}
 </script>
 </body>
 </html>
